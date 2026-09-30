@@ -1,0 +1,22 @@
+warm start from tft_ep2.pt (val median drift 17.76%)
+device=mps params=491685 train_drives=35 val_drives=['S2', 'Vtb5']
+physics baseline (val): {"median_drift_pct": 25.976, "p90_drift_pct": 82.964, "median_drift30_pct": 19.052, "median_final_err_m": 167.022, "mean_angle_deg": 9.026, "n": 1982}
+{"epoch": 1, "time_s": 619.3, "res": 0.1663, "inc": 1.9627, "angle": 0.0211, "mag": 1.1425, "pos": 0.1335, "stop": 0.1523, "smooth": 1.3259, "val_median_drift_pct": 18.401, "val_p90_drift_pct": 37.873, "val_median_drift30_pct": 12.932, "val_median_final_err_m": 109.335, "val_mean_angle_deg": 8.863, "val_n": 1982}
+{"epoch": 2, "time_s": 620.9, "res": 0.1563, "inc": 1.8719, "angle": 0.0214, "mag": 1.0733, "pos": 0.1317, "stop": 0.1496, "smooth": 1.1855, "val_median_drift_pct": 18.2, "val_p90_drift_pct": 41.375, "val_median_drift30_pct": 12.554, "val_median_final_err_m": 108.937, "val_mean_angle_deg": 9.275, "val_n": 1982}
+python3(5191) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+python3(5194) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+{"epoch": 3, "time_s": 431.5, "res": 0.1522, "inc": 1.7912, "angle": 0.0194, "mag": 1.0041, "pos": 0.1259, "stop": 0.1435, "smooth": 1.1302, "val_median_drift_pct": 17.151, "val_p90_drift_pct": 38.668, "val_median_drift30_pct": 12.514, "val_median_final_err_m": 100.943, "val_mean_angle_deg": 9.317, "val_n": 1982}
+python3(5641) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+python3(5685) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+{"epoch": 4, "time_s": 370.3, "res": 0.1484, "inc": 1.698, "angle": 0.0199, "mag": 0.9033, "pos": 0.1203, "stop": 0.1338, "smooth": 1.1115, "val_median_drift_pct": 16.996, "val_p90_drift_pct": 39.361, "val_median_drift30_pct": 12.373, "val_median_final_err_m": 101.193, "val_mean_angle_deg": 8.489, "val_n": 1982}
+python3(6053) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+python3(6066) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+{"epoch": 5, "time_s": 377.5, "res": 0.146, "inc": 1.6241, "angle": 0.0183, "mag": 0.824, "pos": 0.1131, "stop": 0.1233, "smooth": 1.0999, "val_median_drift_pct": 18.354, "val_p90_drift_pct": 42.315, "val_median_drift30_pct": 13.056, "val_median_final_err_m": 110.147, "val_mean_angle_deg": 9.019, "val_n": 1982}
+python3(6472) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+python3(6494) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+{"epoch": 6, "time_s": 401.9, "res": 0.1431, "inc": 1.5362, "angle": 0.0165, "mag": 0.7367, "pos": 0.106, "stop": 0.1136, "smooth": 1.1329, "val_median_drift_pct": 18.606, "val_p90_drift_pct": 45.789, "val_median_drift30_pct": 13.122, "val_median_final_err_m": 113.757, "val_mean_angle_deg": 8.94, "val_n": 1982}
+python3(6962) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+python3(6965) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+{"epoch": 7, "time_s": 2111.0, "res": 0.1408, "inc": 1.4743, "angle": 0.0168, "mag": 0.673, "pos": 0.1022, "stop": 0.1093, "smooth": 1.1078, "val_median_drift_pct": 19.949, "val_p90_drift_pct": 44.463, "val_median_drift30_pct": 14.064, "val_median_final_err_m": 117.671, "val_mean_angle_deg": 10.265, "val_n": 1982}
+python3(7589) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+python3(7594) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.

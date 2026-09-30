@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PS 168 Dead-Reckoning Model</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column (~68ch) with full-width figure panels; figures scroll sideways on phones, text never does. */
+:root {
+  --bg: #f6f7f8;
+  --panel: #ffffff;
+  --ink: #14181d;
+  --ink-2: #4a525c;
+  --ink-3: #6b737d;
+  --rule: #dde1e5;
+  --accent: #1f5f99;
+  --accent-soft: #e6eef6;
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --good: #1a7f4b;
+  --warn: #a8660a;
+  --bad: #b3261e;
+  --node: #eef1f4;
+  --node-2: #e3ecf6;
+  --node-3: #fbece4;
+  --display: "Newsreader", Georgia, "Times New Roman", serif;
+  --body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111418; --panel: #181c21; --ink: #eef1f4; --ink-2: #b8c0c9; --ink-3: #8e97a1; --rule: #2c323a;
+    --accent: #7fb3e6; --accent-soft: #1c2a38; --s1: #3987e5; --s2: #d95926; --good: #4cc38a; --warn: #e0a347;
+    --bad: #f07b72; --node: #20262d; --node-2: #1d2b3a; --node-3: #3a241a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111418; --panel: #181c21; --ink: #eef1f4; --ink-2: #b8c0c9; --ink-3: #8e97a1; --rule: #2c323a;
+  --accent: #7fb3e6; --accent-soft: #1c2a38; --s1: #3987e5; --s2: #d95926; --good: #4cc38a; --warn: #e0a347;
+  --bad: #f07b72; --node: #20262d; --node-2: #1d2b3a; --node-3: #3a241a; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.62 var(--body); margin: 0; }
+.wrap { max-width: 880px; margin: 0 auto; padding-inline: 20px; padding-block: 48px 80px; }
+.prose { max-width: 68ch; }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 2.9rem); letter-spacing: -0.01em; }
+h2 { font-size: 1.7rem; margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--rule); }
+h3 { font-size: 1.2rem; margin-top: 32px; }
+p { margin: 14px 0 0; }
+.eyebrow { font: 500 12px/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.lede { font-size: 1.12rem; color: var(--ink-2); margin-top: 16px; }
+.meta { font: 400 13px/1.5 var(--mono); color: var(--ink-3); margin-top: 18px; }
+code, .mono { font-family: var(--mono); font-size: 0.88em; }
+code { background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 32px; }
+.tile { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px; min-width: 0; }
+.tile .v { font: 600 2rem/1.1 var(--display); font-variant-numeric: tabular-nums; }
+.tile .l { font-size: 13px; color: var(--ink-2); margin-top: 6px; }
+.tile .s { font: 400 12px/1.4 var(--mono); color: var(--ink-3); margin-top: 8px; }
+.pass { color: var(--good); } .fail { color: var(--bad); } .hold { color: var(--warn); }
+figure { margin: 28px 0 0; background: var(--panel); border: 1px solid var(--rule); border-radius: 12px; padding: 20px 20px 16px; }
+figure .scroll { overflow-x: auto; }
+figcaption { font-size: 13.5px; color: var(--ink-2); margin-top: 12px; max-width: 72ch; }
+figcaption b { color: var(--ink); font-weight: 600; }
+.ftitle { font: 600 15px/1.3 var(--body); margin-bottom: 4px; }
+.fsub { font-size: 13px; color: var(--ink-3); margin-bottom: 10px; }
+svg text { font-family: var(--body); }
+.t-ink { fill: var(--ink); } .t-2 { fill: var(--ink-2); } .t-3 { fill: var(--ink-3); }
+.mono-t { font-family: var(--mono) !important; }
+.n0 { fill: var(--node); stroke: var(--rule); } .n1 { fill: var(--node-2); stroke: var(--accent); } .n2 { fill: var(--node-3); stroke: var(--s2); }
+.edge { stroke: var(--ink-3); stroke-width: 1.5; fill: none; }
+.edge-d { stroke: var(--ink-3); stroke-width: 1.5; fill: none; stroke-dasharray: 4 4; }
+.grid { stroke: var(--rule); stroke-width: 1; }
+.axis { stroke: var(--ink-3); stroke-width: 1; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+.tbl { overflow-x: auto; margin-top: 20px; background: var(--panel); border: 1px solid var(--rule); border-radius: 12px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font: 500 12px/1.4 var(--mono); letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-3); background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+td.num { font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: 13px; white-space: nowrap; }
+.chip { display: inline-block; font: 500 11.5px/1 var(--mono); padding: 4px 7px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; }
+ul, ol { padding-left: 1.2em; margin: 12px 0 0; } li { margin-top: 6px; }
+.eq { font-family: var(--mono); font-size: 14px; background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; margin-top: 14px; overflow-x: auto; white-space: pre; }
+.legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 13px; color: var(--ink-2); margin-bottom: 8px; }
+.legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 6px; }
+.tip { position: fixed; pointer-events: none; background: var(--ink); color: var(--bg); font: 500 12.5px/1.4 var(--body); padding: 6px 9px; border-radius: 6px; opacity: 0; transition: opacity .1s; z-index: 5; max-width: 260px; }
+.hit { fill: transparent; cursor: default; }
+.note { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-top: 20px; font-size: 14.5px; }
+@media (prefers-reduced-motion: reduce) { .tip { transition: none; } }
+</style>
+
+<style>
+@page { size: A4; margin: 16mm 14mm 18mm; }
+@media print {
+  body { background: #ffffff; font-size: 10.5pt; }
+  .wrap { max-width: none; padding: 0; }
+  .prose { max-width: none; }
+  figure .scroll, .tbl { overflow: visible; }
+  figure svg { width: 100% !important; height: auto !important; }
+  figure, .tbl, .tile, .eq, .note, table, tr { break-inside: avoid; page-break-inside: avoid; }
+  h2 { break-after: avoid; page-break-after: avoid; margin-top: 28px; }
+  h3 { break-after: avoid; }
+  h2 + figure, h2 + p { break-before: avoid; }
+  .tip { display: none; }
+  .tiles { grid-template-columns: repeat(2, 1fr); }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="prose">
+    <div class="eyebrow">SIH 2026 · Problem statement 168 · Model report</div>
+    <h1>Smartphone dead reckoning through GNSS outages</h1>
+    <p class="lede">A residual Temporal Fusion Transformer cleans the phone's IMU. A 9-state EKF integrates it, and an OSM particle filter keeps it on real roads. This report covers the architecture, the method and where the remaining drift comes from.</p>
+    <div class="meta">Dataset IO-VNBD · 10 Hz · 60 s outages · median drift = end-point error ÷ distance travelled · results as of 30 Sep 2026</div>
+  </header>
+
+  <section class="tiles" aria-label="Headline results">
+    <div class="tile"><div class="v">9.6%</div><div class="l">Median 60 s drift, held-out test drives Y1 + M</div><div class="s">3 seeds, range 9.5–9.9 · target &lt; 10%</div></div>
+    <div class="tile"><div class="v">9.1%</div><div class="l">Median 60 s drift, held-out drive Vw4</div><div class="s">3 seeds · never used for tuning</div></div>
+    <div class="tile"><div class="v">28.5% → 18.1%</div><div class="l">Open-loop drift, raw IMU vs TFT-corrected IMU</div><div class="s">no map, no filter · 888 test windows</div></div>
+    <div class="tile"><div class="v">492k</div><div class="l">Model parameters</div><div class="s">3.8 MB ONNX · CPU · edge-deployable</div></div>
+  </section>
+
+  <h2>1. The problem</h2>
+  <div class="prose">
+    <p>When a phone loses GNSS (tunnels, urban canyons, multi-storey car parks), the app has to keep estimating position from the phone's own accelerometer and gyroscope. Integrating raw phone IMU twice drifts fast. On our held-out test windows it reaches a median of <b>28.5%</b> of the distance travelled after 60 s. The problem statement asks for drift below 10%, map matching to real roads, and a model small enough to run on the phone.</p>
+    <p>We use the IO-VNBD dataset: phone (S) and vehicle (V) CSV logs at 10 Hz with GNSS ground truth. Two data problems had to be fixed before any learning:</p>
+    <ul>
+      <li><b>Clock offsets.</b> Phone and vehicle clocks disagreed by 0.3–116 s. We re-synchronised each phone log by cross-correlating its gyro yaw rate against GNSS-derived yaw rate.</li>
+      <li><b>Unknown phone mounting.</b> The phone's axes aren't aligned with the car. We estimate the rotation per drive by regressing the phone IMU against GNSS-derived vehicle motion.</li>
+    </ul>
+    <p>Drives are split three ways. Training uses most drives. Validation uses <b>S2 + Vtb5</b> only: two other validation drives were in the training set of the current checkpoint, so they're excluded from model selection. The test drives <b>Y1, M and Vw4</b> are touched only for final reporting.</p>
+  </div>
+
+  <h2>2. End-to-end pipeline</h2>
+  <p class="prose">Each stage has one job. The network never outputs a position; it outputs corrected sensor readings. Physics and the filters turn those into a trajectory, which keeps the output physically plausible and lets the map correct it.</p>
+  <figure>
+    <div class="ftitle">Data flow during a GNSS outage</div>
+    <div class="fsub">Solid arrows run at 10 Hz. Dashed arrows are 1 Hz map feedback applied with a 3 s delay and replayed forward.</div>
+    <div class="scroll">
+      <svg viewBox="0 0 980 250" width="980" height="250" role="img" aria-label="Pipeline: phone IMU, calibration and normalisation, residual TFT, physics integration, EKF with adaptive NHC, particle-filter map matching, delayed pose correction, output position">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink-3)"/></marker></defs>
+        <g>
+          <rect class="n0" x="10" y="40" width="120" height="74" rx="8"/>
+          <text x="70" y="70" text-anchor="middle" class="t-ink" font-size="14" font-weight="600">Phone IMU</text>
+          <text x="70" y="90" text-anchor="middle" class="t-3" font-size="12">gyro · accel · mag</text>
+          <text x="70" y="105" text-anchor="middle" class="t-3" font-size="12">10 Hz</text>
+
+          <rect class="n0" x="155" y="40" width="130" height="74" rx="8"/>
+          <text x="220" y="70" text-anchor="middle" class="t-ink" font-size="14" font-weight="600">Calibrate</text>
+          <text x="220" y="90" text-anchor="middle" class="t-3" font-size="12">axis rotation, bias</text>
+          <text x="220" y="105" text-anchor="middle" class="t-3" font-size="12">z-score, clip ±6σ</text>
+
+          <rect class="n1" x="310" y="40" width="140" height="74" rx="8"/>
+          <text x="380" y="70" text-anchor="middle" class="t-ink" font-size="14" font-weight="600">Residual TFT</text>
+          <text x="380" y="90" text-anchor="middle" class="t-3" font-size="12">û = u_raw − f_θ(·)</text>
+          <text x="380" y="105" text-anchor="middle" class="t-3" font-size="12">+ stop probability</text>
+
+          <rect class="n0" x="475" y="40" width="130" height="74" rx="8"/>
+          <text x="540" y="70" text-anchor="middle" class="t-ink" font-size="14" font-weight="600">9-state EKF</text>
+          <text x="540" y="90" text-anchor="middle" class="t-3" font-size="12">adaptive NHC</text>
+          <text x="540" y="105" text-anchor="middle" class="t-3" font-size="12">speed-scale state</text>
+
+          <rect class="n2" x="630" y="40" width="160" height="74" rx="8"/>
+          <text x="710" y="70" text-anchor="middle" class="t-ink" font-size="14" font-weight="600">Map matching</text>
+          <text x="710" y="90" text-anchor="middle" class="t-3" font-size="12">300-particle filter on</text>
+          <text x="710" y="105" text-anchor="middle" class="t-3" font-size="12">OSM road graph</text>
+
+          <rect class="n0" x="815" y="40" width="155" height="74" rx="8"/>
+          <text x="892" y="70" text-anchor="middle" class="t-ink" font-size="14" font-weight="600">Position</text>
+          <text x="892" y="90" text-anchor="middle" class="t-3" font-size="12">EKF pose + road-</text>
+          <text x="892" y="105" text-anchor="middle" class="t-3" font-size="12">snapped display pose</text>
+
+          <path class="edge" d="M130,77 H151" marker-end="url(#ar)"/>
+          <path class="edge" d="M285,77 H306" marker-end="url(#ar)"/>
+          <path class="edge" d="M450,77 H471" marker-end="url(#ar)"/>
+          <path class="edge" d="M605,77 H626" marker-end="url(#ar)"/>
+          <path class="edge" d="M790,77 H811" marker-end="url(#ar)"/>
+          <path class="edge-d" d="M710,114 V165 H540 V118" marker-end="url(#ar)"/>
+          <text x="625" y="183" text-anchor="middle" class="t-2" font-size="12">delayed position / heading fix (3 s lag, replayed)</text>
+
+          <rect class="n0" x="310" y="200" width="140" height="42" rx="8"/>
+          <text x="380" y="226" text-anchor="middle" class="t-2" font-size="12">destination + route</text>
+          <path class="edge" d="M380,200 V118" marker-end="url(#ar)"/>
+          <path class="edge-d" d="M450,221 H710 V118" marker-end="url(#ar)"/>
+          <text x="585" y="236" text-anchor="middle" class="t-3" font-size="11.5">planned-route prior</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption>The TFT, EKF and map matcher each see the planned route: the network as route geometry features, the particle filter as a prior bonus on route edges. All three are optional, so the pipeline degrades gracefully when no destination is set.</figcaption>
+  </figure>
+
+  <h2>3. Model architecture</h2>
+  <div class="prose">
+    <p>The network is a <b>residual</b> model. It predicts the phone's sensor error, which is then subtracted from the raw reading. It doesn't predict velocity or position directly. A model that only has to learn corrections starts from a sensible answer (the raw IMU) and generalises better than one that has to learn motion from scratch.</p>
+  </div>
+  <figure>
+    <div class="ftitle">ResidualTFT, non-autoregressive, whole 60 s outage at once</div>
+    <div class="fsub">Input shapes for one sample. Every temporal layer is causal: step k never sees data after k.</div>
+    <div class="scroll">
+      <svg viewBox="0 0 760 560" width="760" height="560" role="img" aria-label="Architecture diagram of the residual TFT">
+        <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink-3)"/></marker></defs>
+        <rect class="n0" x="20" y="16" width="200" height="56" rx="8"/>
+        <text x="120" y="40" text-anchor="middle" class="t-ink" font-size="13.5" font-weight="600">seq · 650 × 17</text>
+        <text x="120" y="58" text-anchor="middle" class="t-3" font-size="11.5">5 s context + 60 s outage</text>
+        <rect class="n0" x="280" y="16" width="200" height="56" rx="8"/>
+        <text x="380" y="40" text-anchor="middle" class="t-ink" font-size="13.5" font-weight="600">static · 5</text>
+        <text x="380" y="58" text-anchor="middle" class="t-3" font-size="11.5">v0, distance/bearing to destination</text>
+        <rect class="n0" x="540" y="16" width="200" height="56" rx="8"/>
+        <text x="640" y="40" text-anchor="middle" class="t-ink" font-size="13.5" font-weight="600">route · 100 × 4</text>
+        <text x="640" y="58" text-anchor="middle" class="t-3" font-size="11.5">20 m samples: bearing, curvature</text>
+
+        <rect class="n1" x="20" y="104" width="460" height="50" rx="8"/>
+        <text x="250" y="126" text-anchor="middle" class="t-ink" font-size="13.5" font-weight="600">Variable selection network</text>
+        <text x="250" y="144" text-anchor="middle" class="t-3" font-size="11.5">per-feature embedding + learned softmax weights, conditioned on static context</text>
+        <rect class="n1" x="20" y="176" width="460" height="46" rx="8"/>
+        <text x="250" y="198" text-anchor="middle" class="t-ink" font-size="13.5" font-weight="600">Causal dilated CNN stem</text>
+        <text x="250" y="214" text-anchor="middle" class="t-3" font-size="11.5">local vibration / transient patterns, per-timestep LayerNorm</text>
+        <rect class="n1" x="20" y="244" width="460" height="46" rx="8"/>
+        <text x="250" y="266" text-anchor="middle" class="t-ink" font-size="13.5" font-weight="600">LSTM</text>
+        <text x="250" y="282" text-anchor="middle" class="t-3" font-size="11.5">initial state from static encoder</text>
+        <rect class="n1" x="20" y="312" width="460" height="46" rx="8"/>
+        <text x="250" y="334" text-anchor="middle" class="t-ink" font-size="13.5" font-weight="600">Causal self-attention</text>
+        <text x="250" y="350" text-anchor="middle" class="t-3" font-size="11.5">additive −∞ mask above the diagonal</text>
+        <rect class="n1" x="20" y="380" width="460" height="46" rx="8"/>
+        <text x="250" y="402" text-anchor="middle" class="t-ink" font-size="13.5" font-weight="600">Route cross-attention</text>
+        <text x="250" y="418" text-anchor="middle" class="t-3" font-size="11.5">queries: time steps · keys/values: encoded route points</text>
+        <rect class="n0" x="540" y="380" width="200" height="46" rx="8"/>
+        <text x="640" y="408" text-anchor="middle" class="t-ink" font-size="13" font-weight="600">Route encoder</text>
+
+        <rect class="n2" x="20" y="460" width="140" height="56" rx="8"/>
+        <text x="90" y="484" text-anchor="middle" class="t-ink" font-size="13" font-weight="600">ê · 600 × 3</text>
+        <text x="90" y="502" text-anchor="middle" class="t-3" font-size="11.5">per-step error</text>
+        <rect class="n2" x="180" y="460" width="140" height="56" rx="8"/>
+        <text x="250" y="484" text-anchor="middle" class="t-ink" font-size="13" font-weight="600">b̂ · 3</text>
+        <text x="250" y="502" text-anchor="middle" class="t-3" font-size="11.5">per-outage bias</text>
+        <rect class="n2" x="340" y="460" width="140" height="56" rx="8"/>
+        <text x="410" y="484" text-anchor="middle" class="t-ink" font-size="13" font-weight="600">p_stop · 600</text>
+        <text x="410" y="502" text-anchor="middle" class="t-3" font-size="11.5">stationary prob.</text>
+        <rect class="n0" x="540" y="460" width="200" height="56" rx="8"/>
+        <text x="640" y="484" text-anchor="middle" class="t-ink" font-size="13" font-weight="600">u_raw · 600 × 3</text>
+        <text x="640" y="502" text-anchor="middle" class="t-3" font-size="11.5">yaw rate, a_fwd, a_lat</text>
+        <text x="380" y="548" text-anchor="middle" class="t-ink mono-t" font-size="13.5">û = u_raw − (ê + b̂)   →   physics integration</text>
+
+        <path class="edge" d="M120,72 V100" marker-end="url(#ar2)"/>
+        <path class="edge" d="M380,72 V100" marker-end="url(#ar2)"/>
+        <path class="edge" d="M250,154 V172" marker-end="url(#ar2)"/>
+        <path class="edge" d="M250,222 V240" marker-end="url(#ar2)"/>
+        <path class="edge" d="M250,290 V308" marker-end="url(#ar2)"/>
+        <path class="edge" d="M250,358 V376" marker-end="url(#ar2)"/>
+        <path class="edge" d="M640,72 V376" marker-end="url(#ar2)"/>
+        <path class="edge" d="M540,403 H484" marker-end="url(#ar2)"/>
+        <path class="edge" d="M90,426 V456" marker-end="url(#ar2)"/>
+        <path class="edge" d="M250,426 V456" marker-end="url(#ar2)"/>
+        <path class="edge" d="M410,426 V456" marker-end="url(#ar2)"/>
+      </svg>
+    </div>
+    <figcaption><b>Why non-autoregressive:</b> the whole outage is predicted in one forward pass, so errors in early predictions are never fed back as inputs. That removes exposure bias and the need for scheduled sampling. <b>Why causal:</b> at run time the phone only has data up to "now", so the model is trained under the same constraint, and future steps are zero-padded.</figcaption>
+  </figure>
+
+  <h3>Physics integration (same equations in training and in the app)</h3>
+  <div class="eq">Δψ_k = −Σ_{j≤k} ω̂_j · Δt
+v_k  = relu( v0 + Σ_{j≤k} â_fwd,j · Δt ) · (1 − p_stop,k)
+p_k  = p0 + Σ v_k · [sin ψ_k, cos ψ_k] · Δt          Δt = 0.1 s</div>
+  <p class="prose">Because integration is differentiable, the losses are computed on the resulting trajectory as well as on the corrected sensor values.</p>
+
+  <h3>Training objective</h3>
+  <div class="prose">
+    <ul>
+      <li><b>Velocity-direction loss:</b> minimises the angle between predicted and true velocity vectors, penalising heading drift where it originates.</li>
+      <li><b>Increment losses</b> on per-step heading change and speed change, weighted by sample (<code>w_speed</code>) so braking and turning segments aren't drowned out by cruising.</li>
+      <li><b>Speed magnitude</b> and <b>stop</b> losses (<code>p_stop</code> against zero-speed labels).</li>
+      <li><b>Residual regularisation:</b> keeps ê small and smooth, so the model corrects the sensor rather than inventing motion.</li>
+    </ul>
+    <p>Each training window gets a <b>random destination</b> taken from later in the same drive, with the route between them, so the model learns to use a destination when one exists and to cope without one. On test windows, route input lowers open-loop drift from 18.9% (destination only) to 18.1%.</p>
+  </div>
+
+  <h2>4. Filtering and map matching</h2>
+  <div class="prose">
+    <p>The TFT output is integrated by a 9-state planar EKF. It carries what the network can't know from a single window: the slowly varying biases and the accumulated uncertainty.</p>
+  </div>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>State</th><th>Meaning</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td class="num">E, N</td><td>Position (east, north)</td><td>What the app shows</td></tr>
+        <tr><td class="num">ψ</td><td>Heading</td><td>Integrated from corrected yaw rate</td></tr>
+        <tr><td class="num">v_f, v_l</td><td>Forward and lateral speed</td><td>v_l ≈ 0 enforced by the non-holonomic constraint (NHC)</td></tr>
+        <tr><td class="num">b_g, b_a</td><td>Gyro and accel bias</td><td>Made observable by road-heading updates</td></tr>
+        <tr><td class="num">ds, b_s</td><td>Speed scale and offset</td><td>Absorbs systematic speed error</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="prose">
+    <p><b>Adaptive NHC.</b> A car doesn't slide sideways, so lateral speed is pseudo-measured as zero. The noise on this constraint grows with yaw rate, acceleration and vibration, with Student-t reweighting of outliers, so it's trusted on straight roads and relaxed in hard turns.</p>
+    <p><b>Map matching.</b> 300 particles live on the OSM road graph extracted per drive. Each particle has its own road, arc position, lateral offset and speed-scale error. Once a second each is weighted by:</p>
+    <ul>
+      <li>cross-track distance to its road;</li>
+      <li>along-track agreement with the EKF;</li>
+      <li>heading against the road bearing;</li>
+      <li>curvature against the gyro;</li>
+      <li>a large penalty for travelling against a road's direction.</li>
+    </ul>
+    <p>At junctions particles branch in proportion to heading agreement, with a planned-route bonus. The filter decides with a <b>3 s fixed lag</b>. When confident, it sends a position (and on straight roads, heading) fix back to the EKF, applied at the lagged time and replayed to the present.</p>
+  </div>
+
+  <h2>5. Drift results</h2>
+  <figure id="fig-ladder">
+    <div class="ftitle">Median 60 s drift at each stage</div>
+    <div class="fsub">Lower is better. Target: below 10% of distance travelled.</div>
+    <div class="scroll"><svg id="ladder" viewBox="0 0 800 250" width="800" height="250" role="img" aria-label="Horizontal bar chart of median drift at each stage"></svg></div>
+    <figcaption>Open-loop rows: 888 held-out test windows. Map-aided rows: outages whose ground truth stays within 15 m of a mapped road (268 for Y1 + M, 175 for Vw4), mean of 3 particle-filter seeds. Map-aided accuracy depends on road coverage, and off-map outages are reported separately.</figcaption>
+  </figure>
+
+  <figure id="fig-growth">
+    <div class="ftitle">How error grows during an outage, Y1 + M</div>
+    <div class="fsub">Median position error in metres after 10, 20 and 30 s.</div>
+    <div class="legend"><span><i style="background:var(--s2)"></i>TFT open loop</span><span><i style="background:var(--s1)"></i>TFT + EKF + map</span></div>
+    <div class="scroll"><svg id="growth" viewBox="0 0 640 280" width="640" height="280" role="img" aria-label="Line chart of median error over time"></svg></div>
+    <figcaption>Without the map, error grows almost linearly with time: a speed error integrates into a distance error. Map matching removes most cross-track error and bends the curve after the first junction.</figcaption>
+  </figure>
+
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Split (60 s outages)</th><th>Median drift</th><th>Seed range</th><th>p90</th><th>&lt; 10% drift</th><th>Wrong road</th><th>Along / cross</th></tr></thead>
+      <tbody>
+        <tr><td>Test Y1 + M</td><td class="num">9.6%</td><td class="num">9.5–9.9</td><td class="num">50%</td><td class="num">51%</td><td class="num">14.9%</td><td class="num">44 / 7 m</td></tr>
+        <tr><td>Test Vw4 (held out)</td><td class="num">9.1%</td><td class="num">8.6–9.7</td><td class="num">40%</td><td class="num">55%</td><td class="num">14.7%</td><td class="num">79 / 6 m</td></tr>
+        <tr><td>Validation S2 + Vtb5</td><td class="num">9.4%</td><td class="num">8.6–9.9</td><td class="num">45%</td><td class="num">52%</td><td class="num">15.6%</td><td class="num">47 / 5 m</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">The median meets the target, but only about half of all outages are individually under 10%, and the worst tenth drift 40–50%. The rest of this report is about that tail.</div>
+
+  <h2>6. Where the remaining drift comes from</h2>
+  <div class="prose">
+    <p>Once the map fixes cross-track error, almost all remaining error is <b>along-track</b>: the car is on the right road but the estimate is ahead of or behind it. The median along-track error is about 45 m, against 5–7 m cross-track. Along-track error is speed error integrated over time, so we sliced the TFT's speed error by driving condition on the validation drives.</p>
+  </div>
+  <figure id="fig-bias">
+    <div class="ftitle">TFT speed bias by motion phase</div>
+    <div class="fsub">Mean signed speed error (m/s), validation drives. Positive means the model thinks the car is faster than it is.</div>
+    <div class="legend"><span><i style="background:var(--s2)"></i>overestimates speed</span><span><i style="background:var(--s1)"></i>underestimates speed</span></div>
+    <div class="scroll"><svg id="bias" viewBox="0 0 760 420" width="760" height="420" role="img" aria-label="Diverging bar chart of speed bias by motion phase"></svg></div>
+    <figcaption><b>Diagnosis:</b> the model is accurate at constant speed (−0.17 m/s) but responds too slowly to deceleration. It keeps too much speed when braking, approaching junctions and entering roundabouts, lagging the truth by 0.2–1.5 s. Across speeds it regresses to a typical value: +2.0 m/s at 3–8 m/s, −0.5 m/s above 15 m/s. Vibration, jerk and timestamp quality made little difference.</figcaption>
+  </figure>
+
+  <figure id="fig-tail">
+    <div class="ftitle">What goes wrong in the worst quarter of outages</div>
+    <div class="fsub">Validation S2 + Vtb5: 161 tail outages, each assigned one failure class.</div>
+    <div class="scroll"><svg id="tail" viewBox="0 0 760 300" width="760" height="300" role="img" aria-label="Bar chart of tail failure classes"></svg></div>
+    <figcaption>About two thirds of the tail is a progress error: the right road but the wrong place along it, often compounded at the next junction. In 74% of tail outages along-track error appears first, a median 15 s before any wrong turn. Wrong turns are mostly a <i>consequence</i> of speed drift, not an independent failure.</figcaption>
+  </figure>
+
+  <h2>7. What we tried, and what we kept</h2>
+  <p class="prose">Every change is an ablation against the same control on the validation drives, with 3 particle-filter seeds. It's kept only if it improves drift without worsening the tail or wrong-road rate. Seed-to-seed noise is about ±0.3–1 point, so small gains are treated as no change.</p>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Change</th><th>Effect</th><th>Decision</th></tr></thead>
+      <tbody>
+        <tr><td>Heading-only map updates (config B)</td><td>8.6% on Y1 + M, but 10.9% on the unseen Vw4</td><td><span class="chip fail">rejected, overfit</span></td></tr>
+        <tr><td>Speed calibration (affine / isotonic)</td><td>small median gain, worse tail</td><td><span class="chip hold">flag, off</span></td></tr>
+        <tr><td>Deceleration-weighted retrain (D1)</td><td>braking bias +1.9 → +0.5 m/s, but cruising speed now too low; map drift 11.1%</td><td><span class="chip fail">rejected</span></td></tr>
+        <tr><td>Multitask roundabout model</td><td>worse map-aided drift</td><td><span class="chip fail">rejected</span></td></tr>
+        <tr><td>Turn landmark v1: particle turn records</td><td>no change; 81% of turns skipped</td><td><span class="chip hold">flag, off</span></td></tr>
+        <tr><td>Turn landmark v2: turn located on the map</td><td>wrong-road 15.6 → 14.7%, wrong successor 22 → 19, but worst-quarter along-track 141 → 155 m</td><td><span class="chip hold">needs gating</span></td></tr>
+        <tr><td>Confidence-gated map policy (A3)</td><td>implemented and unit-tested; full validation run pending</td><td><span class="chip hold">in progress</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Next: confidence-aware map corrections</h3>
+  <div class="prose">
+    <p>The v2 turn landmark shows the map holds the information needed to fix progress errors, but applied blindly it also makes some outages worse. The confidence layer computes three separate scores:</p>
+    <ul>
+      <li><b>dead reckoning</b> (EKF covariance, speed-scale uncertainty, NHC innovation, TFT residual);</li>
+      <li><b>map match</b> (cross-track, along-track and heading residuals kept separate, particle effective sample size, cloud spread);</li>
+      <li><b>decision</b> (best vs second-best road probability).</li>
+    </ul>
+    <p>These map to four actions. High confidence allows the along-track junction fix. Medium confidence softens and clips the fix. Low confidence lets the map only rule out impossible roads, with no snapping. Very low confidence widens the particle search and waits for the next turn.</p>
+    <p>In unit tests, the policy keeps both hypotheses alive on genuinely ambiguous parallel roads 82% of the time, against 55% for the current filter. It changes nothing when switched off: tracks are identical to the validated pipeline on real outages.</p>
+  </div>
+
+  <h2>8. Deployment</h2>
+  <div class="prose">
+    <ul>
+      <li>Exported to ONNX (opset 17, 3.8 MB), with a manifest listing input layout, feature order, normalisation statistics and filter configuration.</li>
+      <li><b>ONNX Runtime must use <code>ORT_ENABLE_BASIC</code>.</b> The higher optimisation levels contain an operator-fusion bug (onnxruntime 1.29) that corrupts this model's outputs by up to 0.6. With BASIC, outputs match PyTorch within 2.3 × 10⁻⁶.</li>
+      <li>The app asserts the optimisation level at startup and runs four stored real windows as a self-check. A CI test compares PyTorch and ONNX on random and real inputs.</li>
+      <li>The EKF and particle filter are plain NumPy-level arithmetic (300 particles, 1 Hz map step) and port directly to the app.</li>
+    </ul>
+  </div>
+
+  <h2>9. Limitations</h2>
+  <div class="prose">
+    <ul>
+      <li>Map-aided figures cover outages on mapped roads. Off-map driving (car parks, private roads) falls back to TFT + EKF, which is about 18% open loop.</li>
+      <li>The test set is three drives, so seed-to-seed and drive-to-drive variation (±0.3–1 point) is similar in size to many candidate improvements.</li>
+      <li>Normalisation statistics differ slightly from those the checkpoint was trained with (two validation drives were included then). The effect is small and documented.</li>
+      <li>The median target is met; the tail (p90 of 40–50%) is not yet good enough for turn-by-turn guidance through long outages.</li>
+    </ul>
+  </div>
+</div>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+(function () {
+  const NS = "http://www.w3.org/2000/svg";
+  const tip = document.getElementById("tip");
+  function el(tag, attrs, parent, text) {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function hover(target, html) {
+    target.addEventListener("mousemove", (ev) => {
+      tip.innerHTML = html; tip.style.opacity = 1;
+      const x = Math.min(ev.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
+      tip.style.left = x + "px"; tip.style.top = (ev.clientY + 14) + "px";
+    });
+    target.addEventListener("mouseleave", () => { tip.style.opacity = 0; });
+  }
+  function roundedBar(g, x0, y, w, h, cls, dir) {
+    // 4px rounded data end, flat at the baseline
+    const r = Math.min(4, Math.abs(w) / 2, h / 2);
+    let d;
+    if (dir >= 0) d = `M${x0},${y} H${x0 + w - r} Q${x0 + w},${y} ${x0 + w},${y + r} V${y + h - r} Q${x0 + w},${y + h} ${x0 + w - r},${y + h} H${x0} Z`;
+    else d = `M${x0},${y} H${x0 - w + r} Q${x0 - w},${y} ${x0 - w},${y + r} V${y + h - r} Q${x0 - w},${y + h} ${x0 - w + r},${y + h} H${x0} Z`;
+    return el("path", { d, fill: cls }, g);
+  }
+
+  // ---- ladder
+  (function () {
+    const svg = document.getElementById("ladder");
+    const rows = [
+      ["Raw phone IMU, physics only", "open loop · test windows", 28.5],
+      ["TFT-corrected IMU", "open loop · test windows", 18.1],
+      ["TFT + EKF + map, Y1 + M", "held-out test · 3 seeds", 9.6],
+      ["TFT + EKF + map, Vw4", "held-out test · 3 seeds", 9.1],
+    ];
+    const L = 250, R = 740, top = 20, rh = 48, max = 30;
+    const x = (v) => L + (v / max) * (R - L);
+    for (let t = 0; t <= 30; t += 5) {
+      el("line", { x1: x(t), x2: x(t), y1: top - 6, y2: top + rows.length * rh, class: "grid" }, svg);
+      el("text", { x: x(t), y: top + rows.length * rh + 18, "text-anchor": "middle", class: "t-3", "font-size": 12 }, svg, t + "%");
+    }
+    rows.forEach((r, i) => {
+      const y = top + i * rh + 10;
+      el("text", { x: L - 12, y: y + 12, "text-anchor": "end", class: "t-ink", "font-size": 13.5, "font-weight": 500 }, svg, r[0]);
+      el("text", { x: L - 12, y: y + 28, "text-anchor": "end", class: "t-3", "font-size": 11.5 }, svg, r[1]);
+      const col = i < 2 ? "var(--s2)" : "var(--s1)";
+      roundedBar(svg, L, y, x(r[2]) - L, 24, col, 1);
+      el("text", { x: x(r[2]) + 8, y: y + 17, class: "t-ink mono-t", "font-size": 13, "font-weight": 500 }, svg, r[2].toFixed(1) + "%");
+      hover(el("rect", { x: L, y: y - 6, width: R - L, height: 36, class: "hit" }, svg), `<b>${r[0]}</b><br>median 60 s drift ${r[2].toFixed(1)}%<br>${r[1]}`);
+    });
+    el("line", { x1: x(10), x2: x(10), y1: top - 10, y2: top + rows.length * rh + 4, stroke: "var(--good)", "stroke-width": 2, "stroke-dasharray": "5 4" }, svg);
+    el("text", { x: x(10) + 6, y: top - 2, class: "t-2", "font-size": 12, "font-weight": 600 }, svg, "10% target");
+  })();
+
+  // ---- error growth
+  (function () {
+    const svg = document.getElementById("growth");
+    const ts = [10, 20, 30];
+    const S = [
+      { name: "TFT open loop", col: "var(--s2)", v: [8.5, 23.0, 37.0] },
+      { name: "TFT + EKF + map", col: "var(--s1)", v: [7.6, 15.3, 20.0] },
+    ];
+    const L = 60, R = 470, T = 20, B = 230, ymax = 40;
+    const x = (t) => L + ((t - 0) / 30) * (R - L), y = (v) => B - (v / ymax) * (B - T);
+    for (let v = 0; v <= 40; v += 10) {
+      el("line", { x1: L, x2: R, y1: y(v), y2: y(v), class: "grid" }, svg);
+      el("text", { x: L - 10, y: y(v) + 4, "text-anchor": "end", class: "t-3", "font-size": 12 }, svg, v + " m");
+    }
+    [0, 10, 20, 30].forEach((t) => el("text", { x: x(t), y: B + 20, "text-anchor": "middle", class: "t-3", "font-size": 12 }, svg, t + " s"));
+    el("text", { x: (L + R) / 2, y: B + 42, "text-anchor": "middle", class: "t-2", "font-size": 12 }, svg, "time since GNSS loss");
+    S.forEach((s) => {
+      const pts = [[0, 0]].concat(ts.map((t, i) => [t, s.v[i]]));
+      el("polyline", { points: pts.map((p) => x(p[0]) + "," + y(p[1])).join(" "), fill: "none", stroke: s.col, "stroke-width": 2, "stroke-linejoin": "round" }, svg);
+      ts.forEach((t, i) => el("circle", { cx: x(t), cy: y(s.v[i]), r: 4.5, fill: s.col, stroke: "var(--panel)", "stroke-width": 2 }, svg));
+      el("text", { x: x(30) + 12, y: y(s.v[2]) + 4, class: "t-ink", "font-size": 12.5, "font-weight": 500 }, svg, s.name + " · " + s.v[2] + " m");
+    });
+    ts.forEach((t, i) => {
+      const hit = el("rect", { x: x(t) - 30, y: T, width: 60, height: B - T, class: "hit" }, svg);
+      hover(hit, `<b>${t} s after GNSS loss</b><br>open loop ${S[0].v[i]} m<br>with map ${S[1].v[i]} m`);
+    });
+  })();
+
+  // ---- bias by phase (diverging)
+  (function () {
+    const svg = document.getElementById("bias");
+    const rows = [
+      ["roundabout entry", 2.22], ["braking", 1.86], ["junction approach", 1.83], ["stop-and-go", 1.68],
+      ["junction crossing", 1.48], ["roundabout circulation", 1.38], ["turning", 1.17], ["post-turn recovery", 1.17],
+      ["stationary", 0.64], ["roundabout exit", 0.28], ["constant speed", -0.17], ["start from rest", -0.24],
+      ["acceleration", -0.43],
+    ];
+    const L = 200, R = 700, T = 14, rh = 28, lo = -1, hi = 2.5;
+    const x = (v) => L + ((v - lo) / (hi - lo)) * (R - L);
+    for (let v = -1; v <= 2.5; v += 0.5) {
+      el("line", { x1: x(v), x2: x(v), y1: T - 4, y2: T + rows.length * rh, class: v === 0 ? "axis" : "grid" }, svg);
+      el("text", { x: x(v), y: T + rows.length * rh + 18, "text-anchor": "middle", class: "t-3", "font-size": 12 }, svg, (v > 0 ? "+" : "") + v.toFixed(1));
+    }
+    rows.forEach((r, i) => {
+      const y = T + i * rh + 5;
+      el("text", { x: L - 12, y: y + 13, "text-anchor": "end", class: "t-ink", "font-size": 13 }, svg, r[0]);
+      const v = r[1];
+      const col = v >= 0 ? "var(--s2)" : "var(--s1)";
+      roundedBar(svg, x(0), y, Math.abs(x(v) - x(0)), 18, col, v >= 0 ? 1 : -1);
+      el("text", { x: v >= 0 ? x(v) + 6 : x(v) - 6, y: y + 13, "text-anchor": v >= 0 ? "start" : "end", class: "t-2 mono-t", "font-size": 12 }, svg, (v > 0 ? "+" : "") + v.toFixed(2));
+      hover(el("rect", { x: L, y: y - 5, width: R - L, height: rh, class: "hit" }, svg), `<b>${r[0]}</b><br>mean speed error ${(v > 0 ? "+" : "") + v.toFixed(2)} m/s`);
+    });
+    el("text", { x: (L + R) / 2, y: T + rows.length * rh + 40, "text-anchor": "middle", class: "t-2", "font-size": 12 }, svg, "signed speed error, m/s");
+  })();
+
+  // ---- tail classes
+  (function () {
+    const svg = document.getElementById("tail");
+    const rows = [
+      ["Right road, wrong progress", 27.3, 211], ["Speed drift before a junction", 25.5, 71],
+      ["Missed or delayed junction", 11.8, 202], ["Temporary route ambiguity", 11.8, 230],
+      ["Particle impoverishment", 8.7, 217], ["Wrong successor chosen", 8.1, 14], ["Map geometry mismatch", 6.8, 175],
+    ];
+    const L = 240, R = 680, T = 12, rh = 36, max = 30;
+    const x = (v) => L + (v / max) * (R - L);
+    for (let t = 0; t <= 30; t += 10) {
+      el("line", { x1: x(t), x2: x(t), y1: T - 4, y2: T + rows.length * rh, class: "grid" }, svg);
+      el("text", { x: x(t), y: T + rows.length * rh + 18, "text-anchor": "middle", class: "t-3", "font-size": 12 }, svg, t + "%");
+    }
+    rows.forEach((r, i) => {
+      const y = T + i * rh + 7;
+      el("text", { x: L - 12, y: y + 15, "text-anchor": "end", class: "t-ink", "font-size": 13 }, svg, r[0]);
+      const progress = i < 3;
+      roundedBar(svg, L, y, x(r[1]) - L, 22, progress ? "var(--s2)" : "var(--s1)", 1);
+      el("text", { x: x(r[1]) + 8, y: y + 15, class: "t-2 mono-t", "font-size": 12 }, svg, r[1] + "%");
+      hover(el("rect", { x: L, y: y - 6, width: R - L, height: rh, class: "hit" }, svg), `<b>${r[0]}</b><br>${r[1]}% of tail outages<br>median final along-track error ${r[2]} m`);
+    });
+    el("text", { x: (L + R) / 2, y: T + rows.length * rh + 40, "text-anchor": "middle", class: "t-2", "font-size": 12 }, svg, "share of tail outages · orange = progress (along-track) failures");
+  })();
+})();
+</script>
+
+</body>
+</html>

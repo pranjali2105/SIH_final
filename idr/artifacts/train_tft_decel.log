@@ -1,0 +1,6 @@
+state label counts (train): {'straight': 381516, 'ordinary_turn': 50661, 'entry': 3474, 'circulating': 11497, 'exit': 3313}  drives with roundabout starts: 19
+warm start from tft_ep2.pt (val median drift 17.76%)
+device=mps params=492010 train_drives=35 val_drives=['S2', 'Vtb5']
+physics baseline (val): {"median_drift_pct": 25.976, "p90_drift_pct": 82.964, "median_drift30_pct": 19.052, "median_final_err_m": 167.022, "mean_angle_deg": 9.026, "n": 1982}
+{"epoch": 1, "time_s": 431.0, "res": 0.1679, "inc": 3.197, "angle": 0.0202, "mag": 1.1971, "pos": 0.1267, "stop": 0.1754, "smooth": 1.4973, "cls": 1.2918, "win": 0.1616, "val_median_drift_pct": 17.575, "val_p90_drift_pct": 40.759, "val_median_drift30_pct": 12.498, "val_median_final_err_m": 101.066, "val_mean_angle_deg": 8.591, "val_n": 1982}
+{"epoch": 2, "time_s": 372.9, "res": 0.1629, "inc": 2.9516, "angle": 0.0221, "mag": 1.0759, "pos": 0.1237, "stop": 0.1697, "smooth": 1.5082, "cls": 1.0015, "win": 0.1475, "val_median_drift_pct": 17.609, "val_p90_drift_pct": 41.415, "val_median_drift30_pct": 12.601, "val_median_final_err_m": 106.41, "val_mean_angle_deg": 8.582, "val_n": 1982}

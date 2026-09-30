@@ -1,0 +1,10 @@
+# data (download separately, see README)
+raw/
+IO-VNBD/
+idr/cache/
+# python / local
+__pycache__/
+*.pyc
+*.bak_*
+.DS_Store
+.pytest_cache/

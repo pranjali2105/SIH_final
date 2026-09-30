@@ -1,0 +1,404 @@
+{
+ "created": "2026-09-29T17:54:10",
+ "model": {
+  "checkpoint": "idr/artifacts/tft_ep2.pt",
+  "sha256_16": "94bf01a50dff1d13",
+  "onnx": "idr/export/tft_ep2.onnx",
+  "onnx_sha256_16": "92fbb95e1b7d8d68",
+  "opset": 17,
+  "params": 492010,
+  "missing_keys_at_load": [
+   "cls_head.weight",
+   "cls_head.bias"
+  ],
+  "train_args": {
+   "epochs": 15,
+   "samples": 20000,
+   "val": 2000,
+   "batch": 32,
+   "lr": 0.001,
+   "d": 64,
+   "no_tft": false,
+   "tag": "tft",
+   "patience": 8,
+   "workers": 2
+  }
+ },
+ "onnxruntime": {
+  "required_graph_optimization_level": "ORT_ENABLE_BASIC",
+  "warning": "ORT_ENABLE_EXTENDED / ORT_ENABLE_ALL (the default) produce wrong outputs for this model with onnxruntime 1.29 (operator-fusion bug); verified basic == PyTorch.",
+  "verified_with": "1.29.0",
+  "startup_check": {
+   "golden_file": "tft_ep2_golden.npz",
+   "tolerance": 0.0001,
+   "reference": "idr/onnx_runtime.py make_session (asserts BASIC + golden)"
+  },
+  "integration_checklist": "idr/export/APP_INTEGRATION.md",
+  "ci_test": "python -m pytest idr/tests/test_onnx_parity.py"
+ },
+ "model_rewrites_for_export": [
+  "VSN einsum -> bmm over variables (memory-safe)",
+  "bool causal mask -> additive -inf float mask",
+  "route valid-mask in-place write -> torch.cat"
+ ],
+ "sampling_rate_hz": 10,
+ "dt_s": 0.1,
+ "context_steps": 50,
+ "horizon_steps": 600,
+ "inputs": {
+  "seq": {
+   "shape": [
+    "B",
+    650,
+    17
+   ],
+   "feature_order": [
+    "a_fwd",
+    "a_lat",
+    "a_up",
+    "w_roll",
+    "w_pitch",
+    "w_yaw",
+    "a_hmag",
+    "w_mag",
+    "sin_dpsi_gyro",
+    "cos_dpsi_gyro",
+    "sin_dpsi_mag",
+    "cos_dpsi_mag",
+    "tau",
+    "gnss_flag",
+    "gnss_speed",
+    "sin_dpsi_gnss",
+    "cos_dpsi_gnss"
+   ],
+   "notes": "steps 0..49 = 5 s before GNSS loss (gnss_flag=1), 50..649 = outage; tau=(k-49)*0.1/60; sin/cos dpsi_* relative to last GNSS heading psi0; first 8 channels z-scored with norm_stats (clip +-6 sigma); pad unused future steps with zeros"
+  },
+  "static": {
+   "shape": [
+    "B",
+    5
+   ],
+   "order": [
+    "v0/30",
+    "log1p(dist_dest/100)/5",
+    "sin(bearing_dest-psi0)",
+    "cos(bearing_dest-psi0)",
+    "route_available"
+   ]
+  },
+  "route": {
+   "shape": [
+    "B",
+    100,
+    4
+   ],
+   "spec": "idr/route_features.py (20 m arc-length samples: sin, cos of bearing-psi0, curvature*20, valid)"
+  },
+  "u_raw": {
+   "shape": [
+    "B",
+    600,
+    3
+   ],
+   "channels": [
+    "w_yaw rad/s (CCW+)",
+    "a_fwd m/s^2",
+    "a_lat m/s^2"
+   ],
+   "notes": "phone IMU after GNSS-motion axis calibration (idr/normalise.calibrate) and gyro bias"
+  }
+ },
+ "outputs": {
+  "u_hat": "corrected [w_yaw, a_fwd, a_lat] per outage step",
+  "p_stop": "stationary probability",
+  "e_hat": "per-step sensor-error residual",
+  "b_hat": "per-outage bias",
+  "residual_scale": [
+   0.05000000074505806,
+   0.5,
+   0.5
+  ]
+ },
+ "normalisation": {
+  "norm_stats": {
+   "a_fwd": {
+    "mean": 0.009187402655482605,
+    "std": 0.6670800594719656
+   },
+   "a_lat": {
+    "mean": -0.010330179580503408,
+    "std": 0.8441050355218032
+   },
+   "a_up": {
+    "mean": 0.04050306154138484,
+    "std": 0.7327193532994022
+   },
+   "w_roll": {
+    "mean": -0.002257263392800629,
+    "std": 0.27005218536153325
+   },
+   "w_pitch": {
+    "mean": -0.0007911814763783596,
+    "std": 0.10310524324252336
+   },
+   "w_yaw": {
+    "mean": -0.0028202610623990214,
+    "std": 0.11282792999394255
+   },
+   "a_hmag": {
+    "mean": 0.7957193498991794,
+    "std": 0.7242428788497636
+   },
+   "w_mag": {
+    "mean": 0.21456321199376244,
+    "std": 0.21863379596678956
+   },
+   "_clip_sigma": 6.0,
+   "_speed_scale": 30.0
+  },
+  "sha256_16": "8282536399dc767f",
+  "note": "stats used for every reported evaluation (train drives excl. VAL=S2,Vtb5,S3c,Vta1a); tft_ep2 was trained with S3c/Vta1a included in the stats - small known mismatch"
+ },
+ "downstream": {
+  "integration": "idr/physics.py (d_psi=-cumsum(w)dt, v=relu(v0+cumsum(a)dt)*(1-p_stop))",
+  "ekf": {
+   "class": "idr.nav_filter.NavEKF",
+   "config": {
+    "sig_w": 0.05,
+    "sig_a": 0.5,
+    "sig_bg_rw": 0.0002,
+    "sig_ba_rw": 0.005,
+    "sig_ds_rw": 0.002,
+    "sig_bs_rw": 0.0,
+    "nu_lat": 2.0,
+    "sig_vl_proc": 0.2,
+    "nhc_base": 0.05,
+    "k_yaw": 1.0,
+    "k_acc": 0.5,
+    "k_lat": 0.5,
+    "k_vib": 1.0,
+    "nhc_fixed": false,
+    "student_nu": 4.0,
+    "lag_steps": 30,
+    "zupt": false,
+    "sig_ds0": 0.02,
+    "sig_bs0": 0.0,
+    "speed_cal": null
+   }
+  },
+  "map_matching": {
+   "class": "idr.map_matching.MapMatcher",
+   "defaults": "MMConfig() (Step-0 validated: full-state map updates, roundabout/landmark/calibration off)"
+  },
+  "speed_calibration": null
+ },
+ "osm_cache": {
+  "bedfordshire.osm.pbf": {
+   "bytes": 14987467,
+   "modified": "2026-09-28T20:18:02"
+  },
+  "buckinghamshire.osm.pbf": {
+   "bytes": 22633706,
+   "modified": "2026-09-28T20:17:51"
+  },
+  "derbyshire.osm.pbf": {
+   "bytes": 43951555,
+   "modified": "2026-09-28T21:10:01"
+  },
+  "gloucestershire.osm.pbf": {
+   "bytes": 40951793,
+   "modified": "2026-09-28T20:17:33"
+  },
+  "leicestershire.osm.pbf": {
+   "bytes": 20367094,
+   "modified": "2026-09-28T20:15:17"
+  },
+  "northamptonshire.osm.pbf": {
+   "bytes": 22656109,
+   "modified": "2026-09-28T20:12:32"
+  },
+  "nottinghamshire.osm.pbf": {
+   "bytes": 38655498,
+   "modified": "2026-09-28T21:29:48"
+  },
+  "oxfordshire.osm.pbf": {
+   "bytes": 27968959,
+   "modified": "2026-09-28T20:14:40"
+  },
+  "shropshire.osm.pbf": {
+   "bytes": 25150265,
+   "modified": "2026-09-28T20:17:20"
+  },
+  "south-yorkshire.osm.pbf": {
+   "bytes": 30747565,
+   "modified": "2026-09-28T21:39:59"
+  },
+  "staffordshire.osm.pbf": {
+   "bytes": 30781133,
+   "modified": "2026-09-28T20:17:14"
+  },
+  "warwickshire.osm.pbf": {
+   "bytes": 24319050,
+   "modified": "2026-09-28T20:11:27"
+  },
+  "west-midlands.osm.pbf": {
+   "bytes": 59496900,
+   "modified": "2026-09-28T20:08:09"
+  },
+  "worcestershire.osm.pbf": {
+   "bytes": 20297682,
+   "modified": "2026-09-28T20:12:10"
+  }
+ },
+ "evaluation_seeds": "particle filter seed = t0*7 + {0,1,2}",
+ "metrics_60s_outages": {
+  "step0_YM": {
+   "tft": {
+    "median_drift_pct": 17.301587612327832,
+    "median_drift_pct_range": null,
+    "pct_under_10pct": 20.522388059701495,
+    "wrong_road_pct": null,
+    "median_along_m": 64.05658780533076,
+    "median_cross_m": 48.78212585844121
+   },
+   "tft_ekf_map": {
+    "median_drift_pct": 9.479610840766982,
+    "median_drift_pct_range": [
+     9.26104858513849,
+     9.691748082798838
+    ],
+    "pct_under_10pct": 51.24378109452737,
+    "wrong_road_pct": 16.16915422885572,
+    "median_along_m": 42.08071473383368,
+    "median_cross_m": 6.549339755125756
+   },
+   "tft_ekf_map_route": {
+    "median_drift_pct": 9.767675707216076,
+    "median_drift_pct_range": [
+     9.392478549692704,
+     10.0561021559851
+    ],
+    "pct_under_10pct": 50.49751243781095,
+    "wrong_road_pct": 16.542288557213933,
+    "median_along_m": 45.1602520693506,
+    "median_cross_m": 6.51234002075995
+   }
+  },
+  "step0_Vw4": {
+   "tft": {
+    "median_drift_pct": 19.24477085942688,
+    "median_drift_pct_range": null,
+    "pct_under_10pct": 13.714285714285715,
+    "wrong_road_pct": null,
+    "median_along_m": 103.03071503497,
+    "median_cross_m": 100.10311224378307
+   },
+   "tft_ekf_map": {
+    "median_drift_pct": 9.114826289772642,
+    "median_drift_pct_range": [
+     8.574047902853565,
+     9.679235497404566
+    ],
+    "pct_under_10pct": 55.047619047619044,
+    "wrong_road_pct": 14.666666666666666,
+    "median_along_m": 78.84152269213553,
+    "median_cross_m": 5.942083478482917
+   },
+   "tft_ekf_map_route": {
+    "median_drift_pct": 8.8461799651266,
+    "median_drift_pct_range": [
+     8.710064080999771,
+     9.051015246741947
+    ],
+    "pct_under_10pct": 55.61904761904762,
+    "wrong_road_pct": 13.333333333333334,
+    "median_along_m": 72.78325404183575,
+    "median_cross_m": 5.6817946503999535
+   }
+  },
+  "validation_S2_Vtb5": {
+   "tft": {
+    "median_drift_pct": 18.158256209073826,
+    "median_drift_pct_range": null,
+    "pct_under_10pct": 24.669603524229075,
+    "wrong_road_pct": null
+   },
+   "tft_ekf_map": {
+    "median_drift_pct": 9.41488640637313,
+    "median_drift_pct_range": [
+     8.634204688816098,
+     9.93575527760275
+    ],
+    "pct_under_10pct": 51.98237885462555,
+    "wrong_road_pct": 15.565345080763583
+   },
+   "tft_ekf_map_route": {
+    "median_drift_pct": 9.457605495424867,
+    "median_drift_pct_range": [
+     9.086384233364328,
+     9.674699252700542
+    ],
+    "pct_under_10pct": 51.24816446402349,
+    "wrong_road_pct": 15.859030837004402
+   }
+  }
+ },
+ "onnx_verification": {
+  "random": {
+   "n": 16,
+   "max_abs_diff": {
+    "u_hat": 2.1457672119140625e-06,
+    "p_stop": 6.556510925292969e-07,
+    "e_hat": 2.2649765014648438e-06,
+    "b_hat": 5.960464477539063e-08
+   },
+   "median_open_loop_drift_pct": {
+    "torch": 19.08039665222168,
+    "onnx": 19.08038902282715
+   },
+   "drift_diff_pct_points": 7.62939453125e-06
+  },
+  "braking": {
+   "n": 16,
+   "max_abs_diff": {
+    "u_hat": 1.519918441772461e-06,
+    "p_stop": 5.960464477539062e-07,
+    "e_hat": 1.5171244740486145e-06,
+    "b_hat": 5.960464477539063e-08
+   },
+   "median_open_loop_drift_pct": {
+    "torch": 29.584062576293945,
+    "onnx": 29.584047317504883
+   },
+   "drift_diff_pct_points": 1.52587890625e-05
+  },
+  "constant": {
+   "n": 15,
+   "max_abs_diff": {
+    "u_hat": 1.1920928955078125e-06,
+    "p_stop": 3.2782554626464844e-07,
+    "e_hat": 1.1920928955078125e-06,
+    "b_hat": 4.470348358154297e-08
+   },
+   "median_open_loop_drift_pct": {
+    "torch": 9.223404884338379,
+    "onnx": 9.22340202331543
+   },
+   "drift_diff_pct_points": 2.86102294921875e-06
+  },
+  "roundabout": {
+   "n": 16,
+   "max_abs_diff": {
+    "u_hat": 1.5497207641601562e-06,
+    "p_stop": 7.152557373046875e-07,
+    "e_hat": 1.519918441772461e-06,
+    "b_hat": 3.725290298461914e-08
+   },
+   "median_open_loop_drift_pct": {
+    "torch": 15.575440406799316,
+    "onnx": 15.575440406799316
+   },
+   "drift_diff_pct_points": 0.0
+  }
+ }
+}

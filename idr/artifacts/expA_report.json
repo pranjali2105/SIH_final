@@ -1,0 +1,118 @@
+{
+ "tail_threshold_m (control seed-0 p75)": 143.98452369653842,
+ "control": {
+  "n": 702,
+  "median_drift_pct": 10.445277192532995,
+  "wrong_road_pct": 16.666666666666664,
+  "median_abs_along_m": 58.580314102772036,
+  "worst25_along_m": 260.6431549348557,
+  "p75_along_m": 142.57002546727597,
+  "median_cross_end_m": 3.8020870938021094,
+  "n_tail": 246,
+  "tail_pct": 35.042735042735046,
+  "tail_classes": {
+   "speed-scale drift before junction": 56,
+   "missed/delayed junction": 38,
+   "wrong successor selected": 22,
+   "correct successor, wrong progress": 60,
+   "map geometry mismatch": 14,
+   "temporary route ambiguity": 27,
+   "particle impoverishment": 29
+  },
+  "wrong_successor_n": 22,
+  "junction_n": 1184,
+  "junction_abs_dt_median_s": 1.3,
+  "junction_abs_dt_p90_s": 6.7,
+  "junction_late_early_gt3s_pct": 24.83108108108108,
+  "ess_prior_med": 257.4897986224537,
+  "ess_post_med": 206.85615214270285,
+  "ess_resampled_med": 246.5277225682014,
+  "n_roads_med": 2.0,
+  "alm_events": 0,
+  "alm_applied": 0,
+  "alm_skips": {},
+  "alm_abs_r_med_m": null,
+  "per_seed_median_drift": [
+   10.675898969603697,
+   10.66983633124018,
+   9.78688136738715
+  ],
+  "per_seed_wrong_road": [
+   15.384615384615385,
+   17.52136752136752,
+   17.094017094017094
+  ],
+  "per_seed_worst25_along": [
+   259.55344856380975,
+   265.33972950806674,
+   258.9111020174815
+  ]
+ },
+ "treatment": {
+  "n": 702,
+  "median_drift_pct": 9.875002436510083,
+  "wrong_road_pct": 16.524216524216524,
+  "median_abs_along_m": 52.922542765356724,
+  "worst25_along_m": 261.1361341064265,
+  "p75_along_m": 142.24967523808004,
+  "median_cross_end_m": 3.857349293393973,
+  "n_tail": 245,
+  "tail_pct": 34.9002849002849,
+  "tail_classes": {
+   "speed-scale drift before junction": 55,
+   "missed/delayed junction": 39,
+   "wrong successor selected": 22,
+   "correct successor, wrong progress": 59,
+   "map geometry mismatch": 14,
+   "temporary route ambiguity": 27,
+   "particle impoverishment": 29
+  },
+  "wrong_successor_n": 22,
+  "junction_n": 1184,
+  "junction_abs_dt_median_s": 1.3,
+  "junction_abs_dt_p90_s": 6.2,
+  "junction_late_early_gt3s_pct": 23.902027027027025,
+  "ess_prior_med": 257.4897986224537,
+  "ess_post_med": 206.6092600294972,
+  "ess_resampled_med": 246.5277225682014,
+  "n_roads_med": 2.0,
+  "alm_events": 756,
+  "alm_applied": 119,
+  "alm_skips": {
+   "share": 610,
+   "psi": 25,
+   "cross": 2
+  },
+  "alm_abs_r_med_m": 4.278362484711771,
+  "per_seed_median_drift": [
+   9.272060649055536,
+   10.390809305972839,
+   9.78688136738715
+  ],
+  "per_seed_wrong_road": [
+   15.384615384615385,
+   17.94871794871795,
+   16.23931623931624
+  ],
+  "per_seed_worst25_along": [
+   259.44818137131574,
+   265.5873221542848,
+   260.2793724968684
+  ]
+ },
+ "class_transitions (changed only)": {
+  "ok -> speed-scale drift before junction": 2,
+  "ok -> missed/delayed junction": 2,
+  "ok -> wrong successor selected": 1,
+  "speed-scale drift before junction -> ok": 3,
+  "missed/delayed junction -> ok": 1,
+  "wrong successor selected -> ok": 1,
+  "correct successor, wrong progress -> ok": 1
+ },
+ "paired_along_change": {
+  "n_improved_gt10m": 17,
+  "n_worse_gt10m": 18,
+  "median_improvement_m": -39.735624726502806,
+  "median_worsening_m": 14.374692825015984
+ }
+}

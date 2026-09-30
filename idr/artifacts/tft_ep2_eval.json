@@ -1,0 +1,219 @@
+{
+ "checkpoint_val": {
+  "median_drift_pct": 17.7563533782959,
+  "p90_drift_pct": 44.60991668701172,
+  "median_drift30_pct": 12.948493957519531,
+  "median_final_err_m": 105.0373306274414,
+  "mean_angle_deg": 8.506382942199707,
+  "n": 1982
+ },
+ "baseline_val": {
+  "median_drift_pct": 25.97628402709961,
+  "p90_drift_pct": 82.96434783935547,
+  "median_drift30_pct": 19.05164337158203,
+  "median_final_err_m": 167.02174377441406,
+  "mean_angle_deg": 9.025908470153809,
+  "n": 1982
+ },
+ "test_30s": {
+  "model": {
+   "n": 879,
+   "median_drift_pct": 13.61436653137207,
+   "p90_drift_pct": 34.70024871826172,
+   "pct_outages_under_10pct_drift": 33.105802047781566,
+   "median_err_m": 47.05894470214844,
+   "median_dist_m": 332.08306884765625,
+   "mean_angle_deg": 5.658243179321289
+  },
+  "physics": {
+   "n": 879,
+   "median_drift_pct": 21.181171417236328,
+   "p90_drift_pct": 79.31204223632812,
+   "pct_outages_under_10pct_drift": 23.208191126279864,
+   "median_err_m": 77.40223693847656,
+   "median_dist_m": 332.08306884765625,
+   "mean_angle_deg": 6.912132740020752
+  }
+ },
+ "test_30s_route_ablation": {
+  "destination_only": {
+   "n": 879,
+   "median_drift_pct": 14.669322967529297,
+   "p90_drift_pct": 34.188514709472656,
+   "pct_outages_under_10pct_drift": 30.94425483503982,
+   "median_err_m": 49.45743942260742,
+   "median_dist_m": 332.08306884765625,
+   "mean_angle_deg": 5.7598490715026855
+  },
+  "destination_plus_route": {
+   "n": 879,
+   "median_drift_pct": 13.61436653137207,
+   "p90_drift_pct": 34.70024871826172,
+   "pct_outages_under_10pct_drift": 33.105802047781566,
+   "median_err_m": 47.05894470214844,
+   "median_dist_m": 332.08306884765625,
+   "mean_angle_deg": 5.658243179321289
+  },
+  "destination_plus_wrong_route": {
+   "n": 879,
+   "median_drift_pct": 14.043598175048828,
+   "p90_drift_pct": 35.0477294921875,
+   "pct_outages_under_10pct_drift": 31.285551763367465,
+   "median_err_m": 48.86604309082031,
+   "median_dist_m": 332.08306884765625,
+   "mean_angle_deg": 5.70345401763916
+  }
+ },
+ "test_60s": {
+  "model": {
+   "n": 888,
+   "median_drift_pct": 18.149147033691406,
+   "p90_drift_pct": 43.68861389160156,
+   "pct_outages_under_10pct_drift": 19.594594594594593,
+   "median_err_m": 118.42068481445312,
+   "median_dist_m": 649.9038696289062,
+   "mean_angle_deg": 8.150272369384766
+  },
+  "physics": {
+   "n": 888,
+   "median_drift_pct": 28.494979858398438,
+   "p90_drift_pct": 83.03534698486328,
+   "pct_outages_under_10pct_drift": 12.5,
+   "median_err_m": 190.04501342773438,
+   "median_dist_m": 649.9038696289062,
+   "mean_angle_deg": 9.778938293457031
+  }
+ },
+ "trajectory_plot": "/Users/pranjalimane/SIH-2/idr/figures/tft_ep2_trajectories.png",
+ "test_60s_route_ablation": {
+  "destination_only": {
+   "n": 888,
+   "median_drift_pct": 18.927173614501953,
+   "p90_drift_pct": 43.67831802368164,
+   "pct_outages_under_10pct_drift": 18.58108108108108,
+   "median_err_m": 121.48529815673828,
+   "median_dist_m": 649.9038696289062,
+   "mean_angle_deg": 8.367810249328613
+  },
+  "destination_plus_route": {
+   "n": 888,
+   "median_drift_pct": 18.149147033691406,
+   "p90_drift_pct": 43.68861389160156,
+   "pct_outages_under_10pct_drift": 19.594594594594593,
+   "median_err_m": 118.42068481445312,
+   "median_dist_m": 649.9038696289062,
+   "mean_angle_deg": 8.150272369384766
+  },
+  "destination_plus_wrong_route": {
+   "n": 888,
+   "median_drift_pct": 18.65216064453125,
+   "p90_drift_pct": 43.813697814941406,
+   "pct_outages_under_10pct_drift": 17.792792792792792,
+   "median_err_m": 122.3694076538086,
+   "median_dist_m": 649.9038696289062,
+   "mean_angle_deg": 8.22681713104248
+  }
+ },
+ "Y1_marky_protocol_median_err_m": {
+  "model": {
+   "10s": 12.54189395904541,
+   "20s": 27.924287796020508,
+   "30s": 44.38920974731445,
+   "60s": 107.84615325927734
+  },
+  "physics": {
+   "10s": 16.020950317382812,
+   "20s": 48.19446563720703,
+   "30s": 75.1046142578125,
+   "60s": 167.13812255859375
+  }
+ },
+ "scenario_Vw16b_10s": {
+  "model": {
+   "max_crse_m": 386.9423828125,
+   "n": 15,
+   "median_drift_pct": 5.851744174957275,
+   "p90_drift_pct": 49.73699188232422,
+   "pct_outages_under_10pct_drift": 60.0,
+   "median_err_m": 10.688636779785156,
+   "median_dist_m": 164.7327880859375,
+   "mean_angle_deg": 4.2224860191345215
+  },
+  "physics": {
+   "max_crse_m": 367.322509765625,
+   "n": 15,
+   "median_drift_pct": 9.060918807983398,
+   "p90_drift_pct": 46.36575698852539,
+   "pct_outages_under_10pct_drift": 60.0,
+   "median_err_m": 16.53765106201172,
+   "median_dist_m": 164.7327880859375,
+   "mean_angle_deg": 4.100577354431152
+  }
+ },
+ "scenario_Vw6_10s": {
+  "model": {
+   "max_crse_m": 145.0140838623047,
+   "n": 23,
+   "median_drift_pct": 13.855619430541992,
+   "p90_drift_pct": 32.2429084777832,
+   "pct_outages_under_10pct_drift": 21.73913043478261,
+   "median_err_m": 13.244950294494629,
+   "median_dist_m": 84.60888671875,
+   "mean_angle_deg": 5.894985675811768
+  },
+  "physics": {
+   "max_crse_m": 167.39202880859375,
+   "n": 23,
+   "median_drift_pct": 15.589118003845215,
+   "p90_drift_pct": 43.848487854003906,
+   "pct_outages_under_10pct_drift": 26.08695652173913,
+   "median_err_m": 14.052895545959473,
+   "median_dist_m": 84.60888671875,
+   "mean_angle_deg": 7.908245086669922
+  }
+ },
+ "scenario_Vw7_10s": {
+  "model": {
+   "max_crse_m": 340.3509521484375,
+   "n": 24,
+   "median_drift_pct": 47.797935485839844,
+   "p90_drift_pct": 97.9604721069336,
+   "pct_outages_under_10pct_drift": 0.0,
+   "median_err_m": 36.55614471435547,
+   "median_dist_m": 74.29249572753906,
+   "mean_angle_deg": 24.032976150512695
+  },
+  "physics": {
+   "max_crse_m": 333.1214904785156,
+   "n": 24,
+   "median_drift_pct": 28.609928131103516,
+   "p90_drift_pct": 97.76654052734375,
+   "pct_outages_under_10pct_drift": 4.166666666666666,
+   "median_err_m": 30.7362060546875,
+   "median_dist_m": 74.29249572753906,
+   "mean_angle_deg": 24.007465362548828
+  }
+ },
+ "scenario_Vw8_10s": {
+  "model": {
+   "max_crse_m": 298.6430358886719,
+   "n": 22,
+   "median_drift_pct": 56.53919982910156,
+   "p90_drift_pct": 79.22510528564453,
+   "pct_outages_under_10pct_drift": 4.545454545454546,
+   "median_err_m": 39.501075744628906,
+   "median_dist_m": 66.59583282470703,
+   "mean_angle_deg": 21.01527214050293
+  },
+  "physics": {
+   "max_crse_m": 307.6435241699219,
+   "n": 22,
+   "median_drift_pct": 48.15644836425781,
+   "p90_drift_pct": 87.01610565185547,
+   "pct_outages_under_10pct_drift": 4.545454545454546,
+   "median_err_m": 36.533164978027344,
+   "median_dist_m": 66.59583282470703,
+   "mean_angle_deg": 22.55386734008789
+  }
+ }
+}

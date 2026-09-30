@@ -1,0 +1,13 @@
+state label counts (train): {'straight': 381516, 'ordinary_turn': 50661, 'entry': 3474, 'circulating': 11497, 'exit': 3313}  drives with roundabout starts: 19
+warm start from tft_ep2.pt (val median drift 17.76%)
+device=mps params=492010 train_drives=35 val_drives=['S2', 'Vtb5']
+physics baseline (val): {"median_drift_pct": 25.976, "p90_drift_pct": 82.964, "median_drift30_pct": 19.052, "median_final_err_m": 167.022, "mean_angle_deg": 9.026, "n": 1982}
+{"epoch": 1, "time_s": 382.8, "res": 0.168, "inc": 3.1906, "angle": 0.0215, "mag": 1.1833, "pos": 0.1284, "stop": 0.179, "smooth": 1.4828, "cls": 1.2935, "win": 0.1604, "val_median_drift_pct": 17.211, "val_p90_drift_pct": 39.988, "val_median_drift30_pct": 12.768, "val_median_final_err_m": 102.382, "val_mean_angle_deg": 8.825, "val_n": 1982}
+{"epoch": 2, "time_s": 449.4, "res": 0.1625, "inc": 2.9684, "angle": 0.0198, "mag": 1.0984, "pos": 0.1228, "stop": 0.1751, "smooth": 1.5078, "cls": 1.0036, "win": 0.1507, "val_median_drift_pct": 18.032, "val_p90_drift_pct": 44.316, "val_median_drift30_pct": 12.663, "val_median_final_err_m": 108.939, "val_mean_angle_deg": 8.678, "val_n": 1982}
+{"epoch": 3, "time_s": 389.6, "res": 0.1595, "inc": 2.7703, "angle": 0.0202, "mag": 0.9815, "pos": 0.1189, "stop": 0.1627, "smooth": 1.4737, "cls": 0.9378, "win": 0.1388, "val_median_drift_pct": 17.172, "val_p90_drift_pct": 38.909, "val_median_drift30_pct": 12.393, "val_median_final_err_m": 100.504, "val_mean_angle_deg": 9.142, "val_n": 1982}
+{"epoch": 4, "time_s": 380.5, "res": 0.1577, "inc": 2.615, "angle": 0.0201, "mag": 0.891, "pos": 0.113, "stop": 0.1525, "smooth": 1.4729, "cls": 0.8914, "win": 0.1278, "val_median_drift_pct": 17.44, "val_p90_drift_pct": 39.357, "val_median_drift30_pct": 12.442, "val_median_final_err_m": 101.399, "val_mean_angle_deg": 9.072, "val_n": 1982}
+{"epoch": 5, "time_s": 399.1, "res": 0.1577, "inc": 2.5438, "angle": 0.0185, "mag": 0.8371, "pos": 0.1108, "stop": 0.144, "smooth": 1.4845, "cls": 0.8853, "win": 0.1207, "val_median_drift_pct": 17.465, "val_p90_drift_pct": 39.675, "val_median_drift30_pct": 12.515, "val_median_final_err_m": 104.661, "val_mean_angle_deg": 8.975, "val_n": 1982}
+{"epoch": 6, "time_s": 384.1, "res": 0.1573, "inc": 2.4987, "angle": 0.0188, "mag": 0.7929, "pos": 0.1086, "stop": 0.1397, "smooth": 1.4799, "cls": 0.8635, "win": 0.1161, "val_median_drift_pct": 17.237, "val_p90_drift_pct": 39.375, "val_median_drift30_pct": 12.445, "val_median_final_err_m": 102.887, "val_mean_angle_deg": 8.876, "val_n": 1982}
+early stop
+best val median drift 17.17% (baseline 25.98%)
+TRAIN_DONE

@@ -1,0 +1,6 @@
+device=mps params=491685 train_drives=35 val_drives=['S2', 'Vtb5']
+physics baseline (val): {"median_drift_pct": 25.976, "p90_drift_pct": 82.964, "median_drift30_pct": 19.052, "median_final_err_m": 167.022, "mean_angle_deg": 9.026, "n": 1982}
+{"epoch": 1, "time_s": 415.1, "res": 0.3259, "inc": 2.5397, "angle": 0.0321, "mag": 1.9738, "pos": 0.223, "stop": 0.1771, "smooth": 0.7354, "val_median_drift_pct": 20.743, "val_p90_drift_pct": 52.353, "val_median_drift30_pct": 14.613, "val_median_final_err_m": 122.947, "val_mean_angle_deg": 8.927, "val_n": 1982}
+{"epoch": 2, "time_s": 705.8, "res": 0.1909, "inc": 2.1927, "angle": 0.0254, "mag": 1.3651, "pos": 0.155, "stop": 0.1612, "smooth": 1.3684, "val_median_drift_pct": 17.756, "val_p90_drift_pct": 44.61, "val_median_drift30_pct": 12.948, "val_median_final_err_m": 105.037, "val_mean_angle_deg": 8.506, "val_n": 1982}
+python3(17141) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+python3(17144) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.

@@ -1,0 +1,16 @@
+state label counts (train): {'straight': 332671, 'ordinary_turn': 41750, 'entry': 2604, 'circulating': 8233, 'exit': 2487}  drives with roundabout starts: 17
+device=mps params=492010 train_drives=33 val_drives=['S2', 'Vtb5', 'S3c', 'Vta1a']
+physics baseline (val): {"median_drift_pct": 24.934, "p90_drift_pct": 75.967, "median_drift30_pct": 19.13, "median_final_err_m": 173.59, "mean_angle_deg": 8.351, "n": 1984}
+{"epoch": 1, "time_s": 367.6, "res": 0.3486, "inc": 2.805, "angle": 0.0482, "mag": 2.0388, "pos": 0.2261, "stop": 0.1808, "smooth": 0.7532, "cls": 0.842, "val_median_drift_pct": 19.141, "val_p90_drift_pct": 42.898, "val_median_drift30_pct": 14.023, "val_median_final_err_m": 123.616, "val_mean_angle_deg": 10.271, "val_n": 1984}
+{"epoch": 2, "time_s": 541.9, "res": 0.1889, "inc": 2.0556, "angle": 0.0218, "mag": 1.2934, "pos": 0.151, "stop": 0.1616, "smooth": 1.5818, "cls": 0.5375, "val_median_drift_pct": 18.463, "val_p90_drift_pct": 47.361, "val_median_drift30_pct": 13.803, "val_median_final_err_m": 116.996, "val_mean_angle_deg": 8.599, "val_n": 1984}
+{"epoch": 3, "time_s": 443.0, "res": 0.1575, "inc": 1.7757, "angle": 0.0186, "mag": 1.0743, "pos": 0.1318, "stop": 0.1463, "smooth": 1.3385, "cls": 0.4314, "val_median_drift_pct": 18.657, "val_p90_drift_pct": 44.449, "val_median_drift30_pct": 14.026, "val_median_final_err_m": 120.795, "val_mean_angle_deg": 8.653, "val_n": 1984}
+{"epoch": 4, "time_s": 477.4, "res": 0.144, "inc": 1.6123, "angle": 0.0162, "mag": 0.9292, "pos": 0.1217, "stop": 0.1345, "smooth": 1.1788, "cls": 0.3586, "val_median_drift_pct": 19.469, "val_p90_drift_pct": 45.976, "val_median_drift30_pct": 14.586, "val_median_final_err_m": 122.804, "val_mean_angle_deg": 9.192, "val_n": 1984}
+python3(29516) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+python3(29522) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+{"epoch": 5, "time_s": 471.4, "res": 0.134, "inc": 1.4507, "angle": 0.0156, "mag": 0.7967, "pos": 0.1128, "stop": 0.1209, "smooth": 1.1112, "cls": 0.3025, "val_median_drift_pct": 20.144, "val_p90_drift_pct": 46.752, "val_median_drift30_pct": 14.991, "val_median_final_err_m": 127.472, "val_mean_angle_deg": 9.14, "val_n": 1984}
+python3(30088) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+python3(30093) MallocStackLogging: can't turn off malloc stack logging because it was not enabled.
+{"epoch": 6, "time_s": 520.4, "res": 0.1293, "inc": 1.3548, "angle": 0.0153, "mag": 0.7137, "pos": 0.1055, "stop": 0.1098, "smooth": 1.1037, "cls": 0.2772, "val_median_drift_pct": 20.901, "val_p90_drift_pct": 48.212, "val_median_drift30_pct": 14.955, "val_median_final_err_m": 128.946, "val_mean_angle_deg": 9.148, "val_n": 1984}
+early stop
+best val median drift 18.46% (baseline 24.93%)
+TRAIN_DONE

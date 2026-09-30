@@ -1,0 +1,3942 @@
+{
+ "summary": {
+  "n_outages": 268,
+  "median_abs_along_end_m": 34.44198763207493,
+  "worst25_abs_along_end_m": 81.8260806957271,
+  "share_estimate_ahead_pct": 50.373134328358205,
+  "median_dist_ratio": 1.0534377517551747,
+  "median_abs_dist_err_pct": 14.5017349582148,
+  "median_speed_scale_end": 0.9970885209295721,
+  "junction_crossings": 526,
+  "median_abs_dt_junction_s": 1.3,
+  "p90_abs_dt_junction_s": 5.050000000000001,
+  "wrong_road_outages": 53,
+  "wrong_road_speed_driven": 25,
+  "wrong_road_topology_driven": 28
+ },
+ "rows": [
+  {
+   "drive": "Y1",
+   "t0": 4673,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 45.36946764207727,
+   "abs_along_end": 45.36946764207727,
+   "dist_ratio": 1.4516913332447108,
+   "speed_scale_end": 0.9409384256532088,
+   "dt_junction": [
+    -1.4000000000000001
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 5273,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 97.96959997388183,
+   "abs_along_end": 97.96959997388183,
+   "dist_ratio": 1.2684805196675049,
+   "speed_scale_end": 0.9826199429703604,
+   "dt_junction": [
+    0.4
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 5873,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -186.59455286841524,
+   "abs_along_end": 186.59455286841524,
+   "dist_ratio": 0.782432100239402,
+   "speed_scale_end": 1.059831419753753,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 7673,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 57.90935769307964,
+   "abs_along_end": 57.90935769307964,
+   "dist_ratio": 1.3455785649490972,
+   "speed_scale_end": 0.9180722590720072,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 8273,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": 22.686641158335775,
+   "abs_along_end": 22.686641158335775,
+   "dist_ratio": 1.5520289815570818,
+   "speed_scale_end": 1.0044780366122832,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 8916,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 13.983465159200335,
+   "abs_along_end": 13.983465159200335,
+   "dist_ratio": 2.016415350961265,
+   "speed_scale_end": 1.0726752044784287,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 9775,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -272.1268755229752,
+   "abs_along_end": 272.1268755229752,
+   "dist_ratio": 0.7757644391758014,
+   "speed_scale_end": 1.0358090172098766,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 10375,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 64.21159398367382,
+   "abs_along_end": 64.21159398367382,
+   "dist_ratio": 1.1921173051462828,
+   "speed_scale_end": 0.9839882599252695,
+   "dt_junction": [
+    -5.0,
+    -17.3,
+    -7.7,
+    -7.5,
+    -5.6000000000000005,
+    -4.9
+   ],
+   "n_junctions": 6
+  },
+  {
+   "drive": "Y1",
+   "t0": 10975,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 16.24984120674577,
+   "abs_along_end": 16.24984120674577,
+   "dist_ratio": 1.1630776861554348,
+   "speed_scale_end": 0.9440598961692217,
+   "dt_junction": [
+    -1.2000000000000002
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 11575,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -37.387221411880546,
+   "abs_along_end": 37.387221411880546,
+   "dist_ratio": 0.9105991080174848,
+   "speed_scale_end": 1.0006154201326163,
+   "dt_junction": [
+    2.0,
+    2.4000000000000004,
+    2.9000000000000004,
+    4.0,
+    4.800000000000001
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "Y1",
+   "t0": 12175,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -8.425700420745102,
+   "abs_along_end": 8.425700420745102,
+   "dist_ratio": 1.026755868737311,
+   "speed_scale_end": 0.9756621462176525,
+   "dt_junction": [
+    0.30000000000000004,
+    2.7
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 12775,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -25.747737392782142,
+   "abs_along_end": 25.747737392782142,
+   "dist_ratio": 0.9933234470672263,
+   "speed_scale_end": 1.018521542571957,
+   "dt_junction": [
+    0.6000000000000001,
+    2.1,
+    3.0,
+    -2.4000000000000004,
+    -2.9000000000000004
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "Y1",
+   "t0": 13375,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 15.478589434608466,
+   "abs_along_end": 15.478589434608466,
+   "dist_ratio": 1.1413530503040965,
+   "speed_scale_end": 0.9988393099622623,
+   "dt_junction": [
+    1.0,
+    0.5,
+    0.8,
+    0.1,
+    0.5,
+    0.0,
+    0.4
+   ],
+   "n_junctions": 7
+  },
+  {
+   "drive": "Y1",
+   "t0": 13975,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 6.750452026831681,
+   "abs_along_end": 6.750452026831681,
+   "dist_ratio": 0.9614933672583494,
+   "speed_scale_end": 0.952820223645213,
+   "dt_junction": [
+    1.0,
+    1.4000000000000001,
+    1.7000000000000002,
+    1.4000000000000001,
+    2.2
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "Y1",
+   "t0": 14575,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 25.022661965771704,
+   "abs_along_end": 25.022661965771704,
+   "dist_ratio": 1.1082461704024225,
+   "speed_scale_end": 0.9820833620575447,
+   "dt_junction": [
+    -2.9000000000000004
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 15175,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 46.66083168541883,
+   "abs_along_end": 46.66083168541883,
+   "dist_ratio": 1.1185901351186354,
+   "speed_scale_end": 0.9699609798125687,
+   "dt_junction": [
+    0.6000000000000001,
+    1.2000000000000002,
+    0.7000000000000001,
+    -1.7000000000000002,
+    -2.1,
+    -2.0
+   ],
+   "n_junctions": 6
+  },
+  {
+   "drive": "Y1",
+   "t0": 15775,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 12.377753522936985,
+   "abs_along_end": 12.377753522936985,
+   "dist_ratio": 1.015701126378325,
+   "speed_scale_end": 1.0216926956780137,
+   "dt_junction": [
+    0.5,
+    0.9,
+    0.8,
+    1.6,
+    1.0
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "Y1",
+   "t0": 16411,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -31.724170252965223,
+   "abs_along_end": 31.724170252965223,
+   "dist_ratio": 0.7684156140553859,
+   "speed_scale_end": 1.0294163692756761,
+   "dt_junction": [
+    0.7000000000000001,
+    1.6,
+    1.5,
+    8.0,
+    2.0
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "Y1",
+   "t0": 17011,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -26.07834836261941,
+   "abs_along_end": 26.07834836261941,
+   "dist_ratio": 0.9514924082851367,
+   "speed_scale_end": 1.0321297218109546,
+   "dt_junction": [
+    0.30000000000000004,
+    1.9000000000000001
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 17611,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -68.63534858106107,
+   "abs_along_end": 68.63534858106107,
+   "dist_ratio": 0.9852242475356721,
+   "speed_scale_end": 1.0200977368531885,
+   "dt_junction": [
+    -0.5
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 18211,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -108.73153571546311,
+   "abs_along_end": 108.73153571546311,
+   "dist_ratio": 0.8771262375011653,
+   "speed_scale_end": 0.9280965198814861,
+   "dt_junction": [
+    4.3,
+    8.1
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 18811,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 41.59974390107118,
+   "abs_along_end": 41.59974390107118,
+   "dist_ratio": 1.1201284977998107,
+   "speed_scale_end": 1.0264334431631645,
+   "dt_junction": [
+    0.5,
+    0.2,
+    -2.3000000000000003
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "Y1",
+   "t0": 19411,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 30.86301336837107,
+   "abs_along_end": 30.86301336837107,
+   "dist_ratio": 1.063146072291149,
+   "speed_scale_end": 1.013999555392741,
+   "dt_junction": [
+    1.3,
+    0.6000000000000001,
+    0.30000000000000004
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "Y1",
+   "t0": 20011,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 36.20109865679291,
+   "abs_along_end": 36.20109865679291,
+   "dist_ratio": 1.6038342874755709,
+   "speed_scale_end": 0.9104870803209922,
+   "dt_junction": [
+    0.7000000000000001,
+    -14.3
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 20784,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 10.975810088527624,
+   "abs_along_end": 10.975810088527624,
+   "dist_ratio": 0.9944412935939514,
+   "speed_scale_end": 1.0143505435307147,
+   "dt_junction": [
+    1.4000000000000001,
+    -0.1
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 21384,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 21.039696111218063,
+   "abs_along_end": 21.039696111218063,
+   "dist_ratio": 1.0915596552849145,
+   "speed_scale_end": 1.0124267720808908,
+   "dt_junction": [
+    -0.1
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 22683,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 13.79832507310266,
+   "abs_along_end": 13.79832507310266,
+   "dist_ratio": 1.0248193827435972,
+   "speed_scale_end": 0.9546005079623313,
+   "dt_junction": [
+    0.4,
+    -0.7000000000000001
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 23283,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -192.52059236287312,
+   "abs_along_end": 192.52059236287312,
+   "dist_ratio": 1.0771176000488416,
+   "speed_scale_end": 1.063816932188243,
+   "dt_junction": [
+    2.8000000000000003
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 23883,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 317.2451793308328,
+   "abs_along_end": 317.2451793308328,
+   "dist_ratio": 1.2381044919983033,
+   "speed_scale_end": 0.9367795641203003,
+   "dt_junction": [
+    0.9,
+    -5.800000000000001
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 24483,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -78.46618287945023,
+   "abs_along_end": 78.46618287945023,
+   "dist_ratio": 0.8954309502149231,
+   "speed_scale_end": 1.0081594272914478,
+   "dt_junction": [
+    0.30000000000000004,
+    0.8,
+    1.2000000000000002,
+    1.7000000000000002,
+    2.8000000000000003
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "Y1",
+   "t0": 25083,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -56.94596877956394,
+   "abs_along_end": 56.94596877956394,
+   "dist_ratio": 1.017485326362951,
+   "speed_scale_end": 1.0420181959838117,
+   "dt_junction": [
+    0.30000000000000004,
+    1.0,
+    3.3000000000000003
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "Y1",
+   "t0": 25683,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 15.210300328926621,
+   "abs_along_end": 15.210300328926621,
+   "dist_ratio": 1.285490459383447,
+   "speed_scale_end": 1.0504858390211362,
+   "dt_junction": [
+    1.1,
+    1.5,
+    -2.5,
+    -8.4
+   ],
+   "n_junctions": 4
+  },
+  {
+   "drive": "Y1",
+   "t0": 26283,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -0.9885921853410764,
+   "abs_along_end": 0.9885921853410764,
+   "dist_ratio": 0.885640444241743,
+   "speed_scale_end": 0.9247039969540466,
+   "dt_junction": [
+    -1.7000000000000002
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 26883,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -51.14291737687995,
+   "abs_along_end": 51.14291737687995,
+   "dist_ratio": 0.9819966515480103,
+   "speed_scale_end": 0.8983220051671784,
+   "dt_junction": [
+    0.4,
+    -1.2000000000000002,
+    0.8,
+    1.3,
+    4.800000000000001
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "Y1",
+   "t0": 28102,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 19.230733214079237,
+   "abs_along_end": 19.230733214079237,
+   "dist_ratio": 0.8564232159804618,
+   "speed_scale_end": 1.0539034245873078,
+   "dt_junction": [
+    -16.2
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 28882,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 18.976657615402075,
+   "abs_along_end": 18.976657615402075,
+   "dist_ratio": 0.8457096483175709,
+   "speed_scale_end": 1.0103600583176418,
+   "dt_junction": [
+    6.1000000000000005,
+    -0.8
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 29482,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 5.903077805169232,
+   "abs_along_end": 5.903077805169232,
+   "dist_ratio": 0.8621921404192977,
+   "speed_scale_end": 1.0030036331777459,
+   "dt_junction": [
+    0.1,
+    2.8000000000000003,
+    7.6000000000000005
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "Y1",
+   "t0": 30082,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -11.44083785958071,
+   "abs_along_end": 11.44083785958071,
+   "dist_ratio": 0.8502019388274784,
+   "speed_scale_end": 1.1025831328588716,
+   "dt_junction": [
+    3.5,
+    3.6,
+    0.1
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "Y1",
+   "t0": 30682,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -6.757106878581908,
+   "abs_along_end": 6.757106878581908,
+   "dist_ratio": 0.9654757666835058,
+   "speed_scale_end": 1.0529689386156964,
+   "dt_junction": [
+    0.4,
+    0.6000000000000001
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 31282,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -208.9176933572029,
+   "abs_along_end": 208.9176933572029,
+   "dist_ratio": 0.7704919522004836,
+   "speed_scale_end": 0.9359170560879736,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 31956,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -200.96037939632083,
+   "abs_along_end": 200.96037939632083,
+   "dist_ratio": 0.6927174387531655,
+   "speed_scale_end": 1.0244590726916636,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 32556,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 84.84657229106608,
+   "abs_along_end": 84.84657229106608,
+   "dist_ratio": 1.3377535776396345,
+   "speed_scale_end": 0.8668758645380548,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 33156,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 4.713629243986134,
+   "abs_along_end": 4.713629243986134,
+   "dist_ratio": 1.2015922773069398,
+   "speed_scale_end": 1.0268296312022198,
+   "dt_junction": [
+    2.9000000000000004,
+    2.0,
+    3.2,
+    3.0,
+    6.800000000000001
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "Y1",
+   "t0": 33756,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 17.9188045393866,
+   "abs_along_end": 17.9188045393866,
+   "dist_ratio": 0.9443116684824275,
+   "speed_scale_end": 0.9784425847925726,
+   "dt_junction": [
+    1.8,
+    2.8000000000000003,
+    2.2,
+    4.2
+   ],
+   "n_junctions": 4
+  },
+  {
+   "drive": "Y1",
+   "t0": 34356,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": -116.19284964235811,
+   "abs_along_end": 116.19284964235811,
+   "dist_ratio": 0.8879373387605145,
+   "speed_scale_end": 0.9930645615297259,
+   "dt_junction": [
+    10.0
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 34956,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -24.474069338042227,
+   "abs_along_end": 24.474069338042227,
+   "dist_ratio": 0.962170642221862,
+   "speed_scale_end": 1.0697495600912197,
+   "dt_junction": [
+    0.9,
+    -0.4,
+    0.5
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "Y1",
+   "t0": 35556,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 28.996925900285078,
+   "abs_along_end": 28.996925900285078,
+   "dist_ratio": 1.1571695972467768,
+   "speed_scale_end": 0.988818215311709,
+   "dt_junction": [
+    1.3,
+    1.5
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 36156,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -11.43897339340515,
+   "abs_along_end": 11.43897339340515,
+   "dist_ratio": 1.0756500498885135,
+   "speed_scale_end": 0.9076250372072948,
+   "dt_junction": [
+    1.0
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 36756,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -81.72649336278903,
+   "abs_along_end": 81.72649336278903,
+   "dist_ratio": 0.8669412388645522,
+   "speed_scale_end": 0.9514653896143559,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 37356,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -21.852251795523216,
+   "abs_along_end": 21.852251795523216,
+   "dist_ratio": 0.9589864450314965,
+   "speed_scale_end": 0.9942740007065642,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 37956,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 20.058480511181756,
+   "abs_along_end": 20.058480511181756,
+   "dist_ratio": 1.074919599651248,
+   "speed_scale_end": 1.0209315543341044,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 38666,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 32.601313061599,
+   "abs_along_end": 32.601313061599,
+   "dist_ratio": 1.18068150478289,
+   "speed_scale_end": 1.0271948938543585,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 39266,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 24.896580152057936,
+   "abs_along_end": 24.896580152057936,
+   "dist_ratio": 0.8613536908115804,
+   "speed_scale_end": 1.0161619807289093,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 39866,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 103.4220353338768,
+   "abs_along_end": 103.4220353338768,
+   "dist_ratio": 1.2023316920566867,
+   "speed_scale_end": 1.0214317749139348,
+   "dt_junction": [
+    -2.7,
+    -5.1000000000000005,
+    -5.9,
+    -6.5
+   ],
+   "n_junctions": 4
+  },
+  {
+   "drive": "Y1",
+   "t0": 40466,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 9.48170194582076,
+   "abs_along_end": 9.48170194582076,
+   "dist_ratio": 1.1182461548541338,
+   "speed_scale_end": 1.0278672688681316,
+   "dt_junction": [
+    0.5,
+    1.3,
+    0.8
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "Y1",
+   "t0": 41066,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 20.38386374000413,
+   "abs_along_end": 20.38386374000413,
+   "dist_ratio": 0.9514231513670769,
+   "speed_scale_end": 1.0528932994403377,
+   "dt_junction": [
+    1.2000000000000002,
+    1.9000000000000001,
+    2.4000000000000004,
+    4.3,
+    -2.3000000000000003,
+    -0.8
+   ],
+   "n_junctions": 6
+  },
+  {
+   "drive": "Y1",
+   "t0": 41666,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -0.6457958976723148,
+   "abs_along_end": 0.6457958976723148,
+   "dist_ratio": 1.1189369076269278,
+   "speed_scale_end": 1.0428202189122147,
+   "dt_junction": [
+    3.5
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 42866,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 67.64351664803678,
+   "abs_along_end": 67.64351664803678,
+   "dist_ratio": 1.4045742321598431,
+   "speed_scale_end": 0.7472005890025606,
+   "dt_junction": [
+    -4.6000000000000005
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 43466,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -26.441970999455577,
+   "abs_along_end": 26.441970999455577,
+   "dist_ratio": 0.9665081851861478,
+   "speed_scale_end": 0.9808201669769876,
+   "dt_junction": [
+    -3.0,
+    1.6,
+    -5.9
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "Y1",
+   "t0": 44066,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -68.04379453649449,
+   "abs_along_end": 68.04379453649449,
+   "dist_ratio": 0.9641766661264467,
+   "speed_scale_end": 0.994502733133549,
+   "dt_junction": [
+    2.9000000000000004,
+    3.9000000000000004,
+    3.4000000000000004,
+    3.6,
+    6.0,
+    5.7
+   ],
+   "n_junctions": 6
+  },
+  {
+   "drive": "Y1",
+   "t0": 44666,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -194.93557884650642,
+   "abs_along_end": 194.93557884650642,
+   "dist_ratio": 1.1649800597077005,
+   "speed_scale_end": 0.9361883495144966,
+   "dt_junction": [
+    -0.6000000000000001
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 45266,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -195.62062767862267,
+   "abs_along_end": 195.62062767862267,
+   "dist_ratio": 0.6794145976491055,
+   "speed_scale_end": 1.0644201605537689,
+   "dt_junction": [
+    1.1,
+    3.0,
+    1.8,
+    7.1000000000000005
+   ],
+   "n_junctions": 4
+  },
+  {
+   "drive": "Y1",
+   "t0": 45866,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -47.789736699901596,
+   "abs_along_end": 47.789736699901596,
+   "dist_ratio": 0.8878505664234311,
+   "speed_scale_end": 1.1110525147670127,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 46466,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 51.34270173143602,
+   "abs_along_end": 51.34270173143602,
+   "dist_ratio": 1.0056443890184865,
+   "speed_scale_end": 1.1272819407706016,
+   "dt_junction": [
+    1.5,
+    2.8000000000000003,
+    -4.2,
+    -4.0,
+    -3.6,
+    -3.6,
+    -4.0
+   ],
+   "n_junctions": 7
+  },
+  {
+   "drive": "Y1",
+   "t0": 47066,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 10.66722370403653,
+   "abs_along_end": 10.66722370403653,
+   "dist_ratio": 1.0904818486040755,
+   "speed_scale_end": 0.9528684999058074,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 47666,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": -47.18562874651474,
+   "abs_along_end": 47.18562874651474,
+   "dist_ratio": 0.9899983129106216,
+   "speed_scale_end": 0.9243856329092609,
+   "dt_junction": [
+    6.5,
+    9.0
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 48266,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -47.351708388817144,
+   "abs_along_end": 47.351708388817144,
+   "dist_ratio": 0.9336932789096661,
+   "speed_scale_end": 0.9883812272211759,
+   "dt_junction": [
+    -3.8000000000000003,
+    -0.5,
+    1.9000000000000001
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "Y1",
+   "t0": 48866,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 128.0181735663104,
+   "abs_along_end": 128.0181735663104,
+   "dist_ratio": 1.4036021460853596,
+   "speed_scale_end": 1.116985987066027,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 49466,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 44.46175809686372,
+   "abs_along_end": 44.46175809686372,
+   "dist_ratio": 1.2252477697934303,
+   "speed_scale_end": 0.9570010143049672,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 50128,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": -511.6175342407812,
+   "abs_along_end": 511.6175342407812,
+   "dist_ratio": 0.6959817351292599,
+   "speed_scale_end": 1.077693213316599,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 50728,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -144.35602191494365,
+   "abs_along_end": 144.35602191494365,
+   "dist_ratio": 0.6378334586214415,
+   "speed_scale_end": 1.257330456026834,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 51328,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -8.287835361918724,
+   "abs_along_end": 8.287835361918724,
+   "dist_ratio": 1.048434850122932,
+   "speed_scale_end": 1.0088171417184308,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 51928,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -5.873623619456225,
+   "abs_along_end": 5.873623619456225,
+   "dist_ratio": 0.8914045962881194,
+   "speed_scale_end": 0.7890886940612408,
+   "dt_junction": [
+    1.8,
+    3.9000000000000004,
+    7.7
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "Y1",
+   "t0": 52528,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": 17.916110168235832,
+   "abs_along_end": 17.916110168235832,
+   "dist_ratio": 0.9767847523930349,
+   "speed_scale_end": 1.0353472427930293,
+   "dt_junction": [
+    1.4000000000000001
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 53128,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 19.914271836425087,
+   "abs_along_end": 19.914271836425087,
+   "dist_ratio": 1.3626314257488383,
+   "speed_scale_end": 1.0090399885462977,
+   "dt_junction": [
+    1.5,
+    0.8
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 53728,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 44.00662453179325,
+   "abs_along_end": 44.00662453179325,
+   "dist_ratio": 1.535524104640804,
+   "speed_scale_end": 0.8868317023527736,
+   "dt_junction": [
+    -8.5,
+    -5.6000000000000005
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 54328,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": -3.999668560979444,
+   "abs_along_end": 3.999668560979444,
+   "dist_ratio": 1.5919487333781481,
+   "speed_scale_end": 0.9918487280756986,
+   "dt_junction": [
+    0.8,
+    -4.1000000000000005,
+    -6.800000000000001
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "Y1",
+   "t0": 54928,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": -143.30429885546923,
+   "abs_along_end": 143.30429885546923,
+   "dist_ratio": 1.1899264364893662,
+   "speed_scale_end": 0.8391189430892572,
+   "dt_junction": [
+    -39.5
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 55528,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": 236.3467969512471,
+   "abs_along_end": 236.3467969512471,
+   "dist_ratio": 1.6008918867997843,
+   "speed_scale_end": 0.8994199148183395,
+   "dt_junction": [
+    -3.5
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 56128,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 80.3928627819214,
+   "abs_along_end": 80.3928627819214,
+   "dist_ratio": 1.201851874509791,
+   "speed_scale_end": 1.0871912124727126,
+   "dt_junction": [
+    -3.2,
+    1.4000000000000001
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 56728,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": 53.33847677623095,
+   "abs_along_end": 53.33847677623095,
+   "dist_ratio": 1.6181068711698732,
+   "speed_scale_end": 1.0181524813255969,
+   "dt_junction": [
+    0.1,
+    -6.4
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 57328,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 14.206781163357505,
+   "abs_along_end": 14.206781163357505,
+   "dist_ratio": 1.4241214198270955,
+   "speed_scale_end": 0.9429100119030277,
+   "dt_junction": [
+    -2.1,
+    -2.5
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 57985,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 27.023537404158446,
+   "abs_along_end": 27.023537404158446,
+   "dist_ratio": 1.684576802242849,
+   "speed_scale_end": 1.0396791801901462,
+   "dt_junction": [
+    0.4,
+    1.6
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 58585,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 78.70418380812612,
+   "abs_along_end": 78.70418380812612,
+   "dist_ratio": 1.7391123542006732,
+   "speed_scale_end": 1.0755503950636005,
+   "dt_junction": [
+    0.0,
+    -2.9000000000000004,
+    -11.200000000000001
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "Y1",
+   "t0": 59185,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -168.92878501239198,
+   "abs_along_end": 168.92878501239198,
+   "dist_ratio": 0.9561460810655688,
+   "speed_scale_end": 0.9486307437488328,
+   "dt_junction": [
+    3.2
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 59785,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 59.25580683842884,
+   "abs_along_end": 59.25580683842884,
+   "dist_ratio": 1.2307339770648706,
+   "speed_scale_end": 0.9132354124382159,
+   "dt_junction": [
+    -2.2
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 60385,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 86.31641666512911,
+   "abs_along_end": 86.31641666512911,
+   "dist_ratio": 1.7739149600206185,
+   "speed_scale_end": 1.2258363573765076,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 61079,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -13.519481399183178,
+   "abs_along_end": 13.519481399183178,
+   "dist_ratio": 1.0549129357350646,
+   "speed_scale_end": 0.9987552964934547,
+   "dt_junction": [
+    0.9,
+    0.9,
+    0.9,
+    0.6000000000000001,
+    0.30000000000000004
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "Y1",
+   "t0": 61679,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 21.193306869322385,
+   "abs_along_end": 21.193306869322385,
+   "dist_ratio": 1.2740741471124244,
+   "speed_scale_end": 0.8879287919563523,
+   "dt_junction": [
+    0.6000000000000001,
+    -4.6000000000000005,
+    1.1
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "Y1",
+   "t0": 62279,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 185.3837084207995,
+   "abs_along_end": 185.3837084207995,
+   "dist_ratio": 1.3739777432387623,
+   "speed_scale_end": 0.9437495413179163,
+   "dt_junction": [
+    0.7000000000000001,
+    1.0,
+    -3.5
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "Y1",
+   "t0": 62879,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 88.05729762879417,
+   "abs_along_end": 88.05729762879417,
+   "dist_ratio": 1.2523831012778597,
+   "speed_scale_end": 0.9175055895405804,
+   "dt_junction": [
+    1.3,
+    -3.6
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 63479,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 4.600599593888944,
+   "abs_along_end": 4.600599593888944,
+   "dist_ratio": 1.3502161127314198,
+   "speed_scale_end": 1.046111079801594,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "Y1",
+   "t0": 64079,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 125.65709701566954,
+   "abs_along_end": 125.65709701566954,
+   "dist_ratio": 1.264193753599291,
+   "speed_scale_end": 0.8674878933789827,
+   "dt_junction": [
+    0.8,
+    -1.4000000000000001,
+    -6.5
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "Y1",
+   "t0": 64679,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -58.936589521359565,
+   "abs_along_end": 58.936589521359565,
+   "dist_ratio": 0.942056492773049,
+   "speed_scale_end": 0.9252827094721828,
+   "dt_junction": [
+    0.8,
+    2.4000000000000004
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 65279,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 55.66491038708671,
+   "abs_along_end": 55.66491038708671,
+   "dist_ratio": 1.1676157583866955,
+   "speed_scale_end": 1.0012374719801043,
+   "dt_junction": [
+    0.4,
+    0.6000000000000001,
+    -4.3,
+    -8.8
+   ],
+   "n_junctions": 4
+  },
+  {
+   "drive": "Y1",
+   "t0": 65879,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": 125.44809170082158,
+   "abs_along_end": 125.44809170082158,
+   "dist_ratio": 1.74718485333736,
+   "speed_scale_end": 1.0406313811527905,
+   "dt_junction": [
+    -26.1
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 66479,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 91.93042940596206,
+   "abs_along_end": 91.93042940596206,
+   "dist_ratio": 1.5194291326871083,
+   "speed_scale_end": 0.8062191300792572,
+   "dt_junction": [
+    0.30000000000000004,
+    -0.30000000000000004
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "Y1",
+   "t0": 67079,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 15.077669329624882,
+   "abs_along_end": 15.077669329624882,
+   "dist_ratio": 1.1427930495573142,
+   "speed_scale_end": 0.9726804149793027,
+   "dt_junction": [
+    -4.0
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "Y1",
+   "t0": 67679,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -6.516517022017069,
+   "abs_along_end": 6.516517022017069,
+   "dist_ratio": 0.934233822414619,
+   "speed_scale_end": 0.9962460214391656,
+   "dt_junction": [
+    0.4,
+    -0.30000000000000004,
+    0.1,
+    0.6000000000000001,
+    0.2,
+    0.6000000000000001
+   ],
+   "n_junctions": 6
+  },
+  {
+   "drive": "Y1",
+   "t0": 68279,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": 33.91624034613926,
+   "abs_along_end": 33.91624034613926,
+   "dist_ratio": 1.267225129578944,
+   "speed_scale_end": 0.9905855016840461,
+   "dt_junction": [
+    0.0,
+    -20.5,
+    -1.8,
+    -1.4000000000000001,
+    -3.8000000000000003
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "M",
+   "t0": 59,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -53.30805736154724,
+   "abs_along_end": 53.30805736154724,
+   "dist_ratio": 1.1276053301179443,
+   "speed_scale_end": 1.031509358549324,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 659,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 68.63409975323293,
+   "abs_along_end": 68.63409975323293,
+   "dist_ratio": 1.3142971149605382,
+   "speed_scale_end": 0.9360866222562702,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 1259,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -115.85914429192465,
+   "abs_along_end": 115.85914429192465,
+   "dist_ratio": 1.3229230922809272,
+   "speed_scale_end": 0.9669230601952672,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 1859,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 177.19320615483122,
+   "abs_along_end": 177.19320615483122,
+   "dist_ratio": 1.4144539396432514,
+   "speed_scale_end": 0.9846078602680176,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 2459,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -86.72010920850175,
+   "abs_along_end": 86.72010920850175,
+   "dist_ratio": 0.5978310256379425,
+   "speed_scale_end": 0.9856579398294446,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 3059,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 37.27745742588161,
+   "abs_along_end": 37.27745742588161,
+   "dist_ratio": 1.0765048225110274,
+   "speed_scale_end": 0.9957263920982384,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 3659,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 8.747852431934575,
+   "abs_along_end": 8.747852431934575,
+   "dist_ratio": 1.1267240978097044,
+   "speed_scale_end": 0.9114131637114884,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 4259,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -23.213477447503237,
+   "abs_along_end": 23.213477447503237,
+   "dist_ratio": 1.1212839735694442,
+   "speed_scale_end": 0.9849091738402109,
+   "dt_junction": [
+    3.0,
+    0.9,
+    3.7
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 4859,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -33.416919252700666,
+   "abs_along_end": 33.416919252700666,
+   "dist_ratio": 0.7832026487501171,
+   "speed_scale_end": 0.9915810274629642,
+   "dt_junction": [
+    -1.8,
+    0.4,
+    1.6
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 5543,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -247.4734562385102,
+   "abs_along_end": 247.4734562385102,
+   "dist_ratio": 0.7432315665317012,
+   "speed_scale_end": 1.0490818544870375,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 6143,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": -144.95264963110083,
+   "abs_along_end": 144.95264963110083,
+   "dist_ratio": 0.9644154985839938,
+   "speed_scale_end": 1.005421660474851,
+   "dt_junction": [
+    6.1000000000000005
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 6743,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 24.488173038033324,
+   "abs_along_end": 24.488173038033324,
+   "dist_ratio": 1.104373199310421,
+   "speed_scale_end": 0.9114018872212818,
+   "dt_junction": [
+    -0.7000000000000001,
+    1.4000000000000001,
+    2.6,
+    2.6,
+    0.6000000000000001
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "M",
+   "t0": 7343,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -13.575123966160959,
+   "abs_along_end": 13.575123966160959,
+   "dist_ratio": 1.1345374241833246,
+   "speed_scale_end": 0.9621292406068128,
+   "dt_junction": [
+    -2.2,
+    -3.6,
+    -6.1000000000000005
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 7943,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 13.567392174530596,
+   "abs_along_end": 13.567392174530596,
+   "dist_ratio": 0.9016558113557047,
+   "speed_scale_end": 0.9593426565724932,
+   "dt_junction": [
+    0.8,
+    0.30000000000000004,
+    -0.1
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 8543,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 84.94223192699371,
+   "abs_along_end": 84.94223192699371,
+   "dist_ratio": 1.3519822249766942,
+   "speed_scale_end": 1.0197469099519945,
+   "dt_junction": [
+    0.6000000000000001,
+    -2.0
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 9143,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -116.89952559294017,
+   "abs_along_end": 116.89952559294017,
+   "dist_ratio": 1.0117369907765414,
+   "speed_scale_end": 1.0080513978962358,
+   "dt_junction": [
+    0.8
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 9743,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -76.65611775293485,
+   "abs_along_end": 76.65611775293485,
+   "dist_ratio": 1.0823525179454532,
+   "speed_scale_end": 1.0588352032089663,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 10343,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -44.649812736170475,
+   "abs_along_end": 44.649812736170475,
+   "dist_ratio": 1.4716805433298832,
+   "speed_scale_end": 1.0009873093962605,
+   "dt_junction": [
+    0.6000000000000001
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 10943,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": -24.799231726819585,
+   "abs_along_end": 24.799231726819585,
+   "dist_ratio": 0.9456581087296663,
+   "speed_scale_end": 1.0043545899370239,
+   "dt_junction": [
+    1.2000000000000002
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 11543,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -2.338809933492655,
+   "abs_along_end": 2.338809933492655,
+   "dist_ratio": 1.0351938792234825,
+   "speed_scale_end": 0.9225979060126877,
+   "dt_junction": [
+    -2.5
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 12143,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": -115.66899790725307,
+   "abs_along_end": 115.66899790725307,
+   "dist_ratio": 1.2297076390835378,
+   "speed_scale_end": 0.9257450474054113,
+   "dt_junction": [
+    -1.6
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 12743,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": 39.360663325635585,
+   "abs_along_end": 39.360663325635585,
+   "dist_ratio": 1.273307717093695,
+   "speed_scale_end": 0.9579771588661256,
+   "dt_junction": [
+    -2.6,
+    -2.6
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 13343,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 55.313926975004165,
+   "abs_along_end": 55.313926975004165,
+   "dist_ratio": 1.4035367928125388,
+   "speed_scale_end": 1.0126904759229498,
+   "dt_junction": [
+    1.0,
+    -1.0,
+    -3.3000000000000003
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 13943,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -60.30484658352117,
+   "abs_along_end": 60.30484658352117,
+   "dist_ratio": 0.7794887938978139,
+   "speed_scale_end": 0.9557088390919345,
+   "dt_junction": [
+    -0.1
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 14543,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 14.587292373509115,
+   "abs_along_end": 14.587292373509115,
+   "dist_ratio": 1.0977636263658932,
+   "speed_scale_end": 0.96157794488397,
+   "dt_junction": [
+    1.4000000000000001,
+    1.5,
+    1.4000000000000001
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 15143,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -5.804225119961075,
+   "abs_along_end": 5.804225119961075,
+   "dist_ratio": 1.117209121224708,
+   "speed_scale_end": 0.9715927494012121,
+   "dt_junction": [
+    -2.7
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 15743,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 4.229621562724219,
+   "abs_along_end": 4.229621562724219,
+   "dist_ratio": 1.3088260769280453,
+   "speed_scale_end": 1.0429052654638082,
+   "dt_junction": [
+    -1.3,
+    -3.1,
+    -4.5
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 16343,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": 0.01983194171532432,
+   "abs_along_end": 0.01983194171532432,
+   "dist_ratio": 1.1959011314003527,
+   "speed_scale_end": 1.1555210884432379,
+   "dt_junction": [
+    0.0
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 16973,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 82.12484269454131,
+   "abs_along_end": 82.12484269454131,
+   "dist_ratio": 1.4727683914849972,
+   "speed_scale_end": 1.0459890687002036,
+   "dt_junction": [
+    -2.7,
+    0.30000000000000004
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 17573,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 8.558096564029654,
+   "abs_along_end": 8.558096564029654,
+   "dist_ratio": 1.0095168476431344,
+   "speed_scale_end": 1.0253260536357929,
+   "dt_junction": [
+    0.8,
+    -11.9
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 18173,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 25.787327210887895,
+   "abs_along_end": 25.787327210887895,
+   "dist_ratio": 1.216249980086529,
+   "speed_scale_end": 1.020817681356774,
+   "dt_junction": [
+    0.8,
+    2.6
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 18773,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -2.287611028453682,
+   "abs_along_end": 2.287611028453682,
+   "dist_ratio": 1.003290466850326,
+   "speed_scale_end": 1.0058861917118473,
+   "dt_junction": [
+    -3.0,
+    -1.3,
+    -1.0
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 19373,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 62.161990129708386,
+   "abs_along_end": 62.161990129708386,
+   "dist_ratio": 1.4624926903490554,
+   "speed_scale_end": 0.9739474745704387,
+   "dt_junction": [
+    0.7000000000000001,
+    0.0,
+    -3.4000000000000004,
+    -5.300000000000001
+   ],
+   "n_junctions": 4
+  },
+  {
+   "drive": "M",
+   "t0": 19973,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -7.60815450897428,
+   "abs_along_end": 7.60815450897428,
+   "dist_ratio": 0.9986656918227609,
+   "speed_scale_end": 0.8967295537486368,
+   "dt_junction": [
+    1.0,
+    1.8
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 20573,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 64.72018617043739,
+   "abs_along_end": 64.72018617043739,
+   "dist_ratio": 1.6614913383480434,
+   "speed_scale_end": 1.1039581174074196,
+   "dt_junction": [
+    0.0
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 21219,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": 18.25302437189049,
+   "abs_along_end": 18.25302437189049,
+   "dist_ratio": 1.2057178508795687,
+   "speed_scale_end": 1.0007636750951077,
+   "dt_junction": [
+    0.8,
+    -2.6
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 21819,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -11.133101315081262,
+   "abs_along_end": 11.133101315081262,
+   "dist_ratio": 1.09837654220535,
+   "speed_scale_end": 0.9346194544237483,
+   "dt_junction": [
+    0.4,
+    0.7000000000000001,
+    1.6,
+    0.8,
+    0.30000000000000004
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "M",
+   "t0": 22419,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -91.14022842936618,
+   "abs_along_end": 91.14022842936618,
+   "dist_ratio": 0.9497915213768868,
+   "speed_scale_end": 1.0251501814015735,
+   "dt_junction": [
+    0.30000000000000004,
+    6.2,
+    7.4
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 23019,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 111.70986401228845,
+   "abs_along_end": 111.70986401228845,
+   "dist_ratio": 1.1558007901879694,
+   "speed_scale_end": 0.9834559968443721,
+   "dt_junction": [
+    -4.800000000000001
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 23619,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -80.89441242376176,
+   "abs_along_end": 80.89441242376176,
+   "dist_ratio": 0.8962937877125174,
+   "speed_scale_end": 0.9826095840610735,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 24219,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -88.25558141438887,
+   "abs_along_end": 88.25558141438887,
+   "dist_ratio": 0.7325978764943014,
+   "speed_scale_end": 1.0541997034116355,
+   "dt_junction": [
+    -2.3000000000000003
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 24819,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 9.89604803136649,
+   "abs_along_end": 9.89604803136649,
+   "dist_ratio": 0.8493764099250193,
+   "speed_scale_end": 1.0283943639414972,
+   "dt_junction": [
+    1.9000000000000001
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 25419,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -515.7785877479103,
+   "abs_along_end": 515.7785877479103,
+   "dist_ratio": 0.6235957382368309,
+   "speed_scale_end": 1.0010403566278112,
+   "dt_junction": [
+    3.7
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 26019,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -282.84166834962446,
+   "abs_along_end": 282.84166834962446,
+   "dist_ratio": 0.8398278372793823,
+   "speed_scale_end": 1.08352903291793,
+   "dt_junction": [
+    12.9,
+    11.200000000000001
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 26619,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": -366.8004701595338,
+   "abs_along_end": 366.8004701595338,
+   "dist_ratio": 1.054619707129396,
+   "speed_scale_end": 1.076792447536048,
+   "dt_junction": [
+    0.0
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 27219,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -11.36804134857232,
+   "abs_along_end": 11.36804134857232,
+   "dist_ratio": 1.0808367154750969,
+   "speed_scale_end": 0.7504810025805173,
+   "dt_junction": [
+    -1.7000000000000002,
+    -1.4000000000000001
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 27819,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -498.89730859966903,
+   "abs_along_end": 498.89730859966903,
+   "dist_ratio": 0.6068420157868941,
+   "speed_scale_end": 0.8705632599378332,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 28419,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -46.88206523526571,
+   "abs_along_end": 46.88206523526571,
+   "dist_ratio": 0.844394863020385,
+   "speed_scale_end": 0.996721459730244,
+   "dt_junction": [
+    2.8000000000000003,
+    -1.0,
+    1.0
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 29019,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 52.20786503862848,
+   "abs_along_end": 52.20786503862848,
+   "dist_ratio": 1.1423509734835842,
+   "speed_scale_end": 1.011414822178276,
+   "dt_junction": [
+    0.5,
+    1.1
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 29619,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 38.82431890299165,
+   "abs_along_end": 38.82431890299165,
+   "dist_ratio": 1.1773977541207274,
+   "speed_scale_end": 0.9574166442762504,
+   "dt_junction": [
+    1.4000000000000001
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 30219,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -74.28656359391482,
+   "abs_along_end": 74.28656359391482,
+   "dist_ratio": 0.8139764832524659,
+   "speed_scale_end": 0.9940698733054879,
+   "dt_junction": [
+    0.2,
+    -0.2,
+    1.8,
+    -1.6
+   ],
+   "n_junctions": 4
+  },
+  {
+   "drive": "M",
+   "t0": 30819,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": -2.662590589049657,
+   "abs_along_end": 2.662590589049657,
+   "dist_ratio": 2.190663146061056,
+   "speed_scale_end": 0.9986208507235466,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 32219,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 7.399471733302676,
+   "abs_along_end": 7.399471733302676,
+   "dist_ratio": 1.0053927875948174,
+   "speed_scale_end": 0.9992632253079341,
+   "dt_junction": [
+    -2.2
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 32819,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 52.580147594886455,
+   "abs_along_end": 52.580147594886455,
+   "dist_ratio": 1.3424670153044358,
+   "speed_scale_end": 0.8589906109309503,
+   "dt_junction": [
+    1.6,
+    -0.2,
+    -2.4000000000000004
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 33419,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 0.0,
+   "abs_along_end": 0.0,
+   "dist_ratio": 1.0613874559819796,
+   "speed_scale_end": 0.9197958431303939,
+   "dt_junction": [
+    0.8,
+    0.5,
+    1.5,
+    2.1,
+    2.5,
+    2.6,
+    -1.2000000000000002
+   ],
+   "n_junctions": 7
+  },
+  {
+   "drive": "M",
+   "t0": 34019,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -11.532904347348222,
+   "abs_along_end": 11.532904347348222,
+   "dist_ratio": 0.9892577631304923,
+   "speed_scale_end": 0.8942152922127613,
+   "dt_junction": [
+    1.0,
+    1.2000000000000002,
+    1.4000000000000001,
+    1.2000000000000002,
+    1.7000000000000002,
+    0.9,
+    1.5,
+    0.6000000000000001
+   ],
+   "n_junctions": 8
+  },
+  {
+   "drive": "M",
+   "t0": 34619,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 5.455428247619693,
+   "abs_along_end": 5.455428247619693,
+   "dist_ratio": 1.0462364860837245,
+   "speed_scale_end": 1.0105319611188066,
+   "dt_junction": [
+    0.2,
+    0.0,
+    0.1,
+    0.0,
+    -1.0,
+    -0.2
+   ],
+   "n_junctions": 6
+  },
+  {
+   "drive": "M",
+   "t0": 35219,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": 13.995172498536476,
+   "abs_along_end": 13.995172498536476,
+   "dist_ratio": 1.3987970827454252,
+   "speed_scale_end": 0.9498981895369496,
+   "dt_junction": [
+    -0.7000000000000001,
+    -13.8,
+    -4.5,
+    -0.5
+   ],
+   "n_junctions": 4
+  },
+  {
+   "drive": "M",
+   "t0": 35819,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 18.0699799901829,
+   "abs_along_end": 18.0699799901829,
+   "dist_ratio": 1.750926209314743,
+   "speed_scale_end": 0.8891972160173087,
+   "dt_junction": [
+    0.2,
+    -0.9
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 36419,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 23.462231350382467,
+   "abs_along_end": 23.462231350382467,
+   "dist_ratio": 1.3606439219897493,
+   "speed_scale_end": 0.9764280161967286,
+   "dt_junction": [
+    -0.30000000000000004,
+    -0.30000000000000004,
+    -0.4
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 37019,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -5.853216016989734,
+   "abs_along_end": 5.853216016989734,
+   "dist_ratio": 1.1520414027630976,
+   "speed_scale_end": 0.9809259248476256,
+   "dt_junction": [
+    0.1,
+    -0.5,
+    0.1,
+    1.0,
+    1.0,
+    -2.4000000000000004
+   ],
+   "n_junctions": 6
+  },
+  {
+   "drive": "M",
+   "t0": 37641,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 105.290061768844,
+   "abs_along_end": 105.290061768844,
+   "dist_ratio": 1.0695275708912833,
+   "speed_scale_end": 0.9374624612538941,
+   "dt_junction": [
+    -0.1,
+    0.9,
+    0.6000000000000001,
+    0.0,
+    1.5,
+    -2.0
+   ],
+   "n_junctions": 6
+  },
+  {
+   "drive": "M",
+   "t0": 38241,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -29.579728281595578,
+   "abs_along_end": 29.579728281595578,
+   "dist_ratio": 0.8894884497096252,
+   "speed_scale_end": 0.9857245759294412,
+   "dt_junction": [
+    0.9,
+    0.4,
+    1.0,
+    0.9,
+    0.2,
+    2.9000000000000004
+   ],
+   "n_junctions": 6
+  },
+  {
+   "drive": "M",
+   "t0": 38945,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 8.380274483624703,
+   "abs_along_end": 8.380274483624703,
+   "dist_ratio": 1.171293636779215,
+   "speed_scale_end": 0.9822466042805471,
+   "dt_junction": [
+    0.1,
+    1.4000000000000001,
+    1.2000000000000002,
+    1.6,
+    0.6000000000000001,
+    1.1
+   ],
+   "n_junctions": 6
+  },
+  {
+   "drive": "M",
+   "t0": 39545,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 57.44508653261278,
+   "abs_along_end": 57.44508653261278,
+   "dist_ratio": 1.047888186233862,
+   "speed_scale_end": 1.0060990478346339,
+   "dt_junction": [
+    0.1,
+    0.9,
+    1.6,
+    1.6
+   ],
+   "n_junctions": 4
+  },
+  {
+   "drive": "M",
+   "t0": 40145,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -65.74939337812793,
+   "abs_along_end": 65.74939337812793,
+   "dist_ratio": 0.7943633964920516,
+   "speed_scale_end": 1.039355750951487,
+   "dt_junction": [
+    0.5,
+    3.3000000000000003,
+    4.1000000000000005,
+    5.4,
+    5.7,
+    7.0,
+    8.8,
+    4.800000000000001
+   ],
+   "n_junctions": 8
+  },
+  {
+   "drive": "M",
+   "t0": 40745,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 35.34767538467138,
+   "abs_along_end": 35.34767538467138,
+   "dist_ratio": 1.6968054589030939,
+   "speed_scale_end": 1.0017214721254588,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 41481,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 2.003774112840034,
+   "abs_along_end": 2.003774112840034,
+   "dist_ratio": 1.197279971519023,
+   "speed_scale_end": 0.9563492205191657,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 42081,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -40.56061138810139,
+   "abs_along_end": 40.56061138810139,
+   "dist_ratio": 0.9585513852568238,
+   "speed_scale_end": 1.0386262365925032,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 42681,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 32.42273900423311,
+   "abs_along_end": 32.42273900423311,
+   "dist_ratio": 1.0266509757022655,
+   "speed_scale_end": 1.028210180496051,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 43281,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -100.88040777503716,
+   "abs_along_end": 100.88040777503716,
+   "dist_ratio": 0.9209192605785546,
+   "speed_scale_end": 0.9160366023589389,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 44682,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -36.74098849342454,
+   "abs_along_end": 36.74098849342454,
+   "dist_ratio": 0.9561646804700451,
+   "speed_scale_end": 0.9955581398909784,
+   "dt_junction": [
+    4.5
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 45282,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -15.954338629193671,
+   "abs_along_end": 15.954338629193671,
+   "dist_ratio": 1.0723170351849385,
+   "speed_scale_end": 1.085661969522603,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 45933,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 10.79105655716944,
+   "abs_along_end": 10.79105655716944,
+   "dist_ratio": 1.1082183811088706,
+   "speed_scale_end": 0.9452289441509092,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 46533,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 137.82352346457014,
+   "abs_along_end": 137.82352346457014,
+   "dist_ratio": 1.1187235831006859,
+   "speed_scale_end": 1.0060328930237699,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 47133,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -72.86451771669726,
+   "abs_along_end": 72.86451771669726,
+   "dist_ratio": 0.9282426100194926,
+   "speed_scale_end": 1.0040083038552519,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 47733,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 37.48745857991736,
+   "abs_along_end": 37.48745857991736,
+   "dist_ratio": 1.1044163923056818,
+   "speed_scale_end": 0.9433933894323548,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 48333,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": -31.886858860970506,
+   "abs_along_end": 31.886858860970506,
+   "dist_ratio": 0.8805417249271074,
+   "speed_scale_end": 0.9941563978996437,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 48933,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": -426.12664355324335,
+   "abs_along_end": 426.12664355324335,
+   "dist_ratio": 1.4075276450369052,
+   "speed_scale_end": 0.8981454801766453,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 49533,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 22.123172343056694,
+   "abs_along_end": 22.123172343056694,
+   "dist_ratio": 1.2304403785986955,
+   "speed_scale_end": 1.017266794173346,
+   "dt_junction": [
+    0.4,
+    0.9
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 50133,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 10.844390592928676,
+   "abs_along_end": 10.844390592928676,
+   "dist_ratio": 0.8280638221965272,
+   "speed_scale_end": 1.0495251499441862,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 50733,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -194.63254478007582,
+   "abs_along_end": 194.63254478007582,
+   "dist_ratio": 0.7201417758777204,
+   "speed_scale_end": 1.0047026532314653,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 51333,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -6.9885863894684235,
+   "abs_along_end": 6.9885863894684235,
+   "dist_ratio": 1.0438397784790265,
+   "speed_scale_end": 0.984303920025288,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 51933,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 221.93171339587172,
+   "abs_along_end": 221.93171339587172,
+   "dist_ratio": 0.9649202693193064,
+   "speed_scale_end": 0.9796818250197007,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 52533,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 47.074124465438445,
+   "abs_along_end": 47.074124465438445,
+   "dist_ratio": 0.7784190970627749,
+   "speed_scale_end": 0.9593494242066563,
+   "dt_junction": [
+    0.6000000000000001,
+    1.4000000000000001
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 53550,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -386.74883152608714,
+   "abs_along_end": 386.74883152608714,
+   "dist_ratio": 0.5461348625011533,
+   "speed_scale_end": 0.9137638213130176,
+   "dt_junction": [
+    7.9
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 54150,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -750.452512159946,
+   "abs_along_end": 750.452512159946,
+   "dist_ratio": 0.3151793804715497,
+   "speed_scale_end": 1.006876465993048,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 54750,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -389.7718644045351,
+   "abs_along_end": 389.7718644045351,
+   "dist_ratio": 0.8470417226134134,
+   "speed_scale_end": 1.1615035882047766,
+   "dt_junction": [
+    1.9000000000000001,
+    3.9000000000000004
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 55350,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -33.435113781777545,
+   "abs_along_end": 33.435113781777545,
+   "dist_ratio": 1.0426509733440237,
+   "speed_scale_end": 1.0676663561428588,
+   "dt_junction": [
+    -0.2,
+    -31.0
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 55950,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -20.872636066363043,
+   "abs_along_end": 20.872636066363043,
+   "dist_ratio": 0.8888325683138765,
+   "speed_scale_end": 1.2319858972016475,
+   "dt_junction": [
+    1.4000000000000001
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 56550,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 7.8755799364896575,
+   "abs_along_end": 7.8755799364896575,
+   "dist_ratio": 1.1730836397903408,
+   "speed_scale_end": 0.9756156298146383,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 57252,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": 151.6931750022993,
+   "abs_along_end": 151.6931750022993,
+   "dist_ratio": 1.241940496311395,
+   "speed_scale_end": 0.9577648978422232,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 57852,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -72.44098428455396,
+   "abs_along_end": 72.44098428455396,
+   "dist_ratio": 1.2866990074702611,
+   "speed_scale_end": 1.2017330938962683,
+   "dt_junction": [
+    0.30000000000000004,
+    0.2,
+    0.1,
+    0.30000000000000004
+   ],
+   "n_junctions": 4
+  },
+  {
+   "drive": "M",
+   "t0": 58452,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 8.031019906532492,
+   "abs_along_end": 8.031019906532492,
+   "dist_ratio": 1.0866225552885491,
+   "speed_scale_end": 0.9321205411677382,
+   "dt_junction": [
+    1.1,
+    0.7000000000000001,
+    1.1,
+    0.0,
+    -1.3,
+    -0.9,
+    -0.5
+   ],
+   "n_junctions": 7
+  },
+  {
+   "drive": "M",
+   "t0": 59052,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 55.30426392862961,
+   "abs_along_end": 55.30426392862961,
+   "dist_ratio": 1.0950764507730175,
+   "speed_scale_end": 1.0055993712584002,
+   "dt_junction": [
+    0.30000000000000004,
+    0.30000000000000004,
+    -6.800000000000001
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 59652,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 17.91683224748664,
+   "abs_along_end": 17.91683224748664,
+   "dist_ratio": 1.1309633283955327,
+   "speed_scale_end": 0.9978852220796849,
+   "dt_junction": [
+    -1.9000000000000001,
+    -4.2,
+    -4.1000000000000005,
+    -4.7
+   ],
+   "n_junctions": 4
+  },
+  {
+   "drive": "M",
+   "t0": 60252,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -218.35552310978528,
+   "abs_along_end": 218.35552310978528,
+   "dist_ratio": 0.7049143686007331,
+   "speed_scale_end": 1.0923403678908024,
+   "dt_junction": [
+    -0.30000000000000004,
+    -0.2,
+    2.1
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 60852,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -21.585886391232407,
+   "abs_along_end": 21.585886391232407,
+   "dist_ratio": 0.9668555528130369,
+   "speed_scale_end": 0.9952016579493624,
+   "dt_junction": [
+    0.6000000000000001,
+    0.4,
+    1.2000000000000002
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 61452,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -37.270697972531735,
+   "abs_along_end": 37.270697972531735,
+   "dist_ratio": 0.8455253701137916,
+   "speed_scale_end": 1.0035538136032962,
+   "dt_junction": [
+    0.2
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 62138,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 19.024639933860158,
+   "abs_along_end": 19.024639933860158,
+   "dist_ratio": 0.9777462682841664,
+   "speed_scale_end": 1.0044928940205369,
+   "dt_junction": [
+    -0.5
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 62738,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -12.097096557833424,
+   "abs_along_end": 12.097096557833424,
+   "dist_ratio": 1.049396554283107,
+   "speed_scale_end": 0.9781179382486955,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 63338,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 21.531488791666902,
+   "abs_along_end": 21.531488791666902,
+   "dist_ratio": 0.9934940701001841,
+   "speed_scale_end": 1.0364185234053076,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 63938,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -15.515207565041578,
+   "abs_along_end": 15.515207565041578,
+   "dist_ratio": 0.9122386793194435,
+   "speed_scale_end": 0.9657965446850597,
+   "dt_junction": [
+    0.5,
+    0.8,
+    0.4,
+    2.9000000000000004
+   ],
+   "n_junctions": 4
+  },
+  {
+   "drive": "M",
+   "t0": 64538,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -68.3324322714617,
+   "abs_along_end": 68.3324322714617,
+   "dist_ratio": 0.7672033674335584,
+   "speed_scale_end": 1.0313501026212275,
+   "dt_junction": [
+    -0.9,
+    1.2000000000000002,
+    2.9000000000000004,
+    4.2
+   ],
+   "n_junctions": 4
+  },
+  {
+   "drive": "M",
+   "t0": 65257,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": 19.295188393928584,
+   "abs_along_end": 19.295188393928584,
+   "dist_ratio": 1.1537417024908876,
+   "speed_scale_end": 1.0016670210549892,
+   "dt_junction": [
+    -2.1,
+    -3.7
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 65857,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 98.3382603454528,
+   "abs_along_end": 98.3382603454528,
+   "dist_ratio": 1.546682151546266,
+   "speed_scale_end": 0.984381509799123,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 66457,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 27.321973781152394,
+   "abs_along_end": 27.321973781152394,
+   "dist_ratio": 1.0093359930826409,
+   "speed_scale_end": 0.995959491667646,
+   "dt_junction": [
+    0.5
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 67057,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 9.844738364020145,
+   "abs_along_end": 9.844738364020145,
+   "dist_ratio": 1.231110406740461,
+   "speed_scale_end": 0.9958196762773499,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 67657,
+   "wrong_road": true,
+   "class": "topology",
+   "along_end": 146.03463624869204,
+   "abs_along_end": 146.03463624869204,
+   "dist_ratio": 1.7380430419226702,
+   "speed_scale_end": 0.9496780614442977,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 68257,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 15.64536462387639,
+   "abs_along_end": 15.64536462387639,
+   "dist_ratio": 1.1511609429371281,
+   "speed_scale_end": 1.0222633864920136,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 68857,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -171.51616002004528,
+   "abs_along_end": 171.51616002004528,
+   "dist_ratio": 0.8206072031295915,
+   "speed_scale_end": 0.8741468415351077,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 69457,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 51.93387677589817,
+   "abs_along_end": 51.93387677589817,
+   "dist_ratio": 1.3315417865757504,
+   "speed_scale_end": 0.9085243012731132,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 70057,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": -0.22651408733077005,
+   "abs_along_end": 0.22651408733077005,
+   "dist_ratio": 1.175551538317321,
+   "speed_scale_end": 1.162670176368604,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 70998,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 23.791750127800242,
+   "abs_along_end": 23.791750127800242,
+   "dist_ratio": 1.090642202415914,
+   "speed_scale_end": 0.933271236861803,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 71610,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 127.99823272044226,
+   "abs_along_end": 127.99823272044226,
+   "dist_ratio": 2.2569432382292547,
+   "speed_scale_end": 0.9915808454140123,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 72210,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 31.227421283591553,
+   "abs_along_end": 31.227421283591553,
+   "dist_ratio": 1.5226874878229915,
+   "speed_scale_end": 1.0106073520935805,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 72870,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -130.20932138142888,
+   "abs_along_end": 130.20932138142888,
+   "dist_ratio": 1.3148301717942086,
+   "speed_scale_end": 0.9050049893615041,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 73470,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -360.1193321139066,
+   "abs_along_end": 360.1193321139066,
+   "dist_ratio": 0.8273973933103625,
+   "speed_scale_end": 0.9851175313521865,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 74222,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -168.22973569543052,
+   "abs_along_end": 168.22973569543052,
+   "dist_ratio": 0.8450518142920053,
+   "speed_scale_end": 1.039735327634072,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 74822,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 26.989300430458798,
+   "abs_along_end": 26.989300430458798,
+   "dist_ratio": 1.1674305419308846,
+   "speed_scale_end": 0.8628569477303363,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 76022,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 22.099071455172464,
+   "abs_along_end": 22.099071455172464,
+   "dist_ratio": 0.993739997811888,
+   "speed_scale_end": 1.0139178576658858,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 76622,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -69.59652824692216,
+   "abs_along_end": 69.59652824692216,
+   "dist_ratio": 0.8535420848552422,
+   "speed_scale_end": 1.0214875560878136,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 77384,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 34.96773491801059,
+   "abs_along_end": 34.96773491801059,
+   "dist_ratio": 1.4142827407689234,
+   "speed_scale_end": 0.933343209753468,
+   "dt_junction": [
+    -7.6000000000000005,
+    -1.1
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 77984,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -27.335618696806307,
+   "abs_along_end": 27.335618696806307,
+   "dist_ratio": 0.9275071446785759,
+   "speed_scale_end": 0.9410606468625042,
+   "dt_junction": [
+    0.4,
+    2.0
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 78584,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -6.416682984228942,
+   "abs_along_end": 6.416682984228942,
+   "dist_ratio": 0.8991527050338243,
+   "speed_scale_end": 0.9847794380033819,
+   "dt_junction": [
+    0.7000000000000001
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 79184,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -4.148837632586378,
+   "abs_along_end": 4.148837632586378,
+   "dist_ratio": 1.0522557963809536,
+   "speed_scale_end": 0.9818717796799378,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 79784,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -4.706089627128563,
+   "abs_along_end": 4.706089627128563,
+   "dist_ratio": 1.0605659495043203,
+   "speed_scale_end": 1.0098437102027844,
+   "dt_junction": [
+    0.0,
+    -0.1,
+    -0.2,
+    -1.2000000000000002,
+    -1.2000000000000002,
+    1.0
+   ],
+   "n_junctions": 6
+  },
+  {
+   "drive": "M",
+   "t0": 80384,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -2.3623224660173037,
+   "abs_along_end": 2.3623224660173037,
+   "dist_ratio": 1.1187072676205072,
+   "speed_scale_end": 0.9974555821289002,
+   "dt_junction": [
+    -0.6000000000000001
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 80984,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 86.61415213379837,
+   "abs_along_end": 86.61415213379837,
+   "dist_ratio": 1.314621312059942,
+   "speed_scale_end": 0.9762753389203203,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 81618,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 4.02485080422764,
+   "abs_along_end": 4.02485080422764,
+   "dist_ratio": 1.1531357290706863,
+   "speed_scale_end": 0.9508679357489402,
+   "dt_junction": [
+    0.1,
+    -4.800000000000001,
+    -2.3000000000000003
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 82218,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 61.75751682317377,
+   "abs_along_end": 61.75751682317377,
+   "dist_ratio": 1.2827275986073214,
+   "speed_scale_end": 1.09192026985634,
+   "dt_junction": [
+    0.0,
+    -3.4000000000000004,
+    -1.5,
+    -2.2,
+    -2.8000000000000003
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "M",
+   "t0": 82818,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -331.6453170584985,
+   "abs_along_end": 331.6453170584985,
+   "dist_ratio": 0.8753394302551544,
+   "speed_scale_end": 1.011103831234123,
+   "dt_junction": [
+    0.9,
+    0.5,
+    0.4
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 83418,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -77.18871211201156,
+   "abs_along_end": 77.18871211201156,
+   "dist_ratio": 0.9988386705651519,
+   "speed_scale_end": 1.026870607169664,
+   "dt_junction": [
+    0.8,
+    3.2,
+    1.5,
+    1.5,
+    0.7000000000000001,
+    1.8
+   ],
+   "n_junctions": 6
+  },
+  {
+   "drive": "M",
+   "t0": 84018,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -53.36474077225296,
+   "abs_along_end": 53.36474077225296,
+   "dist_ratio": 1.0112556667683508,
+   "speed_scale_end": 0.8886265244064103,
+   "dt_junction": [
+    -1.3,
+    -0.8
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 84618,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 74.97375157892941,
+   "abs_along_end": 74.97375157892941,
+   "dist_ratio": 1.1425504675480118,
+   "speed_scale_end": 1.0435209862022852,
+   "dt_junction": [
+    0.30000000000000004,
+    -3.9000000000000004,
+    -4.6000000000000005
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 85218,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 29.051295516764867,
+   "abs_along_end": 29.051295516764867,
+   "dist_ratio": 0.8147961385263515,
+   "speed_scale_end": 0.9754416495770256,
+   "dt_junction": [
+    0.4,
+    1.3,
+    1.5,
+    2.3000000000000003,
+    -0.5,
+    0.1
+   ],
+   "n_junctions": 6
+  },
+  {
+   "drive": "M",
+   "t0": 85818,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -86.69335556944463,
+   "abs_along_end": 86.69335556944463,
+   "dist_ratio": 0.749292397141192,
+   "speed_scale_end": 1.047546422290477,
+   "dt_junction": [
+    0.5,
+    1.0,
+    2.0,
+    2.5
+   ],
+   "n_junctions": 4
+  },
+  {
+   "drive": "M",
+   "t0": 86418,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 21.979692936860715,
+   "abs_along_end": 21.979692936860715,
+   "dist_ratio": 0.9843466240978903,
+   "speed_scale_end": 1.0149799091896476,
+   "dt_junction": [
+    0.2,
+    0.7000000000000001
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 87018,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -70.12065044738569,
+   "abs_along_end": 70.12065044738569,
+   "dist_ratio": 0.7636813772592844,
+   "speed_scale_end": 1.0213513960758085,
+   "dt_junction": [
+    -0.30000000000000004,
+    -0.2,
+    0.6000000000000001,
+    2.7,
+    4.6000000000000005
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "M",
+   "t0": 87618,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -60.413670884890166,
+   "abs_along_end": 60.413670884890166,
+   "dist_ratio": 0.8879210228438402,
+   "speed_scale_end": 0.9993288366400811,
+   "dt_junction": [
+    0.4,
+    1.0,
+    2.1,
+    3.7,
+    4.9
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "M",
+   "t0": 88218,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -27.19510766295491,
+   "abs_along_end": 27.19510766295491,
+   "dist_ratio": 0.9279654288614374,
+   "speed_scale_end": 0.9672282772696118,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 88818,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -28.97508100276923,
+   "abs_along_end": 28.97508100276923,
+   "dist_ratio": 0.8853088737337806,
+   "speed_scale_end": 0.9475330012329037,
+   "dt_junction": [
+    0.30000000000000004,
+    0.1,
+    0.1,
+    0.7000000000000001,
+    1.7000000000000002,
+    0.7000000000000001,
+    1.0,
+    1.9000000000000001
+   ],
+   "n_junctions": 8
+  },
+  {
+   "drive": "M",
+   "t0": 89418,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -8.619776316334423,
+   "abs_along_end": 8.619776316334423,
+   "dist_ratio": 0.991438940223069,
+   "speed_scale_end": 1.013304551545201,
+   "dt_junction": [
+    0.8,
+    -1.4000000000000001,
+    -1.1,
+    -4.2,
+    0.2
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "M",
+   "t0": 90018,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 6.922792891416975,
+   "abs_along_end": 6.922792891416975,
+   "dist_ratio": 1.0607278029436082,
+   "speed_scale_end": 1.0339388229666568,
+   "dt_junction": [
+    -0.1,
+    -2.3000000000000003,
+    -1.1,
+    -2.8000000000000003
+   ],
+   "n_junctions": 4
+  },
+  {
+   "drive": "M",
+   "t0": 90618,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -156.2888162200361,
+   "abs_along_end": 156.2888162200361,
+   "dist_ratio": 0.8435230180004665,
+   "speed_scale_end": 0.9930731690792463,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 91218,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -18.60028388695764,
+   "abs_along_end": 18.60028388695764,
+   "dist_ratio": 0.9708893199510189,
+   "speed_scale_end": 1.0218226677654714,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 91818,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -569.0986885490818,
+   "abs_along_end": 569.0986885490818,
+   "dist_ratio": 0.4843897996119185,
+   "speed_scale_end": 0.9104088514147736,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 92418,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -15.1593795775143,
+   "abs_along_end": 15.1593795775143,
+   "dist_ratio": 0.9959744392265578,
+   "speed_scale_end": 0.9908862159286467,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 93018,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 7.717842983780997,
+   "abs_along_end": 7.717842983780997,
+   "dist_ratio": 1.0740272947066647,
+   "speed_scale_end": 1.005693654188793,
+   "dt_junction": [
+    1.1,
+    0.6000000000000001,
+    -1.9000000000000001
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 93618,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -78.23406151799486,
+   "abs_along_end": 78.23406151799486,
+   "dist_ratio": 0.9054616624083096,
+   "speed_scale_end": 1.04991375689687,
+   "dt_junction": [
+    0.2,
+    0.4
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 94218,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 32.63118808922138,
+   "abs_along_end": 32.63118808922138,
+   "dist_ratio": 1.073252002015055,
+   "speed_scale_end": 1.0275725100826028,
+   "dt_junction": [
+    0.5
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 94818,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -146.73863798853097,
+   "abs_along_end": 146.73863798853097,
+   "dist_ratio": 0.8458807664512011,
+   "speed_scale_end": 0.9908301022054813,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 95418,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -7.324765840970031,
+   "abs_along_end": 7.324765840970031,
+   "dist_ratio": 1.0221809858253255,
+   "speed_scale_end": 1.0026284223749073,
+   "dt_junction": [
+    0.7000000000000001
+   ],
+   "n_junctions": 1
+  },
+  {
+   "drive": "M",
+   "t0": 96018,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -11.453638544829687,
+   "abs_along_end": 11.453638544829687,
+   "dist_ratio": 0.8902857423585196,
+   "speed_scale_end": 1.1169004673940317,
+   "dt_junction": [
+    -0.1,
+    2.8000000000000003,
+    1.4000000000000001,
+    3.7,
+    1.5,
+    0.7000000000000001
+   ],
+   "n_junctions": 6
+  },
+  {
+   "drive": "M",
+   "t0": 96618,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -9.12345326145288,
+   "abs_along_end": 9.12345326145288,
+   "dist_ratio": 0.9875918959850686,
+   "speed_scale_end": 0.9957993117919852,
+   "dt_junction": [
+    1.2000000000000002,
+    0.1
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 97218,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": -76.43432918167974,
+   "abs_along_end": 76.43432918167974,
+   "dist_ratio": 0.7653565470035947,
+   "speed_scale_end": 1.017218987038927,
+   "dt_junction": [
+    9.3,
+    4.0
+   ],
+   "n_junctions": 2
+  },
+  {
+   "drive": "M",
+   "t0": 97818,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -71.07537814594903,
+   "abs_along_end": 71.07537814594903,
+   "dist_ratio": 0.7854893692057645,
+   "speed_scale_end": 0.9822041974296337,
+   "dt_junction": [
+    0.2,
+    0.1,
+    2.0
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 98439,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 16.56752411390505,
+   "abs_along_end": 16.56752411390505,
+   "dist_ratio": 1.175260006009605,
+   "speed_scale_end": 0.9825096084945671,
+   "dt_junction": [
+    -0.6000000000000001,
+    -1.4000000000000001,
+    0.4
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 99039,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 1.4676540788600505,
+   "abs_along_end": 1.4676540788600505,
+   "dist_ratio": 1.0961351748543384,
+   "speed_scale_end": 0.970680314945448,
+   "dt_junction": [
+    0.2,
+    0.8,
+    0.0,
+    -0.9,
+    -1.3
+   ],
+   "n_junctions": 5
+  },
+  {
+   "drive": "M",
+   "t0": 99983,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 6.289337030789625,
+   "abs_along_end": 6.289337030789625,
+   "dist_ratio": 0.8259074581013499,
+   "speed_scale_end": 0.977341234811071,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 100583,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -92.60921342689062,
+   "abs_along_end": 92.60921342689062,
+   "dist_ratio": 0.9031288475353166,
+   "speed_scale_end": 1.0216921669655388,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 101183,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": -153.918251100431,
+   "abs_along_end": 153.918251100431,
+   "dist_ratio": 1.3666967823378549,
+   "speed_scale_end": 0.9242664582279905,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 101783,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 2.6352699123987122,
+   "abs_along_end": 2.6352699123987122,
+   "dist_ratio": 1.0517729108737386,
+   "speed_scale_end": 0.9572505124823537,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 102383,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -14.549464892627498,
+   "abs_along_end": 14.549464892627498,
+   "dist_ratio": 0.9065386615265534,
+   "speed_scale_end": 1.0399466217066167,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 102983,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": -29.693878416924235,
+   "abs_along_end": 29.693878416924235,
+   "dist_ratio": 0.8247853114412644,
+   "speed_scale_end": 1.0648417444907456,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 103583,
+   "wrong_road": false,
+   "class": null,
+   "along_end": 7.5064127743416975,
+   "abs_along_end": 7.5064127743416975,
+   "dist_ratio": 1.069559673386684,
+   "speed_scale_end": 1.0140819478179044,
+   "dt_junction": [],
+   "n_junctions": 0
+  },
+  {
+   "drive": "M",
+   "t0": 104183,
+   "wrong_road": false,
+   "class": null,
+   "along_end": -12.119500887799177,
+   "abs_along_end": 12.119500887799177,
+   "dist_ratio": 0.907046878674897,
+   "speed_scale_end": 1.0103658377268416,
+   "dt_junction": [
+    0.7000000000000001,
+    16.5,
+    4.5
+   ],
+   "n_junctions": 3
+  },
+  {
+   "drive": "M",
+   "t0": 104783,
+   "wrong_road": true,
+   "class": "speed",
+   "along_end": 80.21861165744076,
+   "abs_along_end": 80.21861165744076,
+   "dist_ratio": 1.397645925964058,
+   "speed_scale_end": 1.1026178170903151,
+   "dt_junction": [],
+   "n_junctions": 0
+  }
+ ]
+}
