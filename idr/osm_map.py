@@ -243,25 +243,15 @@ def ring_arc(ring: dict, xy) -> float:
 
 
 def planned_route(rm: RoadMap, start_xy, start_heading, end_xy) -> list[int]:
-    """Shortest path (edge ids) from the road matching the start pose to the road nearest the destination."""
-    d, idx = rm.nearest(start_xy, k=16)
-    best, bestcost = None, np.inf
-    for di, ii in zip(np.atleast_1d(d), np.atleast_1d(idx)):
-        if not np.isfinite(di):
-            continue
-        dh = abs((rm.bearing[ii] - start_heading + np.pi) % (2 * np.pi) - np.pi)
-        cost = di + 30.0 * dh
-        if cost < bestcost:
-            best, bestcost = int(rm.edge[ii]), cost
-    _, j = rm.nearest(end_xy)
-    goal = int(rm.edge[j])
-    if best is None:
-        return []
-    try:
-        nodes = nx.shortest_path(rm.graph, int(rm.e_v[best]), int(rm.e_u[goal]), weight="length")
-    except (nx.NetworkXNoPath, nx.NodeNotFound):
-        return [best]
-    return [best] + [rm.graph[a][b]["eid"] for a, b in zip(nodes[:-1], nodes[1:])] + [goal]
+    """Planned route (ordered edge ids) from the start pose to the destination: the same planner as the TFT route
+    input (idr.route_input.plan_route: heading-aware origin projection, destination snapped to the nearest
+    REACHABLE road, shortest drivable path on the directed graph).
+
+    Returns [] when routing fails. (Before 2026-10-04 an unreachable destination silently returned the start edge
+    alone, i.e. a degenerate start-only "route"; on S2 every outage hit that case.)"""
+    from idr.route_input import plan_route
+    plan = plan_route(rm, start_xy, start_heading, end_xy)
+    return [int(e) for e in plan["edges"]] if plan["route_valid"] else []
 
 
 def drive_roadmap(name: str, refresh: bool = False) -> RoadMap:

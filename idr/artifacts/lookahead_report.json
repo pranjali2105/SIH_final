@@ -1,0 +1,383 @@
+{
+ "control": "Control",
+ "condition": {
+  "calibration_mode": "causal_pre_outage",
+  "route_input_source": "osm_planned_route"
+ },
+ "n_outages": 223,
+ "seeds": [
+  0,
+  1,
+  2
+ ],
+ "runs": {
+  "Control": {
+   "per_seed": {
+    "0": {
+     "drift": 9.457118707133692,
+     "wrong": 13.004484304932735,
+     "cross": 5.141100364886661,
+     "along": 46.73509617212168,
+     "w25": 161.56825014893423,
+     "bias": {
+      "braking": 1.0874464944006128,
+      "roundabout_entry": 1.29086955086158,
+      "after_turn": -0.39789030063652475,
+      "junction_approach": 0.4301064242486927,
+      "constant_speed": -0.5433636214428522,
+      "high_speed": -0.9382292455091163,
+      "all": -0.18173263560640537
+     }
+    },
+    "1": {
+     "drift": 9.01783675206713,
+     "wrong": 13.901345291479823,
+     "cross": 4.8305781526433265,
+     "along": 47.597424023963626,
+     "w25": 130.46037101376788,
+     "bias": {
+      "braking": 1.035167297864041,
+      "roundabout_entry": 1.1331239530926458,
+      "after_turn": -0.39838016387436614,
+      "junction_approach": 0.39544797410917465,
+      "constant_speed": -0.536056547635017,
+      "high_speed": -0.9255267621441456,
+      "all": -0.1995727167114294
+     }
+    },
+    "2": {
+     "drift": 9.482811795536037,
+     "wrong": 17.040358744394617,
+     "cross": 4.753666975863283,
+     "along": 51.67609049058352,
+     "w25": 135.1328224022355,
+     "bias": {
+      "braking": 1.0029616925798839,
+      "roundabout_entry": 0.8157009065281862,
+      "after_turn": -0.35540837378607065,
+      "junction_approach": 0.4168491819915304,
+      "constant_speed": -0.5237092722475437,
+      "high_speed": -0.9096338410658605,
+      "all": -0.18187450407240338
+     }
+    }
+   },
+   "activation": null
+  },
+  "A3-gate": {
+   "per_seed": {
+    "0": {
+     "drift": 9.186393730618454,
+     "wrong": 14.349775784753364,
+     "cross": 4.855277456479145,
+     "along": 48.82464007036518,
+     "w25": 141.2184626336445,
+     "bias": {
+      "braking": 1.0886414207700967,
+      "roundabout_entry": 1.364609161679629,
+      "after_turn": -0.4094555498394389,
+      "junction_approach": 0.40354149445471926,
+      "constant_speed": -0.5610815801183247,
+      "high_speed": -0.9348903511527579,
+      "all": -0.19047029643790203
+     }
+    },
+    "1": {
+     "drift": 8.978432853909986,
+     "wrong": 14.798206278026907,
+     "cross": 4.7135997933824525,
+     "along": 46.75178414178449,
+     "w25": 139.10545369180625,
+     "bias": {
+      "braking": 1.0553990365228207,
+      "roundabout_entry": 1.100416838741369,
+      "after_turn": -0.27624519595918906,
+      "junction_approach": 0.4909694702828655,
+      "constant_speed": -0.526810721923911,
+      "high_speed": -0.897888767929296,
+      "all": -0.13574945666934593
+     }
+    },
+    "2": {
+     "drift": 8.419723127935127,
+     "wrong": 16.143497757847534,
+     "cross": 4.753666975863283,
+     "along": 49.12816204148416,
+     "w25": 158.5395050965053,
+     "bias": {
+      "braking": 1.0685409664499237,
+      "roundabout_entry": 1.3924830440756104,
+      "after_turn": -0.3578892875538348,
+      "junction_approach": 0.4423560559364177,
+      "constant_speed": -0.5069860546964102,
+      "high_speed": -0.9188443969134689,
+      "all": -0.15310891477901542
+     }
+    }
+   },
+   "activation": null
+  },
+  "L1": {
+   "per_seed": {
+    "0": {
+     "drift": 9.851338632988922,
+     "wrong": 13.452914798206278,
+     "cross": 5.229069517607513,
+     "along": 48.82464007036518,
+     "w25": 152.1280234674359,
+     "bias": {
+      "braking": 1.0529891658364314,
+      "roundabout_entry": 1.4284060841422475,
+      "after_turn": -0.46270621187796873,
+      "junction_approach": 0.3280490258212502,
+      "constant_speed": -0.5177323754497539,
+      "high_speed": -0.9130751035618206,
+      "all": -0.21884051818138983
+     }
+    },
+    "1": {
+     "drift": 8.59327856367192,
+     "wrong": 14.349775784753364,
+     "cross": 5.1083732637822425,
+     "along": 45.16817390888417,
+     "w25": 128.6236241466329,
+     "bias": {
+      "braking": 0.9632958606159757,
+      "roundabout_entry": 1.1272084047427844,
+      "after_turn": -0.45260017314350376,
+      "junction_approach": 0.38794065896310004,
+      "constant_speed": -0.5432439085297861,
+      "high_speed": -0.9585639745544785,
+      "all": -0.23030072877976263
+     }
+    },
+    "2": {
+     "drift": 9.341357976412992,
+     "wrong": 14.349775784753364,
+     "cross": 4.666471103354162,
+     "along": 45.75746818155011,
+     "w25": 126.17479616985104,
+     "bias": {
+      "braking": 1.0754687016536666,
+      "roundabout_entry": 0.7683694545174907,
+      "after_turn": -0.40324906480106987,
+      "junction_approach": 0.38625770223704503,
+      "constant_speed": -0.49812262100769333,
+      "high_speed": -0.890620565627307,
+      "all": -0.20930528981271965
+     }
+    }
+   },
+   "activation": {
+    "runs": 669,
+    "applications": 15917,
+    "applications_per_outage_run": 23.79222720478326,
+    "outage_runs_with_any_application": 336,
+    "mean_abs_correction_mps2": 0.07611574156820988,
+    "max_abs_correction_mps2": 0.09000000000000011,
+    "speed_reduction_per_outage_mps": {
+     "mean": 0.18109630172514155,
+     "median": 0.029457072279118358,
+     "max": 1.4925368036136382
+    },
+    "events_detected": {
+     "junction": 1395,
+     "curve": 1191,
+     "turn": 254,
+     "roundabout": 91
+    },
+    "not_applied_by_reason": {
+     "no_event": 210410,
+     "ambiguous_successor": 45300,
+     "low_route_confidence": 36160,
+     "speed_below_target": 34034,
+     "cross_track_residual": 21450,
+     "heading_residual": 18320,
+     "particle_ess": 7500,
+     "not_yet_evaluated": 6690,
+     "outside_distance_window": 2879,
+     "disconnected": 2740
+    }
+   }
+  },
+  "L2": {
+   "per_seed": {
+    "0": {
+     "drift": 9.550143282342681,
+     "wrong": 14.798206278026907,
+     "cross": 4.93139626262895,
+     "along": 46.21528166568719,
+     "w25": 150.79664645524275,
+     "bias": {
+      "braking": 0.5124757283398,
+      "roundabout_entry": -0.07075192987150276,
+      "after_turn": -0.7623873733631561,
+      "junction_approach": 0.0942873642391055,
+      "constant_speed": -0.5957635029177893,
+      "high_speed": -1.0615185773911462,
+      "all": -0.4674884339680509
+     }
+    },
+    "1": {
+     "drift": 8.776048122387051,
+     "wrong": 13.452914798206278,
+     "cross": 4.595843355897175,
+     "along": 45.4705947605092,
+     "w25": 123.95751057040789,
+     "bias": {
+      "braking": 0.6279281867146931,
+      "roundabout_entry": -0.006115361449312622,
+      "after_turn": -0.7385001721266135,
+      "junction_approach": 0.0789302826153235,
+      "constant_speed": -0.5546587710195544,
+      "high_speed": -0.961216871408271,
+      "all": -0.43722128341346705
+     }
+    },
+    "2": {
+     "drift": 10.604332411885565,
+     "wrong": 15.246636771300448,
+     "cross": 4.753666975863283,
+     "along": 49.48066070311378,
+     "w25": 134.74963966784895,
+     "bias": {
+      "braking": 0.5767154943668709,
+      "roundabout_entry": -0.24385710458874607,
+      "after_turn": -0.6902928943776999,
+      "junction_approach": 0.10977238905209329,
+      "constant_speed": -0.5726624566225456,
+      "high_speed": -0.9705993072129607,
+      "all": -0.44318894172794726
+     }
+    }
+   },
+   "activation": {
+    "runs": 669,
+    "applications": 19978,
+    "applications_per_outage_run": 29.862481315396114,
+    "outage_runs_with_any_application": 354,
+    "mean_abs_correction_mps2": 0.4902734544499101,
+    "max_abs_correction_mps2": 1.0000000000000013,
+    "speed_reduction_per_outage_mps": {
+     "mean": 1.4640781872945148,
+     "median": 0.40966173741383277,
+     "max": 12.749375940728951
+    },
+    "events_detected": {
+     "junction": 1524,
+     "curve": 1224,
+     "turn": 296,
+     "roundabout": 103
+    },
+    "not_applied_by_reason": {
+     "no_event": 152570,
+     "ambiguous_successor": 79530,
+     "speed_below_target": 51149,
+     "low_route_confidence": 33600,
+     "cross_track_residual": 18500,
+     "heading_residual": 18390,
+     "max_speed_correction_reached": 8073,
+     "particle_ess": 8070,
+     "not_yet_evaluated": 6690,
+     "disconnected": 3180,
+     "outside_distance_window": 1670
+    }
+   }
+  }
+ },
+ "acceptance": {
+  "A3-gate": {
+   "criteria": {
+    "worst-quarter along < control in EVERY seed": false,
+    "worst-quarter along mean < control": false,
+    "no material cross-track degradation (mean +<=0.5 m)": true,
+    "no material wrong-road degradation (mean +<=1.0 pt)": true,
+    "constant-speed |bias| not worse (+<=0.05 m/s)": "True",
+    "high-speed |bias| not worse (+<=0.05 m/s)": "True",
+    "braking |bias| lower": "False",
+    "roundabout-entry |bias| lower": "False",
+    "after-turn |bias| lower": "True"
+   },
+   "all_pass": false,
+   "paired_seed_deltas": {
+    "worst25_along_m": [
+     -20.349787515289734,
+     8.645082678038364,
+     23.40668269426982
+    ],
+    "cross_m": [
+     -0.2858229084075159,
+     -0.11697835926087397,
+     0.0
+    ],
+    "wrong_road_pts": [
+     1.345291479820629,
+     0.8968609865470842,
+     -0.8968609865470825
+    ]
+   }
+  },
+  "L1": {
+   "criteria": {
+    "worst-quarter along < control in EVERY seed": true,
+    "worst-quarter along mean < control": true,
+    "no material cross-track degradation (mean +<=0.5 m)": true,
+    "no material wrong-road degradation (mean +<=1.0 pt)": true,
+    "constant-speed |bias| not worse (+<=0.05 m/s)": "True",
+    "high-speed |bias| not worse (+<=0.05 m/s)": "True",
+    "braking |bias| lower": "True",
+    "roundabout-entry |bias| lower": "False",
+    "after-turn |bias| lower": "False"
+   },
+   "all_pass": false,
+   "paired_seed_deltas": {
+    "worst25_along_m": [
+     -9.44022668149833,
+     -1.8367468671349911,
+     -8.958026232384455
+    ],
+    "cross_m": [
+     0.08796915272085215,
+     0.2777951111389161,
+     -0.08719587250912042
+    ],
+    "wrong_road_pts": [
+     0.448430493273543,
+     0.44843049327354123,
+     -2.6905829596412527
+    ]
+   }
+  },
+  "L2": {
+   "criteria": {
+    "worst-quarter along < control in EVERY seed": true,
+    "worst-quarter along mean < control": true,
+    "no material cross-track degradation (mean +<=0.5 m)": true,
+    "no material wrong-road degradation (mean +<=1.0 pt)": true,
+    "constant-speed |bias| not worse (+<=0.05 m/s)": "True",
+    "high-speed |bias| not worse (+<=0.05 m/s)": "False",
+    "braking |bias| lower": "True",
+    "roundabout-entry |bias| lower": "True",
+    "after-turn |bias| lower": "False"
+   },
+   "all_pass": false,
+   "paired_seed_deltas": {
+    "worst25_along_m": [
+     -10.771603693691475,
+     -6.502860443359992,
+     -0.38318273438653705
+    ],
+    "cross_m": [
+     -0.20970410225771108,
+     -0.23473479674615128,
+     0.0
+    ],
+    "wrong_road_pts": [
+     1.793721973094172,
+     -0.4484304932735448,
+     -1.7937219730941685
+    ]
+   }
+  }
+ }
+}

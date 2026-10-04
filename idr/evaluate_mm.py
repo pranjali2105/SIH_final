@@ -20,7 +20,12 @@ from scipy.ndimage import uniform_filter1d
 from torch.utils.data import DataLoader
 
 from idr import physics
+from idr.causal_calibration import (CalibrationConfig, add_cli, build_views, config_from_args, nav_cfg_for,
+                                     oracle_meta, window_vib)
 from idr.dataset import HORIZON, OutageDataset, load_drives
+from idr.route_input import RouteConfig, annotate_specs
+from idr.route_input import add_cli as add_route_cli
+from idr.route_input import config_from_args as route_config_from_args
 from idr.evaluate import make_specs
 from idr.map_matching import run_outage
 from idr.model import ResidualTFT
@@ -34,8 +39,45 @@ RAW_CFG = dict(sig_w=0.086, sig_a=0.76)      # residual std of raw aligned phone
 TFT_CFG = dict(sig_w=0.05, sig_a=0.5)
 
 
+BIAS_PHASES = {"braking": "braking", "roundabout_entry": "roundabout entry", "after_turn": "post-turn recovery",
+               "constant_speed": "constant speed", "junction_approach": "junction approach"}
+BIAS_PHASES = {**BIAS_PHASES, "high_speed": None, "all": None}
+
+
+def phase_context(d, rm):
+    """Per-drive inputs for speed_slices.phase_labels (roundabout states, GT arc length, junction-node arcs)."""
+    from scipy.spatial import cKDTree
+    from idr.roundabout_labels import label_drive
+    rb_states = label_drive(d, rm)[0]
+    s_gt = np.concatenate([[0.0], np.cumsum(np.hypot(*np.diff(d.pos, axis=0).T))])
+    node_xy = {}
+    for e_ in range(len(rm.e_u)):
+        node_xy.setdefault(int(rm.e_v[e_]), rm.pts[rm.e_start[e_] + rm.e_n[e_] - 1])
+    nodes = [n_ for n_, deg in rm.node_deg.items() if deg >= 6 and n_ in node_xy]
+    node_arcs = np.array([])
+    if nodes:
+        dd, jj = cKDTree(d.pos).query(np.array([node_xy[n_] for n_ in nodes]))
+        node_arcs = np.sort(s_gt[jj[dd < 8.0]])
+    return rb_states, rm, s_gt, node_arcs
+
+
+def phase_bias(speed_est, d, t0, H, ctx):
+    """{phase: [sum(v_est - v_gps), n]} over the outage; same labels as idr.speed_slices (single label per sample)."""
+    from idr.speed_slices import phase_labels
+    rb_states, rm, s_gt, node_arcs = ctx
+    lab = phase_labels(d, t0, rb_states, rm, s_gt, node_arcs)[:H]
+    v = d.v[t0:t0 + H]
+    e = np.asarray(speed_est[:len(v)]) - v
+    lab = lab[:len(v)]
+    out = {}
+    for key, ph in BIAS_PHASES.items():
+        m = (v > 15.0) if key == "high_speed" else np.ones(len(v), bool) if key == "all" else (lab == ph)
+        out[key] = [float(e[m].sum()), int(m.sum())]
+    return out
+
+
 @torch.no_grad()
-def model_outputs(model, drives, specs, dev):
+def _model_outputs_raw(model, drives, specs, dev):
     ds = OutageDataset(drives, sorted({s["drive"] for s in specs}), len(specs), mode="eval")
     ds.fixed = specs
     outs = []
@@ -45,6 +87,35 @@ def model_outputs(model, drives, specs, dev):
         outs.append({"u_hat": o["u_hat"].cpu().numpy(), "p_stop": o["p_stop"].cpu().numpy(),
                      "u_raw": b["u_raw"].cpu().numpy()})
     return {k: np.concatenate([o[k] for o in outs]) for k in outs[0]}
+
+
+def model_outputs(model, drives, specs, dev, calibration: CalibrationConfig | None = None,
+                  route: RouteConfig | None = None):
+    """TFT outputs for fixed outage specs. calibration defaults to causal_pre_outage (per-outage prefix calibration);
+    offline_oracle reproduces the legacy whole-recording calibration bit-for-bit. Adds per-outage 'cal_meta' and
+    'vib' (EKF vibration feature over the outage, from the same calibrated arrays)."""
+    cfg = calibration or CalibrationConfig()
+    rcfg = route or RouteConfig()
+    specs, route_meta = annotate_specs(drives, specs, rcfg)
+    iv = STAT_COLS.index("a_up")
+    if cfg.mode == "offline_oracle":
+        mo = _model_outputs_raw(model, drives, specs, dev)
+        vib = []
+        for sp in specs:
+            d = drives[sp["drive"]]
+            v = np.clip(uniform_filter1d(d.feats[:, iv] ** 2, 10) ** 0.5 - 1.0, 0, 3)[sp["t0"]:sp["t0"] + HORIZON]
+            vib.append(np.pad(v, (0, HORIZON - len(v))))
+        mo["vib"], mo["cal_meta"], mo["route_meta"] = np.array(vib), oracle_meta(drives, specs), route_meta
+        return mo
+    parts, metas, vib = [], [], []
+    for k in range(0, len(specs), 64):                     # views are built per chunk (memory)
+        views, vspecs, m = build_views(drives, specs[k:k + 64], cfg)
+        parts.append(_model_outputs_raw(model, views, vspecs, dev))
+        metas += m
+        vib += [window_vib(views[vs["drive"]], vs["t0"], HORIZON) for vs in vspecs]
+    mo = {key: np.concatenate([p_[key] for p_ in parts]) for key in parts[0]}
+    mo["vib"], mo["cal_meta"], mo["route_meta"] = np.array(vib), metas, route_meta
+    return mo
 
 
 def main():
@@ -62,7 +133,13 @@ def main():
     ap.add_argument("--cal_kind", default=None, choices=[None, "affine", "isotonic"])
     ap.add_argument("--out_tag", default=None)
     ap.add_argument("--anchor", action="store_true")
+    ap.add_argument("--speed_bias", action="store_true",
+                    help="score the map-aided EKF speed against GNSS by motion phase (speed_slices labels)")
+    add_cli(ap)
+    add_route_cli(ap)
     args = ap.parse_args()
+    calcfg = config_from_args(args)
+    routecfg = route_config_from_args(args)
     extra = json.loads(args.mm_kwargs)
     from idr.speed_calibration import apply_cal, load_cal
     cal = load_cal(args.speed_cal)
@@ -87,8 +164,15 @@ def main():
         specs = make_specs(drives, [name], H, stride=args.stride)
         if args.limit:
             specs = specs[:args.limit]
-        mo = model_outputs(model, drives, specs, dev)
-        vib_all = np.clip(uniform_filter1d(d.feats[:, iv] ** 2, 10) ** 0.5 - 1.0, 0, 3)
+        mo = model_outputs(model, drives, specs, dev, calibration=calcfg, route=routecfg)
+        if args.speed_bias:
+            lab_ctx = phase_context(d, rm)
+        la_cfg_ = (extra.get("lookahead") or {})
+        biases = None
+        if la_cfg_.get("enable_speed_bias_gate"):
+            from idr.speed_bias_gate import recent_speed_bias
+            biases = recent_speed_bias(model, drives, specs, dev, calcfg, routecfg, NavConfig(**TFT_CFG),
+                                       la_cfg_.get("recent_bias_window_s", 30.0), roadmaps={name: rm})
         for i, sp in enumerate(specs):
             t0 = sp["t0"]
             gt = d.pos[t0:t0 + H]
@@ -99,7 +183,10 @@ def main():
                 continue
             p0, psi0, v0 = d.pos[t0 - 1], float(d.psi[t0 - 1]), float(d.v[t0 - 1])
             route = planned_route(rm, p0, psi0, d.pos[-1])
-            vib = vib_all[t0:t0 + H]
+            vib = mo["vib"][i, :H]
+            cal_meta = mo["cal_meta"][i]
+            extra_i = {**extra, "speed_bias_info": biases[i]} if biases is not None else extra
+            route_meta = mo["route_meta"][i]
             u_raw, u_hat, ps = mo["u_raw"][i, :H], mo["u_hat"][i, :H], mo["p_stop"][i, :H]
             res = {}
             # open-loop physics (no filter): same equations as training
@@ -117,7 +204,8 @@ def main():
                 res[key] = p0 + rel[:, :1] * f + rel[:, 1:] * r
             common = dict(rm=rm, p0=p0, psi0=psi0, v0=v0, vib=vib)
             raw_cfg = NavConfig(**RAW_CFG)
-            tft_cfg = NavConfig(**{**TFT_CFG, **json.loads(args.nav_kwargs)}, speed_cal=cal)
+            tft_cfg = nav_cfg_for(cal_meta, NavConfig(**{**TFT_CFG, **json.loads(args.nav_kwargs)}, speed_cal=cal),
+                                  calcfg)
             tft_in = dict(w=u_hat[:, 0], a=u_hat[:, 1], a_lat=u_hat[:, 2], p_stop=ps,
                           tft_resid=np.linalg.norm(u_raw - u_hat, axis=1))
             # direction of travel at the end (for along/cross-track decomposition)
@@ -127,12 +215,17 @@ def main():
             n_ = np.array([g[1], -g[0]])
             path = d.pos[t0:t0 + H + 300]
 
-            def record(key, tr, snap=None, st=None, seed=0):
+            def record(key, tr, snap=None, st=None, seed=0, sb=None):
                 err = np.hypot(*(tr - gt).T)
                 e = tr[-1] - gt[-1]
                 rec = {"drive": name, "t0": t0, "seed": seed, "err_end": float(err[-1]), "dist": float(dist[-1]),
                        "err30": float(err[299]), "err10": float(err[99]), "err20": float(err[199]),
-                       "along": float(abs(e @ g)), "cross": float(abs(e @ n_)), "stats": st}
+                       "along": float(abs(e @ g)), "cross": float(abs(e @ n_)), "stats": st,
+                       "calibration": cal_meta, "route": route_meta}
+                if biases is not None:
+                    rec["recent_speed_bias"] = biases[i]
+                if sb is not None:
+                    rec["speed_bias"] = sb
                 if snap is not None:
                     rec["wrong_road"] = bool(np.min(np.hypot(*(path - snap[-1]).T)) > 15.0)
                 rows.setdefault(key, []).append(rec)
@@ -148,11 +241,15 @@ def main():
                 if not args.core:
                     record("raw_ekf_map", run_outage(w=u_raw[:, 0], a=u_raw[:, 1], a_lat=u_raw[:, 2],
                                                      nav_cfg=raw_cfg, seed=seed, **common)[0], seed=sd)
-                tr, snap, st = run_outage(nav_cfg=tft_cfg, seed=seed, **tft_in, **common, **extra)
-                record("tft_ekf_map", tr, snap, st, seed=sd)
-                tr_r, snap_r, st_r = run_outage(nav_cfg=tft_cfg, route_edges=route, seed=seed, **tft_in, **common,
-                                                **extra)
-                record("tft_ekf_map_route", tr_r, snap_r, st_r, seed=sd)
+                sbk = dict(return_trace=True) if args.speed_bias else {}
+                out_m = run_outage(nav_cfg=tft_cfg, seed=seed, **tft_in, **common, **extra_i, **sbk)
+                tr, snap, st = out_m[:3]
+                record("tft_ekf_map", tr, snap, st, seed=sd,
+                       sb=phase_bias(out_m[3]["speed_est"], d, t0, H, lab_ctx) if args.speed_bias else None)
+                out_r = run_outage(nav_cfg=tft_cfg, route_edges=route, seed=seed, **tft_in, **common, **extra_i, **sbk)
+                tr_r, snap_r, st_r = out_r[:3]
+                record("tft_ekf_map_route", tr_r, snap_r, st_r, seed=sd,
+                       sb=phase_bias(out_r[3]["speed_est"], d, t0, H, lab_ctx) if args.speed_bias else None)
                 res["tft_ekf_map_route"] = tr_r
             examples.append((name, t0, gt, res, rm))
         print(f"{name}: {len(rows.get('tft', []))} outages so far ({time.time() - t_start:.0f} s)", flush=True)
@@ -171,23 +268,65 @@ def main():
                 "median_err_m_10_20_30s": [float(np.median([r[f"err{s_}"] for r in lst])) for s_ in (10, 20, 30)]}
         if "wrong_road" in lst[0]:
             out_["wrong_road_pct"] = float(np.mean([r["wrong_road"] for r in lst]) * 100)
+        if "speed_bias" in lst[0]:
+            for ph in BIAS_PHASES:
+                se = sum(r["speed_bias"][ph][0] for r in lst)
+                nn = sum(r["speed_bias"][ph][1] for r in lst)
+                out_[f"bias_{ph}"] = float(se / nn) if nn else float("nan")
         return out_
 
-    summary = {}
-    for key, lst in rows.items():
-        seeds = sorted({r["seed"] for r in lst})
-        per = [stats_of([r for r in lst if r["seed"] == sd]) for sd in seeds]
-        agg = {"n": per[0]["n"], "seeds": len(seeds)}
-        for k in per[0]:
-            if k == "n":
+    def aggregate(rows_):
+        summary_ = {}
+        for key, lst in rows_.items():
+            if not lst:
                 continue
-            vals = np.array([p[k] for p in per], dtype=float)
-            agg[k] = vals.mean(0).tolist() if vals.ndim > 1 else float(vals.mean())
-            if vals.ndim == 1 and len(seeds) > 1:
-                agg[k + "_range"] = [float(vals.min()), float(vals.max())]
-        summary[key] = agg
+            seeds = sorted({r["seed"] for r in lst})
+            per = [stats_of([r for r in lst if r["seed"] == sd]) for sd in seeds]
+            agg = {"n": per[0]["n"], "seeds": len(seeds)}
+            for k in per[0]:
+                if k == "n":
+                    continue
+                vals = np.array([p[k] for p in per], dtype=float)
+                agg[k] = vals.mean(0).tolist() if vals.ndim > 1 else float(vals.mean())
+                if vals.ndim == 1 and len(seeds) > 1:
+                    agg[k + "_range"] = [float(vals.min()), float(vals.max())]
+            summary_[key] = agg
+        return summary_
+
+    quality_of = lambda r: r["calibration"]["calibration_quality"]
+    cal_counts = {}
+    for r in rows.get("tft", []):
+        cal_counts[quality_of(r)] = cal_counts.get(quality_of(r), 0) + 1
+    cold = {k: [r for r in v if quality_of(r) == "cold_start"] for k, v in rows.items()}
+    if calcfg.mode == "causal_pre_outage":
+        # headline excludes cold_start outages (no usable pre-outage calibration); they are reported separately
+        rows_main = {k: [r for r in v if quality_of(r) != "cold_start"] for k, v in rows.items()}
+    else:
+        rows_main = rows
+    summary = aggregate(rows_main)
+    summary_cold = aggregate(cold) if any(cold.values()) else {}
+    rmeta = [r["route"] for r in rows.get("tft", [])]
+    divs = [m_["route_first_divergence_m"] for m_ in rmeta if m_.get("route_first_divergence_m") is not None]
+    route_block = {"route_input_source": routecfg.source, "n_outages": len(rmeta),
+                   "route_valid": int(sum(m_.get("route_valid", 0) for m_ in rmeta)),
+                   "failure_reasons": {k: sum(1 for m_ in rmeta if m_.get("route_failure_reason") == k)
+                                       for k in {m_.get("route_failure_reason") for m_ in rmeta if not m_.get("route_valid")}},
+                   "matches_ground_truth_over_outage": int(sum(bool(m_.get("route_matches_ground_truth_route")) for m_ in rmeta)),
+                   "diverged_n": len(divs), "median_first_divergence_m": float(np.median(divs)) if divs else None}
+    calibration_block = {"calibration_mode": calcfg.mode, "guard_s": calcfg.guard_s,
+                         "outage_counts_by_quality": cal_counts,
+                         "headline_excludes": ["cold_start"] if calcfg.mode == "causal_pre_outage" else [],
+                         "ekf_input_noise_inflation": {"partial": calcfg.inflate_partial,
+                                                       "cold_start": calcfg.inflate_cold}}
     out = ARTIFACTS / f"mm_eval_{args.out_tag or args.tag}_{'_'.join(args.drives)}_{H // 10}s.json"
-    out.write_text(json.dumps({"summary": summary, "rows": rows}, indent=1, default=str))
+    print("route input:", route_block, flush=True)
+    out.write_text(json.dumps({"calibration": calibration_block, "route": route_block, "summary": summary, "summary_cold_start": summary_cold,
+                               "rows": rows}, indent=1, default=str))
+    print(f"calibration_mode={calcfg.mode}  outages by calibration quality: {cal_counts}", flush=True)
+    if summary_cold:
+        print("cold_start outages (reported separately, NOT in the headline):", flush=True)
+        for k, v in summary_cold.items():
+            print(f"  {k:22s} n={v['n']:4d}  median drift {v['median_drift_pct']:5.1f}%", flush=True)
     rng_ = lambda v, k: (f" [{v[k + '_range'][0]:.1f}-{v[k + '_range'][1]:.1f}]" if k + "_range" in v else "")
     for k, v in summary.items():
         print(f"{k:22s} n={v['n']:4d} x{v['seeds']} | median drift {v['median_drift_pct']:5.1f}%{rng_(v, 'median_drift_pct')}"

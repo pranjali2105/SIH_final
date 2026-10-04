@@ -6,15 +6,15 @@ When a phone loses GNSS, this pipeline estimates the vehicle's position from the
 - a **9-state EKF** with an adaptive non-holonomic constraint integrates them;
 - an **OSM particle-filter map matcher** keeps the estimate on real roads.
 
-**Results.** Median 60 s drift (end-point error ÷ distance travelled), 3 seeds:
+**Final results** (leak-free protocol: per-outage calibration from pre-outage data only, OSM planned route, no GNSS after outage start). Median 60 s drift (end-point error ÷ distance travelled), 3 seeds:
 
-| Split | Median drift |
-|---|---|
-| Held-out Y1 + M | **9.6%** |
-| Held-out Vw4 | **9.1%** |
-| Validation S2 + Vtb5 | 9.4% |
+| Split | Median drift | Wrong-road |
+|---|---|---|
+| Held-out Y1 + M | **12.4%** [11.7–12.9] | 20.1% |
+| Held-out Vw4 | **7.8%** [7.6–7.9] | 14.0% |
+| Validation S2 + Vtb5 | 9.3% [9.0–9.5] | 14.6% |
 
-The target is under 10%. For comparison, raw phone IMU with physics integration alone gives 28.5%.
+The target is under 10%. It's met on Vw4 and on the validation drives, but not on Y1 + M. An earlier, leaky protocol had reported 9.6% for Y1 + M. Experimental features (turn landmarks, confidence policy, map look-ahead slowdown prior, speed-bias gate) are in the code behind flags that are off by default; none passed both validation and held-out checks.
 
 The full write-up, with architecture, method, drift analysis and experiment log, is in [`docs/PS168_Dead_Reckoning_Report.pdf`](docs/PS168_Dead_Reckoning_Report.pdf) (HTML version: `docs/report.html`).
 

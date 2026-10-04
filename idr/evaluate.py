@@ -40,13 +40,29 @@ def make_specs(drives, names, horizon_steps, stride=300, route_mode="route"):
     return specs
 
 
+def _batches(drives, specs, calibration):
+    """Eval batches; causal_pre_outage (default) builds per-outage prefix-calibrated views chunk by chunk."""
+    from idr.causal_calibration import CalibrationConfig, build_views
+    cfg = calibration or CalibrationConfig()
+    if cfg.mode == "offline_oracle":
+        ds = OutageDataset(drives, sorted({s["drive"] for s in specs}), len(specs), mode="eval")
+        ds.fixed = specs
+        yield from DataLoader(ds, batch_size=64)
+        return
+    for k in range(0, len(specs), 64):
+        views, vspecs, _ = build_views(drives, specs[k:k + 64], cfg)
+        ds = OutageDataset(views, sorted({s["drive"] for s in vspecs}), len(vspecs), mode="eval")
+        ds.fixed = vspecs
+        yield from DataLoader(ds, batch_size=64)
+
+
 @torch.no_grad()
-def run(model, drives, specs, dev, horizon_steps):
-    ds = OutageDataset(drives, sorted({s["drive"] for s in specs}), len(specs), mode="eval")
-    ds.fixed = specs
+def run(model, drives, specs, dev, horizon_steps, calibration=None, route=None):
+    from idr.route_input import RouteConfig, annotate_specs
+    specs, _ = annotate_specs(drives, specs, route or RouteConfig(), horizon=horizon_steps)
     res = {"model": [], "physics": []}
     keep = []
-    for batch in DataLoader(ds, batch_size=64):
+    for batch in _batches(drives, specs, calibration):
         b = to_dev(batch, dev)
         out = model(b["seq"], b["static"], b["route"], b["u_raw"])
         for key, u, ps in [("model", out["u_hat"], out["p_stop"]), ("physics", b["u_raw"], None)]:
@@ -119,7 +135,14 @@ def plot_examples(truth, res, specs, tag, n=4):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tag", default="tft")
+    from idr.causal_calibration import add_cli, config_from_args
+    add_cli(ap)
+    from idr.route_input import add_cli as add_route_cli
+    from idr.route_input import config_from_args as route_config_from_args
+    add_route_cli(ap)
     args = ap.parse_args()
+    calcfg = config_from_args(args)
+    routecfg = route_config_from_args(args)
     dev = pick_device()
     ck = torch.load(ARTIFACTS / f"{args.tag}.pt", map_location="cpu", weights_only=False)
     a = ck["args"]
@@ -131,7 +154,7 @@ def main():
 
     for H in (300, 600):
         specs = make_specs(drives, sp["test"], H)
-        res, truth = run(model, drives, specs, dev, H)
+        res, truth = run(model, drives, specs, dev, H, calcfg, routecfg)
         report[f"test_{H // 10}s"] = {k: summarise(v, H) for k, v in res.items()}
         if H == 600:
             report["trajectory_plot"] = plot_examples(truth, res, specs, args.tag)
@@ -140,12 +163,12 @@ def main():
         for mode, label in [("none", "destination_only"), ("route", "destination_plus_route"),
                             ("wrong", "destination_plus_wrong_route")]:
             sp_m = [{**s, "route_mode": mode} for s in specs]
-            abl[label] = summarise(run(model, drives, sp_m, dev, H)[0]["model"], H)
+            abl[label] = summarise(run(model, drives, sp_m, dev, H, calcfg, routecfg)[0]["model"], H)
         report[f"test_{H // 10}s_route_ablation"] = abl
 
     # MARK-V comparable protocol on (re-synced) Y1: median error at 10/20/30/60 s
     specs = make_specs(drives, ["Y1"], 600)
-    res, _ = run(model, drives, specs, dev, 600)
+    res, _ = run(model, drives, specs, dev, 600, calcfg, routecfg)
     report["Y1_marky_protocol_median_err_m"] = {
         k: {f"{s}s": float(np.median(v["err"][:, s * 10 - 1])) for s in (10, 20, 30, 60)} for k, v in res.items()}
 
@@ -154,10 +177,12 @@ def main():
         specs = make_specs(drives, [name], 100, stride=50)
         if not specs:
             continue
-        res, _ = run(model, drives, specs, dev, 100)
+        res, _ = run(model, drives, specs, dev, 100, calcfg, routecfg)
         report[f"scenario_{name}_10s"] = {k: {"max_crse_m": crse_max(v), **summarise(v, 100)} for k, v in res.items()}
 
     out = ARTIFACTS / f"{args.tag}_eval.json"
+    report["calibration_mode"] = calcfg.mode
+    report["route_input_source"] = routecfg.source
     out.write_text(json.dumps(report, indent=1))
     print(json.dumps(report, indent=1))
 

@@ -20,6 +20,8 @@
    "particle impoverishment": 29
   },
   "wrong_successor_n": 22,
+  "impoverishment_n": 29,
+  "conf_actions": {},
   "junction_n": 1184,
   "junction_abs_dt_median_s": 1.3,
   "junction_abs_dt_p90_s": 6.7,
@@ -68,6 +70,8 @@
    "particle impoverishment": 28
   },
   "wrong_successor_n": 19,
+  "impoverishment_n": 28,
+  "conf_actions": {},
   "junction_n": 1183,
   "junction_abs_dt_median_s": 1.3,
   "junction_abs_dt_p90_s": 6.5,
@@ -126,5 +130,66 @@
   "n_worse_gt10m": 45,
   "median_improvement_m": -23.67823465558189,
   "median_worsening_m": 17.629497476390384
+ },
+ "acceptance": {
+  "criteria": [
+   {
+    "criterion": "worst-quarter along-track < control",
+    "control": 141.3315704211038,
+    "treatment": 154.9844313263442,
+    "pass": false
+   },
+   {
+    "criterion": "fewer tail outages",
+    "control": 246,
+    "treatment": 242,
+    "pass": true
+   },
+   {
+    "criterion": "median drift <= control",
+    "control": 9.41488640637313,
+    "treatment": 9.406724387023843,
+    "pass": true
+   },
+   {
+    "criterion": "wrong-road <= control",
+    "control": 15.565345080763583,
+    "treatment": 14.684287812041115,
+    "pass": true
+   },
+   {
+    "criterion": "no cross-track increase (<= +0.5 m)",
+    "control": 5.016082538330994,
+    "treatment": 5.176169062429977,
+    "pass": true
+   },
+   {
+    "criterion": "lower junction timing error (p90)",
+    "control": 6.7,
+    "treatment": 6.5,
+    "pass": true
+   },
+   {
+    "criterion": "wrong successor not increased",
+    "control": 22,
+    "treatment": 19,
+    "pass": true
+   },
+   {
+    "criterion": "impoverishment not increased",
+    "control": 29,
+    "treatment": 28,
+    "pass": true
+   }
+  ],
+  "all_pass": false,
+  "median_drift_range_treatment": [
+   9.197990979572298,
+   9.555807579254463
+  ],
+  "wrong_road_range_treatment": [
+   13.215859030837004,
+   15.859030837004406
+  ]
  }
 }

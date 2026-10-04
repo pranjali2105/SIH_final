@@ -1,0 +1,3153 @@
+{
+ "rule": "Select the look-ahead bias-gate threshold on S2 + Vtb5 ONLY. `python -m idr.bias_gate_tune`\n\nPREDECLARED RULE (written before any result was looked at, 2026-10-04):\n  grid tau in {-1.0, -0.75, -0.5, -0.25, 0.0, +0.25} (minimum_allowed_bias_mps)\n  choose the MOST CONSERVATIVE (highest) tau such that, on S2 + Vtb5:\n    (1) mean worst-quarter along-track gain vs control >= 50% of the ungated gain (B vs A),\n    (2) worst-quarter along-track < control in every seed,\n    (3) wrong-road not worse than control by > 1 pt in any seed;\n  if no tau qualifies, use the default -0.25.\n\nEmulation is exact for the outage-level gate: an outage whose pre-outage bias is below tau gets NO prior, and a run\nwith the prior fully suppressed is bit-identical to the control (test_speed_bias_gate::test_f), so its rows are taken\nfrom the control run A; outages at/above tau take the ungated run B. The branch-proximity guard is per event and\ncannot be emulated; the chosen tau is therefore confirmed by a real run (C) afterwards.\n",
+ "grid": [
+  {
+   "tau": -1.0,
+   "gated_in": 185,
+   "drift": 9.201787562561387,
+   "wrong": 13.303437967115096,
+   "cross": 4.876312094307526,
+   "w25": 140.93268893377652,
+   "dw": [
+    -13.183366694004178,
+    11.222627992356593,
+    -2.402638061960431
+   ],
+   "dr": [
+    -0.44843049327354123,
+    -0.8968609865470878,
+    -2.6905829596412527
+   ],
+   "qualifies": 0.0
+  },
+  {
+   "tau": -0.75,
+   "gated_in": 177,
+   "drift": 9.220102134662143,
+   "wrong": 13.901345291479823,
+   "cross": 5.011819451302711,
+   "w25": 142.7771271655525,
+   "dw": [
+    -9.44022668149833,
+    13.012802675178705,
+    -2.402638061960431
+   ],
+   "dr": [
+    0.0,
+    0.0,
+    -2.2421524663677097
+   ],
+   "qualifies": 0.0
+  },
+  {
+   "tau": -0.5,
+   "gated_in": 167,
+   "drift": 9.174211011025202,
+   "wrong": 13.751868460388641,
+   "cross": 5.005108279564206,
+   "w25": 142.18040227127847,
+   "dw": [
+    -9.44022668149833,
+    11.222627992356593,
+    -2.402638061960431
+   ],
+   "dr": [
+    0.0,
+    -0.4484304932735448,
+    -2.2421524663677097
+   ],
+   "qualifies": 0.0
+  },
+  {
+   "tau": -0.25,
+   "gated_in": 157,
+   "drift": 9.232653633717673,
+   "wrong": 14.349775784753364,
+   "cross": 5.02479590588451,
+   "w25": 143.86844477128238,
+   "dw": [
+    -4.376099181486609,
+    11.222627992356593,
+    -2.402638061960431
+   ],
+   "dr": [
+    0.8968609865470878,
+    -0.4484304932735448,
+    -1.3452914798206237
+   ],
+   "qualifies": 0.0
+  },
+  {
+   "tau": 0.0,
+   "gated_in": 145,
+   "drift": 9.274648098101716,
+   "wrong": 13.901345291479819,
+   "cross": 5.02479590588451,
+   "w25": 140.30499541915307,
+   "dw": [
+    -9.44022668149833,
+    9.652785859578842,
+    -6.459016485558976
+   ],
+   "dr": [
+    0.448430493273543,
+    -0.8968609865470878,
+    -1.7937219730941685
+   ],
+   "qualifies": 0.0
+  },
+  {
+   "tau": 0.25,
+   "gated_in": 135,
+   "drift": 9.21671443528139,
+   "wrong": 13.901345291479819,
+   "cross": 5.024509461317062,
+   "w25": 143.34302226690676,
+   "dw": [
+    -4.376099181486609,
+    7.243722417269282,
+    0.0
+   ],
+   "dr": [
+    0.448430493273543,
+    -0.8968609865470878,
+    -1.7937219730941685
+   ],
+   "qualifies": 0.0
+  }
+ ],
+ "selected": -0.25,
+ "shadow_bias": {
+  "S2@195": {
+   "available": false,
+   "reason": "insufficient_pre_outage_history",
+   "recent_ekf_speed_bias_mps": null,
+   "recent_gnss_speed_mean_mps": null,
+   "recent_ekf_speed_mean_mps": null,
+   "n_samples": 0,
+   "outage_start_index": 195
+  },
+  "S2@901": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.5309066023102472,
+   "recent_gnss_speed_mean_mps": 1.0691203702777778,
+   "recent_ekf_speed_mean_mps": 1.600026972588025,
+   "n_samples": 300,
+   "window": [
+    596,
+    895
+   ],
+   "outage_start_index": 901,
+   "window_s": 30.0
+  },
+  "S2@2001": {
+   "available": false,
+   "reason": "insufficient_pre_outage_history",
+   "recent_ekf_speed_bias_mps": null,
+   "recent_gnss_speed_mean_mps": null,
+   "recent_ekf_speed_mean_mps": null,
+   "n_samples": 0,
+   "outage_start_index": 2001
+  },
+  "S2@2631": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.4357437267005635,
+   "recent_gnss_speed_mean_mps": 8.381296296296295,
+   "recent_ekf_speed_mean_mps": 6.9455525695957325,
+   "n_samples": 300,
+   "window": [
+    2326,
+    2625
+   ],
+   "outage_start_index": 2631,
+   "window_s": 30.0
+  },
+  "S2@4379": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.19008304188706485,
+   "recent_gnss_speed_mean_mps": 0.0018240740740740739,
+   "recent_ekf_speed_mean_mps": 0.19190711596113896,
+   "n_samples": 300,
+   "window": [
+    4074,
+    4373
+   ],
+   "outage_start_index": 4379,
+   "window_s": 30.0
+  },
+  "S2@4979": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.889307823788511,
+   "recent_gnss_speed_mean_mps": 10.774342592592593,
+   "recent_ekf_speed_mean_mps": 8.885034768804083,
+   "n_samples": 300,
+   "window": [
+    4674,
+    4973
+   ],
+   "outage_start_index": 4979,
+   "window_s": 30.0
+  },
+  "S2@5579": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.5918630564915908,
+   "recent_gnss_speed_mean_mps": 8.289518518518518,
+   "recent_ekf_speed_mean_mps": 9.88138157501011,
+   "n_samples": 300,
+   "window": [
+    5274,
+    5573
+   ],
+   "outage_start_index": 5579,
+   "window_s": 30.0
+  },
+  "S2@6179": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.6797947719244365,
+   "recent_gnss_speed_mean_mps": 4.979379629629629,
+   "recent_ekf_speed_mean_mps": 4.2995848577051925,
+   "n_samples": 300,
+   "window": [
+    5874,
+    6173
+   ],
+   "outage_start_index": 6179,
+   "window_s": 30.0
+  },
+  "S2@6779": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.8134533273202358,
+   "recent_gnss_speed_mean_mps": 7.482777777777777,
+   "recent_ekf_speed_mean_mps": 9.296231105098013,
+   "n_samples": 300,
+   "window": [
+    6474,
+    6773
+   ],
+   "outage_start_index": 6779,
+   "window_s": 30.0
+  },
+  "S2@7379": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.3844461881435977,
+   "recent_gnss_speed_mean_mps": 6.239166665740741,
+   "recent_ekf_speed_mean_mps": 4.8547204775971435,
+   "n_samples": 300,
+   "window": [
+    7074,
+    7373
+   ],
+   "outage_start_index": 7379,
+   "window_s": 30.0
+  },
+  "S2@7979": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.2468146096365786,
+   "recent_gnss_speed_mean_mps": 2.8940092592592594,
+   "recent_ekf_speed_mean_mps": 2.647194649622681,
+   "n_samples": 300,
+   "window": [
+    7674,
+    7973
+   ],
+   "outage_start_index": 7979,
+   "window_s": 30.0
+  },
+  "S2@8579": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.8576833157980923,
+   "recent_gnss_speed_mean_mps": 5.947453701851852,
+   "recent_ekf_speed_mean_mps": 5.089770386053758,
+   "n_samples": 300,
+   "window": [
+    8274,
+    8573
+   ],
+   "outage_start_index": 8579,
+   "window_s": 30.0
+  },
+  "S2@9179": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.1127562501055577,
+   "recent_gnss_speed_mean_mps": 2.287879629629629,
+   "recent_ekf_speed_mean_mps": 3.400635879735187,
+   "n_samples": 300,
+   "window": [
+    8874,
+    9173
+   ],
+   "outage_start_index": 9179,
+   "window_s": 30.0
+  },
+  "S2@9779": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.9172829567756806,
+   "recent_gnss_speed_mean_mps": 9.031620370370371,
+   "recent_ekf_speed_mean_mps": 8.114337413594688,
+   "n_samples": 300,
+   "window": [
+    9474,
+    9773
+   ],
+   "outage_start_index": 9779,
+   "window_s": 30.0
+  },
+  "S2@10379": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.4019360310613154,
+   "recent_gnss_speed_mean_mps": 14.51759259259259,
+   "recent_ekf_speed_mean_mps": 13.115656561531278,
+   "n_samples": 300,
+   "window": [
+    10074,
+    10373
+   ],
+   "outage_start_index": 10379,
+   "window_s": 30.0
+  },
+  "S2@10979": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.44931336702048,
+   "recent_gnss_speed_mean_mps": 6.44291666574074,
+   "recent_ekf_speed_mean_mps": 8.892230032761221,
+   "n_samples": 300,
+   "window": [
+    10674,
+    10973
+   ],
+   "outage_start_index": 10979,
+   "window_s": 30.0
+  },
+  "S2@11579": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.3165588266893766,
+   "recent_gnss_speed_mean_mps": 9.028166666666666,
+   "recent_ekf_speed_mean_mps": 11.344725493356044,
+   "n_samples": 300,
+   "window": [
+    11274,
+    11573
+   ],
+   "outage_start_index": 11579,
+   "window_s": 30.0
+  },
+  "S2@12179": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.446993398805395,
+   "recent_gnss_speed_mean_mps": 6.968333333333334,
+   "recent_ekf_speed_mean_mps": 9.415326732138729,
+   "n_samples": 300,
+   "window": [
+    11874,
+    12173
+   ],
+   "outage_start_index": 12179,
+   "window_s": 30.0
+  },
+  "S2@12779": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.2041850100841556,
+   "recent_gnss_speed_mean_mps": 1.458398148148148,
+   "recent_ekf_speed_mean_mps": 2.6625831582323034,
+   "n_samples": 300,
+   "window": [
+    12474,
+    12773
+   ],
+   "outage_start_index": 12779,
+   "window_s": 30.0
+  },
+  "S2@13422": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.6245987928859524,
+   "recent_gnss_speed_mean_mps": 3.0347870370370376,
+   "recent_ekf_speed_mean_mps": 3.6593858299229898,
+   "n_samples": 300,
+   "window": [
+    13117,
+    13416
+   ],
+   "outage_start_index": 13422,
+   "window_s": 30.0
+  },
+  "S2@14275": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.6619870841361678,
+   "recent_gnss_speed_mean_mps": 0.08753703703703702,
+   "recent_ekf_speed_mean_mps": 0.7495241211732048,
+   "n_samples": 300,
+   "window": [
+    13970,
+    14269
+   ],
+   "outage_start_index": 14275,
+   "window_s": 30.0
+  },
+  "S2@14875": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.3444522055594552,
+   "recent_gnss_speed_mean_mps": 6.799212961111111,
+   "recent_ekf_speed_mean_mps": 8.143665166670566,
+   "n_samples": 300,
+   "window": [
+    14570,
+    14869
+   ],
+   "outage_start_index": 14875,
+   "window_s": 30.0
+  },
+  "S2@15475": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.312273363726132,
+   "recent_gnss_speed_mean_mps": 6.615629629629629,
+   "recent_ekf_speed_mean_mps": 8.927902993355762,
+   "n_samples": 300,
+   "window": [
+    15170,
+    15469
+   ],
+   "outage_start_index": 15475,
+   "window_s": 30.0
+  },
+  "S2@16075": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.3347924704442298,
+   "recent_gnss_speed_mean_mps": 3.1767777758333335,
+   "recent_ekf_speed_mean_mps": 4.511570246277563,
+   "n_samples": 300,
+   "window": [
+    15770,
+    16069
+   ],
+   "outage_start_index": 16075,
+   "window_s": 30.0
+  },
+  "S2@16675": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.0344084676659804,
+   "recent_gnss_speed_mean_mps": 4.4420833314814825,
+   "recent_ekf_speed_mean_mps": 5.476491799147462,
+   "n_samples": 300,
+   "window": [
+    16370,
+    16669
+   ],
+   "outage_start_index": 16675,
+   "window_s": 30.0
+  },
+  "S2@17275": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.3157533221394644,
+   "recent_gnss_speed_mean_mps": 8.24595370277778,
+   "recent_ekf_speed_mean_mps": 10.561707024917242,
+   "n_samples": 300,
+   "window": [
+    16970,
+    17269
+   ],
+   "outage_start_index": 17275,
+   "window_s": 30.0
+  },
+  "S2@17875": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.5360178418762107,
+   "recent_gnss_speed_mean_mps": 5.275175924999999,
+   "recent_ekf_speed_mean_mps": 6.81119376687621,
+   "n_samples": 300,
+   "window": [
+    17570,
+    17869
+   ],
+   "outage_start_index": 17875,
+   "window_s": 30.0
+  },
+  "S2@18475": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.9428793705029219,
+   "recent_gnss_speed_mean_mps": 7.131194444444444,
+   "recent_ekf_speed_mean_mps": 6.1883150739415225,
+   "n_samples": 300,
+   "window": [
+    18170,
+    18469
+   ],
+   "outage_start_index": 18475,
+   "window_s": 30.0
+  },
+  "S2@19075": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.069314461087451,
+   "recent_gnss_speed_mean_mps": 7.355249998148147,
+   "recent_ekf_speed_mean_mps": 9.424564459235599,
+   "n_samples": 300,
+   "window": [
+    18770,
+    19069
+   ],
+   "outage_start_index": 19075,
+   "window_s": 30.0
+  },
+  "S2@19675": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 3.925251276233006,
+   "recent_gnss_speed_mean_mps": 4.153935184259259,
+   "recent_ekf_speed_mean_mps": 8.079186460492267,
+   "n_samples": 300,
+   "window": [
+    19370,
+    19669
+   ],
+   "outage_start_index": 19675,
+   "window_s": 30.0
+  },
+  "S2@20275": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.3339196228790644,
+   "recent_gnss_speed_mean_mps": 3.790499999074074,
+   "recent_ekf_speed_mean_mps": 5.124419621953138,
+   "n_samples": 300,
+   "window": [
+    19970,
+    20269
+   ],
+   "outage_start_index": 20275,
+   "window_s": 30.0
+  },
+  "S2@20875": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.2931487348268647,
+   "recent_gnss_speed_mean_mps": 2.863351850925926,
+   "recent_ekf_speed_mean_mps": 4.156500585752791,
+   "n_samples": 300,
+   "window": [
+    20570,
+    20869
+   ],
+   "outage_start_index": 20875,
+   "window_s": 30.0
+  },
+  "S2@21475": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.1416619433604272,
+   "recent_gnss_speed_mean_mps": 5.391685182407407,
+   "recent_ekf_speed_mean_mps": 5.533347125767835,
+   "n_samples": 300,
+   "window": [
+    21170,
+    21469
+   ],
+   "outage_start_index": 21475,
+   "window_s": 30.0
+  },
+  "S2@22075": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.5097502568955886,
+   "recent_gnss_speed_mean_mps": 6.83674074074074,
+   "recent_ekf_speed_mean_mps": 6.326990483845152,
+   "n_samples": 300,
+   "window": [
+    21770,
+    22069
+   ],
+   "outage_start_index": 22075,
+   "window_s": 30.0
+  },
+  "S2@22675": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.10092751270850625,
+   "recent_gnss_speed_mean_mps": 6.643453703703704,
+   "recent_ekf_speed_mean_mps": 6.7443812164122106,
+   "n_samples": 300,
+   "window": [
+    22370,
+    22669
+   ],
+   "outage_start_index": 22675,
+   "window_s": 30.0
+  },
+  "S2@23308": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.2819977664688299,
+   "recent_gnss_speed_mean_mps": 3.354324073148148,
+   "recent_ekf_speed_mean_mps": 3.6363218396169774,
+   "n_samples": 300,
+   "window": [
+    23003,
+    23302
+   ],
+   "outage_start_index": 23308,
+   "window_s": 30.0
+  },
+  "S2@23908": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.0056846350193378,
+   "recent_gnss_speed_mean_mps": 14.145259259259259,
+   "recent_ekf_speed_mean_mps": 15.150943894278596,
+   "n_samples": 300,
+   "window": [
+    23603,
+    23902
+   ],
+   "outage_start_index": 23908,
+   "window_s": 30.0
+  },
+  "S2@24508": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.240501491651338,
+   "recent_gnss_speed_mean_mps": 7.1865648148148145,
+   "recent_ekf_speed_mean_mps": 9.427066306466152,
+   "n_samples": 300,
+   "window": [
+    24203,
+    24502
+   ],
+   "outage_start_index": 24508,
+   "window_s": 30.0
+  },
+  "S2@25108": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.228417783470192,
+   "recent_gnss_speed_mean_mps": 14.68399074074074,
+   "recent_ekf_speed_mean_mps": 13.45557295727055,
+   "n_samples": 300,
+   "window": [
+    24803,
+    25102
+   ],
+   "outage_start_index": 25108,
+   "window_s": 30.0
+  },
+  "S2@25708": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.788318096492449,
+   "recent_gnss_speed_mean_mps": 13.920675925925925,
+   "recent_ekf_speed_mean_mps": 13.132357829433477,
+   "n_samples": 300,
+   "window": [
+    25403,
+    25702
+   ],
+   "outage_start_index": 25708,
+   "window_s": 30.0
+  },
+  "S2@26308": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.486436034114688,
+   "recent_gnss_speed_mean_mps": 12.940074074074076,
+   "recent_ekf_speed_mean_mps": 11.453638039959385,
+   "n_samples": 300,
+   "window": [
+    26003,
+    26302
+   ],
+   "outage_start_index": 26308,
+   "window_s": 30.0
+  },
+  "S2@27123": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.3107102232939219,
+   "recent_gnss_speed_mean_mps": 0.0003703703703703704,
+   "recent_ekf_speed_mean_mps": 0.31108059366429225,
+   "n_samples": 300,
+   "window": [
+    26818,
+    27117
+   ],
+   "outage_start_index": 27123,
+   "window_s": 30.0
+  },
+  "S2@27723": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.7294825904853286,
+   "recent_gnss_speed_mean_mps": 6.164694442592592,
+   "recent_ekf_speed_mean_mps": 8.89417703307792,
+   "n_samples": 300,
+   "window": [
+    27418,
+    27717
+   ],
+   "outage_start_index": 27723,
+   "window_s": 30.0
+  },
+  "S2@28323": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.4549216302430209,
+   "recent_gnss_speed_mean_mps": 14.57100925925926,
+   "recent_ekf_speed_mean_mps": 15.025930889502279,
+   "n_samples": 300,
+   "window": [
+    28018,
+    28317
+   ],
+   "outage_start_index": 28323,
+   "window_s": 30.0
+  },
+  "S2@29652": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.5932928265714301,
+   "recent_gnss_speed_mean_mps": 0.009101851851851852,
+   "recent_ekf_speed_mean_mps": 0.602394678423282,
+   "n_samples": 300,
+   "window": [
+    29347,
+    29646
+   ],
+   "outage_start_index": 29652,
+   "window_s": 30.0
+  },
+  "S2@30252": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.6696462143041834,
+   "recent_gnss_speed_mean_mps": 10.057055555555554,
+   "recent_ekf_speed_mean_mps": 10.726701769859737,
+   "n_samples": 300,
+   "window": [
+    29947,
+    30246
+   ],
+   "outage_start_index": 30252,
+   "window_s": 30.0
+  },
+  "S2@30852": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.38458214077866726,
+   "recent_gnss_speed_mean_mps": 9.052685182407407,
+   "recent_ekf_speed_mean_mps": 8.66810304162874,
+   "n_samples": 300,
+   "window": [
+    30547,
+    30846
+   ],
+   "outage_start_index": 30852,
+   "window_s": 30.0
+  },
+  "S2@31452": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.3781345568915405,
+   "recent_gnss_speed_mean_mps": 3.0238240731481483,
+   "recent_ekf_speed_mean_mps": 3.4019586300396893,
+   "n_samples": 300,
+   "window": [
+    31147,
+    31446
+   ],
+   "outage_start_index": 31452,
+   "window_s": 30.0
+  },
+  "S2@32052": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.3172848924576894,
+   "recent_gnss_speed_mean_mps": 12.70447222222222,
+   "recent_ekf_speed_mean_mps": 11.387187329764531,
+   "n_samples": 300,
+   "window": [
+    31747,
+    32046
+   ],
+   "outage_start_index": 32052,
+   "window_s": 30.0
+  },
+  "S2@32652": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 3.176081209458037,
+   "recent_gnss_speed_mean_mps": 10.104,
+   "recent_ekf_speed_mean_mps": 13.280081209458036,
+   "n_samples": 300,
+   "window": [
+    32347,
+    32646
+   ],
+   "outage_start_index": 32652,
+   "window_s": 30.0
+  },
+  "S2@33252": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.525366554081814,
+   "recent_gnss_speed_mean_mps": 7.434240740740742,
+   "recent_ekf_speed_mean_mps": 9.959607294822554,
+   "n_samples": 300,
+   "window": [
+    32947,
+    33246
+   ],
+   "outage_start_index": 33252,
+   "window_s": 30.0
+  },
+  "S2@33971": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.5413658407530985,
+   "recent_gnss_speed_mean_mps": 0.002324074074074074,
+   "recent_ekf_speed_mean_mps": 0.5436899148271724,
+   "n_samples": 300,
+   "window": [
+    33666,
+    33965
+   ],
+   "outage_start_index": 33971,
+   "window_s": 30.0
+  },
+  "S2@34571": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.1386902147066578,
+   "recent_gnss_speed_mean_mps": 4.870629629629629,
+   "recent_ekf_speed_mean_mps": 6.009319844336287,
+   "n_samples": 300,
+   "window": [
+    34266,
+    34565
+   ],
+   "outage_start_index": 34571,
+   "window_s": 30.0
+  },
+  "S2@35171": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.9707036750070006,
+   "recent_gnss_speed_mean_mps": 1.041574073148148,
+   "recent_ekf_speed_mean_mps": 2.0122777481551486,
+   "n_samples": 300,
+   "window": [
+    34866,
+    35165
+   ],
+   "outage_start_index": 35171,
+   "window_s": 30.0
+  },
+  "S2@35905": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.0103787570282576,
+   "recent_gnss_speed_mean_mps": 0.20295370370370372,
+   "recent_ekf_speed_mean_mps": 1.2133324607319615,
+   "n_samples": 300,
+   "window": [
+    35600,
+    35899
+   ],
+   "outage_start_index": 35905,
+   "window_s": 30.0
+  },
+  "S2@36505": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.5941720501858693,
+   "recent_gnss_speed_mean_mps": 5.746240738888889,
+   "recent_ekf_speed_mean_mps": 5.15206868870302,
+   "n_samples": 300,
+   "window": [
+    36200,
+    36499
+   ],
+   "outage_start_index": 36505,
+   "window_s": 30.0
+  },
+  "S2@37105": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.9226284749040572,
+   "recent_gnss_speed_mean_mps": 2.2166203453703703,
+   "recent_ekf_speed_mean_mps": 4.139248820274427,
+   "n_samples": 300,
+   "window": [
+    36800,
+    37099
+   ],
+   "outage_start_index": 37105,
+   "window_s": 30.0
+  },
+  "S2@37705": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.11741995281154163,
+   "recent_gnss_speed_mean_mps": 0.7123703675,
+   "recent_ekf_speed_mean_mps": 0.8297903203115415,
+   "n_samples": 300,
+   "window": [
+    37400,
+    37699
+   ],
+   "outage_start_index": 37705,
+   "window_s": 30.0
+  },
+  "S2@38305": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.9449962972948116,
+   "recent_gnss_speed_mean_mps": 7.396768518518519,
+   "recent_ekf_speed_mean_mps": 9.341764815813331,
+   "n_samples": 300,
+   "window": [
+    38000,
+    38299
+   ],
+   "outage_start_index": 38305,
+   "window_s": 30.0
+  },
+  "S2@38905": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.024568636545358,
+   "recent_gnss_speed_mean_mps": 7.663240737962964,
+   "recent_ekf_speed_mean_mps": 6.6386721014176056,
+   "n_samples": 300,
+   "window": [
+    38600,
+    38899
+   ],
+   "outage_start_index": 38905,
+   "window_s": 30.0
+  },
+  "S2@39505": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.2479610870597186,
+   "recent_gnss_speed_mean_mps": 9.876296296296296,
+   "recent_ekf_speed_mean_mps": 12.124257383356015,
+   "n_samples": 300,
+   "window": [
+    39200,
+    39499
+   ],
+   "outage_start_index": 39505,
+   "window_s": 30.0
+  },
+  "S2@40699": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.3250281988564986,
+   "recent_gnss_speed_mean_mps": 0.002,
+   "recent_ekf_speed_mean_mps": 0.3270281988564986,
+   "n_samples": 300,
+   "window": [
+    40394,
+    40693
+   ],
+   "outage_start_index": 40699,
+   "window_s": 30.0
+  },
+  "S2@41299": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.41502820973061816,
+   "recent_gnss_speed_mean_mps": 5.363037037037038,
+   "recent_ekf_speed_mean_mps": 5.778065246767655,
+   "n_samples": 300,
+   "window": [
+    40994,
+    41293
+   ],
+   "outage_start_index": 41299,
+   "window_s": 30.0
+  },
+  "S2@41899": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.6602555123748196,
+   "recent_gnss_speed_mean_mps": 9.744898148148149,
+   "recent_ekf_speed_mean_mps": 9.084642635773328,
+   "n_samples": 300,
+   "window": [
+    41594,
+    41893
+   ],
+   "outage_start_index": 41899,
+   "window_s": 30.0
+  },
+  "S2@42499": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.930485176587899,
+   "recent_gnss_speed_mean_mps": 9.501175925925926,
+   "recent_ekf_speed_mean_mps": 10.431661102513825,
+   "n_samples": 300,
+   "window": [
+    42194,
+    42493
+   ],
+   "outage_start_index": 42499,
+   "window_s": 30.0
+  },
+  "S2@43099": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.6004540416378972,
+   "recent_gnss_speed_mean_mps": 6.8509259259259245,
+   "recent_ekf_speed_mean_mps": 8.451379967563822,
+   "n_samples": 300,
+   "window": [
+    42794,
+    43093
+   ],
+   "outage_start_index": 43099,
+   "window_s": 30.0
+  },
+  "S2@43699": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.3630130671580461,
+   "recent_gnss_speed_mean_mps": 8.666712962962963,
+   "recent_ekf_speed_mean_mps": 9.02972603012101,
+   "n_samples": 300,
+   "window": [
+    43394,
+    43693
+   ],
+   "outage_start_index": 43699,
+   "window_s": 30.0
+  },
+  "S2@44299": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.6048326060219079,
+   "recent_gnss_speed_mean_mps": 8.261944444444445,
+   "recent_ekf_speed_mean_mps": 7.657111838422537,
+   "n_samples": 300,
+   "window": [
+    43994,
+    44293
+   ],
+   "outage_start_index": 44299,
+   "window_s": 30.0
+  },
+  "S2@44899": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.9891484269137629,
+   "recent_gnss_speed_mean_mps": 9.898555555555555,
+   "recent_ekf_speed_mean_mps": 8.909407128641792,
+   "n_samples": 300,
+   "window": [
+    44594,
+    44893
+   ],
+   "outage_start_index": 44899,
+   "window_s": 30.0
+  },
+  "S2@45499": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.1553015504535082,
+   "recent_gnss_speed_mean_mps": 12.42924074074074,
+   "recent_ekf_speed_mean_mps": 11.273939190287232,
+   "n_samples": 300,
+   "window": [
+    45194,
+    45493
+   ],
+   "outage_start_index": 45499,
+   "window_s": 30.0
+  },
+  "S2@46107": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 3.629884317947192,
+   "recent_gnss_speed_mean_mps": 4.311074072037036,
+   "recent_ekf_speed_mean_mps": 7.940958389984228,
+   "n_samples": 300,
+   "window": [
+    45802,
+    46101
+   ],
+   "outage_start_index": 46107,
+   "window_s": 30.0
+  },
+  "S2@46707": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.1840781107146412,
+   "recent_gnss_speed_mean_mps": 13.174435185185184,
+   "recent_ekf_speed_mean_mps": 14.358513295899826,
+   "n_samples": 300,
+   "window": [
+    46402,
+    46701
+   ],
+   "outage_start_index": 46707,
+   "window_s": 30.0
+  },
+  "S2@47400": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.43495118660644305,
+   "recent_gnss_speed_mean_mps": 1.573611109259259,
+   "recent_ekf_speed_mean_mps": 2.008562295865702,
+   "n_samples": 300,
+   "window": [
+    47095,
+    47394
+   ],
+   "outage_start_index": 47400,
+   "window_s": 30.0
+  },
+  "S2@48000": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.2693128153380802,
+   "recent_gnss_speed_mean_mps": 5.336407407407408,
+   "recent_ekf_speed_mean_mps": 6.6057202227454885,
+   "n_samples": 300,
+   "window": [
+    47695,
+    47994
+   ],
+   "outage_start_index": 48000,
+   "window_s": 30.0
+  },
+  "S2@48600": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.9807031879518755,
+   "recent_gnss_speed_mean_mps": 3.307324073148148,
+   "recent_ekf_speed_mean_mps": 5.288027261100024,
+   "n_samples": 300,
+   "window": [
+    48295,
+    48594
+   ],
+   "outage_start_index": 48600,
+   "window_s": 30.0
+  },
+  "S2@49234": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.9470634984745637,
+   "recent_gnss_speed_mean_mps": 5.090814814814815,
+   "recent_ekf_speed_mean_mps": 6.037878313289378,
+   "n_samples": 300,
+   "window": [
+    48929,
+    49228
+   ],
+   "outage_start_index": 49234,
+   "window_s": 30.0
+  },
+  "S2@49834": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.8938028654676766,
+   "recent_gnss_speed_mean_mps": 6.705935185185186,
+   "recent_ekf_speed_mean_mps": 8.599738050652862,
+   "n_samples": 300,
+   "window": [
+    49529,
+    49828
+   ],
+   "outage_start_index": 49834,
+   "window_s": 30.0
+  },
+  "S2@50434": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.1845628971589615,
+   "recent_gnss_speed_mean_mps": 14.45232403703704,
+   "recent_ekf_speed_mean_mps": 15.636886934195998,
+   "n_samples": 300,
+   "window": [
+    50129,
+    50428
+   ],
+   "outage_start_index": 50434,
+   "window_s": 30.0
+  },
+  "S2@51034": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.905121962934329,
+   "recent_gnss_speed_mean_mps": 7.171148144444444,
+   "recent_ekf_speed_mean_mps": 9.076270107378773,
+   "n_samples": 300,
+   "window": [
+    50729,
+    51028
+   ],
+   "outage_start_index": 51034,
+   "window_s": 30.0
+  },
+  "S2@51634": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 3.605429146134994,
+   "recent_gnss_speed_mean_mps": 15.148981425925925,
+   "recent_ekf_speed_mean_mps": 18.75441057206092,
+   "n_samples": 300,
+   "window": [
+    51329,
+    51628
+   ],
+   "outage_start_index": 51634,
+   "window_s": 30.0
+  },
+  "S2@52234": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.003410389463633,
+   "recent_gnss_speed_mean_mps": 12.901805555555553,
+   "recent_ekf_speed_mean_mps": 13.90521594501919,
+   "n_samples": 300,
+   "window": [
+    51929,
+    52228
+   ],
+   "outage_start_index": 52234,
+   "window_s": 30.0
+  },
+  "S2@52834": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.8155312172985316,
+   "recent_gnss_speed_mean_mps": 10.356712962962963,
+   "recent_ekf_speed_mean_mps": 12.172244180261494,
+   "n_samples": 300,
+   "window": [
+    52529,
+    52828
+   ],
+   "outage_start_index": 52834,
+   "window_s": 30.0
+  },
+  "S2@53434": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.870586898146683,
+   "recent_gnss_speed_mean_mps": 3.556287036111111,
+   "recent_ekf_speed_mean_mps": 4.426873934257794,
+   "n_samples": 300,
+   "window": [
+    53129,
+    53428
+   ],
+   "outage_start_index": 53434,
+   "window_s": 30.0
+  },
+  "S2@54034": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -3.3902859322042955,
+   "recent_gnss_speed_mean_mps": 20.665638740740743,
+   "recent_ekf_speed_mean_mps": 17.275352808536447,
+   "n_samples": 300,
+   "window": [
+    53729,
+    54028
+   ],
+   "outage_start_index": 54034,
+   "window_s": 30.0
+  },
+  "S2@54634": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.9578812781912511,
+   "recent_gnss_speed_mean_mps": 21.517388694444445,
+   "recent_ekf_speed_mean_mps": 19.559507416253194,
+   "n_samples": 300,
+   "window": [
+    54329,
+    54628
+   ],
+   "outage_start_index": 54634,
+   "window_s": 30.0
+  },
+  "S2@55234": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.021255405253778222,
+   "recent_gnss_speed_mean_mps": 28.397685129629632,
+   "recent_ekf_speed_mean_mps": 28.37642972437585,
+   "n_samples": 300,
+   "window": [
+    54929,
+    55228
+   ],
+   "outage_start_index": 55234,
+   "window_s": 30.0
+  },
+  "S2@55834": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 3.366537976499823,
+   "recent_gnss_speed_mean_mps": 7.892055555555556,
+   "recent_ekf_speed_mean_mps": 11.258593532055379,
+   "n_samples": 300,
+   "window": [
+    55529,
+    55828
+   ],
+   "outage_start_index": 55834,
+   "window_s": 30.0
+  },
+  "S2@56434": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.7991791804785277,
+   "recent_gnss_speed_mean_mps": 8.150009259259258,
+   "recent_ekf_speed_mean_mps": 7.350830078780731,
+   "n_samples": 300,
+   "window": [
+    56129,
+    56428
+   ],
+   "outage_start_index": 56434,
+   "window_s": 30.0
+  },
+  "S2@57034": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.5827134830148446,
+   "recent_gnss_speed_mean_mps": 8.266777776851853,
+   "recent_ekf_speed_mean_mps": 7.6840642938370065,
+   "n_samples": 300,
+   "window": [
+    56729,
+    57028
+   ],
+   "outage_start_index": 57034,
+   "window_s": 30.0
+  },
+  "S2@57634": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.645358033971542,
+   "recent_gnss_speed_mean_mps": 6.021694438888888,
+   "recent_ekf_speed_mean_mps": 7.667052472860431,
+   "n_samples": 300,
+   "window": [
+    57329,
+    57628
+   ],
+   "outage_start_index": 57634,
+   "window_s": 30.0
+  },
+  "S2@58234": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -2.382643693004523,
+   "recent_gnss_speed_mean_mps": 6.813759258333333,
+   "recent_ekf_speed_mean_mps": 4.431115565328811,
+   "n_samples": 300,
+   "window": [
+    57929,
+    58228
+   ],
+   "outage_start_index": 58234,
+   "window_s": 30.0
+  },
+  "S2@58834": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.1010667162189025,
+   "recent_gnss_speed_mean_mps": 5.48524074074074,
+   "recent_ekf_speed_mean_mps": 6.586307456959643,
+   "n_samples": 300,
+   "window": [
+    58529,
+    58828
+   ],
+   "outage_start_index": 58834,
+   "window_s": 30.0
+  },
+  "S2@59434": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 3.6550943570625516,
+   "recent_gnss_speed_mean_mps": 2.2819537018518514,
+   "recent_ekf_speed_mean_mps": 5.937048058914403,
+   "n_samples": 300,
+   "window": [
+    59129,
+    59428
+   ],
+   "outage_start_index": 59434,
+   "window_s": 30.0
+  },
+  "S2@60034": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -3.613635262771936,
+   "recent_gnss_speed_mean_mps": 8.186898092407406,
+   "recent_ekf_speed_mean_mps": 4.57326282963547,
+   "n_samples": 300,
+   "window": [
+    59729,
+    60028
+   ],
+   "outage_start_index": 60034,
+   "window_s": 30.0
+  },
+  "S2@60634": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.2464811186692852,
+   "recent_gnss_speed_mean_mps": 15.758629611111113,
+   "recent_ekf_speed_mean_mps": 18.005110729780395,
+   "n_samples": 300,
+   "window": [
+    60329,
+    60628
+   ],
+   "outage_start_index": 60634,
+   "window_s": 30.0
+  },
+  "S2@61234": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.7588808459746061,
+   "recent_gnss_speed_mean_mps": 24.631814555555557,
+   "recent_ekf_speed_mean_mps": 26.39069540153016,
+   "n_samples": 300,
+   "window": [
+    60929,
+    61228
+   ],
+   "outage_start_index": 61234,
+   "window_s": 30.0
+  },
+  "S2@61834": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.25925987425188596,
+   "recent_gnss_speed_mean_mps": 8.050101851851851,
+   "recent_ekf_speed_mean_mps": 8.309361726103738,
+   "n_samples": 300,
+   "window": [
+    61529,
+    61828
+   ],
+   "outage_start_index": 61834,
+   "window_s": 30.0
+  },
+  "S2@62434": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.5470030700784879,
+   "recent_gnss_speed_mean_mps": 4.348129625925926,
+   "recent_ekf_speed_mean_mps": 4.8951326960044135,
+   "n_samples": 300,
+   "window": [
+    62129,
+    62428
+   ],
+   "outage_start_index": 62434,
+   "window_s": 30.0
+  },
+  "S2@63099": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.10072708734088788,
+   "recent_gnss_speed_mean_mps": 4.092203702777778,
+   "recent_ekf_speed_mean_mps": 4.192930790118665,
+   "n_samples": 300,
+   "window": [
+    62794,
+    63093
+   ],
+   "outage_start_index": 63099,
+   "window_s": 30.0
+  },
+  "S2@63699": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.0872841159483426,
+   "recent_gnss_speed_mean_mps": 4.199898140740741,
+   "recent_ekf_speed_mean_mps": 5.287182256689083,
+   "n_samples": 300,
+   "window": [
+    63394,
+    63693
+   ],
+   "outage_start_index": 63699,
+   "window_s": 30.0
+  },
+  "S2@64299": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -4.05311417570571,
+   "recent_gnss_speed_mean_mps": 7.735203703703704,
+   "recent_ekf_speed_mean_mps": 3.682089527997993,
+   "n_samples": 300,
+   "window": [
+    63994,
+    64293
+   ],
+   "outage_start_index": 64299,
+   "window_s": 30.0
+  },
+  "S2@64899": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.3495925059757893,
+   "recent_gnss_speed_mean_mps": 6.715537037037037,
+   "recent_ekf_speed_mean_mps": 7.0651295430128265,
+   "n_samples": 300,
+   "window": [
+    64594,
+    64893
+   ],
+   "outage_start_index": 64899,
+   "window_s": 30.0
+  },
+  "S2@65499": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.112570704323603,
+   "recent_gnss_speed_mean_mps": 9.889601851851852,
+   "recent_ekf_speed_mean_mps": 8.777031147528248,
+   "n_samples": 300,
+   "window": [
+    65194,
+    65493
+   ],
+   "outage_start_index": 65499,
+   "window_s": 30.0
+  },
+  "S2@66099": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.019620629092580846,
+   "recent_gnss_speed_mean_mps": 7.548685185185186,
+   "recent_ekf_speed_mean_mps": 7.568305814277766,
+   "n_samples": 300,
+   "window": [
+    65794,
+    66093
+   ],
+   "outage_start_index": 66099,
+   "window_s": 30.0
+  },
+  "S2@66699": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.6685493432296761,
+   "recent_gnss_speed_mean_mps": 6.971148148148148,
+   "recent_ekf_speed_mean_mps": 7.639697491377824,
+   "n_samples": 300,
+   "window": [
+    66394,
+    66693
+   ],
+   "outage_start_index": 66699,
+   "window_s": 30.0
+  },
+  "S2@67299": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.473688021042841,
+   "recent_gnss_speed_mean_mps": 8.85273148148148,
+   "recent_ekf_speed_mean_mps": 11.326419502524322,
+   "n_samples": 300,
+   "window": [
+    66994,
+    67293
+   ],
+   "outage_start_index": 67299,
+   "window_s": 30.0
+  },
+  "S2@67899": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.1613034374037192,
+   "recent_gnss_speed_mean_mps": 6.438083332407407,
+   "recent_ekf_speed_mean_mps": 7.599386769811126,
+   "n_samples": 300,
+   "window": [
+    67594,
+    67893
+   ],
+   "outage_start_index": 67899,
+   "window_s": 30.0
+  },
+  "S2@68499": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.48633818862798855,
+   "recent_gnss_speed_mean_mps": 7.746694444444444,
+   "recent_ekf_speed_mean_mps": 8.233032633072433,
+   "n_samples": 300,
+   "window": [
+    68194,
+    68493
+   ],
+   "outage_start_index": 68499,
+   "window_s": 30.0
+  },
+  "S2@69099": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -2.801523245318145,
+   "recent_gnss_speed_mean_mps": 11.686407405555556,
+   "recent_ekf_speed_mean_mps": 8.88488416023741,
+   "n_samples": 300,
+   "window": [
+    68794,
+    69093
+   ],
+   "outage_start_index": 69099,
+   "window_s": 30.0
+  },
+  "S2@69699": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.24874540168344975,
+   "recent_gnss_speed_mean_mps": 14.674601851851852,
+   "recent_ekf_speed_mean_mps": 14.9233472535353,
+   "n_samples": 300,
+   "window": [
+    69394,
+    69693
+   ],
+   "outage_start_index": 69699,
+   "window_s": 30.0
+  },
+  "S2@70299": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.2162805261609526,
+   "recent_gnss_speed_mean_mps": 13.901509259259262,
+   "recent_ekf_speed_mean_mps": 15.117789785420209,
+   "n_samples": 300,
+   "window": [
+    69994,
+    70293
+   ],
+   "outage_start_index": 70299,
+   "window_s": 30.0
+  },
+  "S2@70899": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.942211903554948,
+   "recent_gnss_speed_mean_mps": 10.307972222222222,
+   "recent_ekf_speed_mean_mps": 9.365760318667274,
+   "n_samples": 300,
+   "window": [
+    70594,
+    70893
+   ],
+   "outage_start_index": 70899,
+   "window_s": 30.0
+  },
+  "S2@71499": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.0371652759802565,
+   "recent_gnss_speed_mean_mps": 11.622972222222222,
+   "recent_ekf_speed_mean_mps": 12.660137498202479,
+   "n_samples": 300,
+   "window": [
+    71194,
+    71493
+   ],
+   "outage_start_index": 71499,
+   "window_s": 30.0
+  },
+  "S2@72099": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.9218919606732812,
+   "recent_gnss_speed_mean_mps": 10.639972222222221,
+   "recent_ekf_speed_mean_mps": 9.71808026154894,
+   "n_samples": 300,
+   "window": [
+    71794,
+    72093
+   ],
+   "outage_start_index": 72099,
+   "window_s": 30.0
+  },
+  "S2@72717": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.673702911477535,
+   "recent_gnss_speed_mean_mps": 5.758222221203703,
+   "recent_ekf_speed_mean_mps": 7.431925132681238,
+   "n_samples": 300,
+   "window": [
+    72412,
+    72711
+   ],
+   "outage_start_index": 72717,
+   "window_s": 30.0
+  },
+  "S2@74168": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.4714045495395523,
+   "recent_gnss_speed_mean_mps": 0.0018796296296296295,
+   "recent_ekf_speed_mean_mps": 0.47328417916918186,
+   "n_samples": 300,
+   "window": [
+    73863,
+    74162
+   ],
+   "outage_start_index": 74168,
+   "window_s": 30.0
+  },
+  "S2@74768": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.4031784290884977,
+   "recent_gnss_speed_mean_mps": 6.557138887962964,
+   "recent_ekf_speed_mean_mps": 6.153960458874465,
+   "n_samples": 300,
+   "window": [
+    74463,
+    74762
+   ],
+   "outage_start_index": 74768,
+   "window_s": 30.0
+  },
+  "S2@75368": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.4211486703824059,
+   "recent_gnss_speed_mean_mps": 11.305472222222223,
+   "recent_ekf_speed_mean_mps": 9.884323551839817,
+   "n_samples": 300,
+   "window": [
+    75063,
+    75362
+   ],
+   "outage_start_index": 75368,
+   "window_s": 30.0
+  },
+  "S2@75968": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -3.693730971821351,
+   "recent_gnss_speed_mean_mps": 15.770333277777778,
+   "recent_ekf_speed_mean_mps": 12.076602305956428,
+   "n_samples": 300,
+   "window": [
+    75663,
+    75962
+   ],
+   "outage_start_index": 75968,
+   "window_s": 30.0
+  },
+  "S2@76568": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.9998928354616373,
+   "recent_gnss_speed_mean_mps": 5.3447962962962965,
+   "recent_ekf_speed_mean_mps": 6.344689131757933,
+   "n_samples": 300,
+   "window": [
+    76263,
+    76562
+   ],
+   "outage_start_index": 76568,
+   "window_s": 30.0
+  },
+  "S2@77168": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.4051891806076825,
+   "recent_gnss_speed_mean_mps": 10.417824074074074,
+   "recent_ekf_speed_mean_mps": 10.012634893466393,
+   "n_samples": 300,
+   "window": [
+    76863,
+    77162
+   ],
+   "outage_start_index": 77168,
+   "window_s": 30.0
+  },
+  "S2@77772": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.2462812655090967,
+   "recent_gnss_speed_mean_mps": 10.096935128703704,
+   "recent_ekf_speed_mean_mps": 12.3432163942128,
+   "n_samples": 300,
+   "window": [
+    77467,
+    77766
+   ],
+   "outage_start_index": 77772,
+   "window_s": 30.0
+  },
+  "S2@78372": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.706376204353835,
+   "recent_gnss_speed_mean_mps": 4.209361110185185,
+   "recent_ekf_speed_mean_mps": 5.915737314539019,
+   "n_samples": 300,
+   "window": [
+    78067,
+    78366
+   ],
+   "outage_start_index": 78372,
+   "window_s": 30.0
+  },
+  "S2@78972": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.3300685083063244,
+   "recent_gnss_speed_mean_mps": 4.435518511111111,
+   "recent_ekf_speed_mean_mps": 5.765587019417436,
+   "n_samples": 300,
+   "window": [
+    78667,
+    78966
+   ],
+   "outage_start_index": 78972,
+   "window_s": 30.0
+  },
+  "S2@79572": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.6475032541909171,
+   "recent_gnss_speed_mean_mps": 4.274212962962962,
+   "recent_ekf_speed_mean_mps": 5.921716217153881,
+   "n_samples": 300,
+   "window": [
+    79267,
+    79566
+   ],
+   "outage_start_index": 79572,
+   "window_s": 30.0
+  },
+  "S2@80172": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.4294888845154259,
+   "recent_gnss_speed_mean_mps": 12.116601851851852,
+   "recent_ekf_speed_mean_mps": 11.687112967336425,
+   "n_samples": 300,
+   "window": [
+    79867,
+    80166
+   ],
+   "outage_start_index": 80172,
+   "window_s": 30.0
+  },
+  "S2@80834": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.5233223589070358,
+   "recent_gnss_speed_mean_mps": 4.645999999999999,
+   "recent_ekf_speed_mean_mps": 5.169322358907036,
+   "n_samples": 300,
+   "window": [
+    80529,
+    80828
+   ],
+   "outage_start_index": 80834,
+   "window_s": 30.0
+  },
+  "S2@81434": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.16124724898907758,
+   "recent_gnss_speed_mean_mps": 5.491416664814815,
+   "recent_ekf_speed_mean_mps": 5.330169415825737,
+   "n_samples": 300,
+   "window": [
+    81129,
+    81428
+   ],
+   "outage_start_index": 81434,
+   "window_s": 30.0
+  },
+  "S2@82034": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.0084099102397182,
+   "recent_gnss_speed_mean_mps": 9.679333333333334,
+   "recent_ekf_speed_mean_mps": 8.670923423093615,
+   "n_samples": 300,
+   "window": [
+    81729,
+    82028
+   ],
+   "outage_start_index": 82034,
+   "window_s": 30.0
+  },
+  "S2@82634": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.4901303881995984,
+   "recent_gnss_speed_mean_mps": 9.35760185185185,
+   "recent_ekf_speed_mean_mps": 10.84773224005145,
+   "n_samples": 300,
+   "window": [
+    82329,
+    82628
+   ],
+   "outage_start_index": 82634,
+   "window_s": 30.0
+  },
+  "S2@83234": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.7824354024912257,
+   "recent_gnss_speed_mean_mps": 8.874666666666666,
+   "recent_ekf_speed_mean_mps": 8.09223126417544,
+   "n_samples": 300,
+   "window": [
+    82929,
+    83228
+   ],
+   "outage_start_index": 83234,
+   "window_s": 30.0
+  },
+  "S2@83834": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 3.584320730371543,
+   "recent_gnss_speed_mean_mps": 6.574731481481482,
+   "recent_ekf_speed_mean_mps": 10.159052211853025,
+   "n_samples": 300,
+   "window": [
+    83529,
+    83828
+   ],
+   "outage_start_index": 83834,
+   "window_s": 30.0
+  },
+  "S2@84434": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.10987983312438185,
+   "recent_gnss_speed_mean_mps": 8.220203700925925,
+   "recent_ekf_speed_mean_mps": 8.110323867801544,
+   "n_samples": 300,
+   "window": [
+    84129,
+    84428
+   ],
+   "outage_start_index": 84434,
+   "window_s": 30.0
+  },
+  "S2@85034": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.6694084884474982,
+   "recent_gnss_speed_mean_mps": 9.077268518518519,
+   "recent_ekf_speed_mean_mps": 10.746677006966017,
+   "n_samples": 300,
+   "window": [
+    84729,
+    85028
+   ],
+   "outage_start_index": 85034,
+   "window_s": 30.0
+  },
+  "S2@85634": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.3203688457189358,
+   "recent_gnss_speed_mean_mps": 12.72537962962963,
+   "recent_ekf_speed_mean_mps": 13.045748475348564,
+   "n_samples": 300,
+   "window": [
+    85329,
+    85628
+   ],
+   "outage_start_index": 85634,
+   "window_s": 30.0
+  },
+  "S2@86234": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.3450455907273359,
+   "recent_gnss_speed_mean_mps": 10.095,
+   "recent_ekf_speed_mean_mps": 9.749954409272664,
+   "n_samples": 300,
+   "window": [
+    85929,
+    86228
+   ],
+   "outage_start_index": 86234,
+   "window_s": 30.0
+  },
+  "S2@86834": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -3.4953515043017176,
+   "recent_gnss_speed_mean_mps": 14.216453703703705,
+   "recent_ekf_speed_mean_mps": 10.721102199401985,
+   "n_samples": 300,
+   "window": [
+    86529,
+    86828
+   ],
+   "outage_start_index": 86834,
+   "window_s": 30.0
+  },
+  "S2@87434": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.5631439648788668,
+   "recent_gnss_speed_mean_mps": 8.838731481481481,
+   "recent_ekf_speed_mean_mps": 9.401875446360348,
+   "n_samples": 300,
+   "window": [
+    87129,
+    87428
+   ],
+   "outage_start_index": 87434,
+   "window_s": 30.0
+  },
+  "S2@88034": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.5904277247480685,
+   "recent_gnss_speed_mean_mps": 4.949277776851852,
+   "recent_ekf_speed_mean_mps": 6.539705501599921,
+   "n_samples": 300,
+   "window": [
+    87729,
+    88028
+   ],
+   "outage_start_index": 88034,
+   "window_s": 30.0
+  },
+  "S2@88634": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.5817285777564899,
+   "recent_gnss_speed_mean_mps": 4.1119259259259255,
+   "recent_ekf_speed_mean_mps": 4.693654503682416,
+   "n_samples": 300,
+   "window": [
+    88329,
+    88628
+   ],
+   "outage_start_index": 88634,
+   "window_s": 30.0
+  },
+  "S2@89234": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.26086186264161537,
+   "recent_gnss_speed_mean_mps": 9.76620370185185,
+   "recent_ekf_speed_mean_mps": 9.505341839210235,
+   "n_samples": 300,
+   "window": [
+    88929,
+    89228
+   ],
+   "outage_start_index": 89234,
+   "window_s": 30.0
+  },
+  "S2@89834": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.0895705212678457,
+   "recent_gnss_speed_mean_mps": 13.516407407407407,
+   "recent_ekf_speed_mean_mps": 14.605977928675253,
+   "n_samples": 300,
+   "window": [
+    89529,
+    89828
+   ],
+   "outage_start_index": 89834,
+   "window_s": 30.0
+  },
+  "S2@90434": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.1495602930368882,
+   "recent_gnss_speed_mean_mps": 23.199184935185187,
+   "recent_ekf_speed_mean_mps": 22.049624642148295,
+   "n_samples": 300,
+   "window": [
+    90129,
+    90428
+   ],
+   "outage_start_index": 90434,
+   "window_s": 30.0
+  },
+  "S2@91034": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -8.902919182388205,
+   "recent_gnss_speed_mean_mps": 15.513148092592594,
+   "recent_ekf_speed_mean_mps": 6.610228910204387,
+   "n_samples": 300,
+   "window": [
+    90729,
+    91028
+   ],
+   "outage_start_index": 91034,
+   "window_s": 30.0
+  },
+  "S2@91634": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.5412874327719843,
+   "recent_gnss_speed_mean_mps": 15.270018472222224,
+   "recent_ekf_speed_mean_mps": 15.811305904994207,
+   "n_samples": 300,
+   "window": [
+    91329,
+    91628
+   ],
+   "outage_start_index": 91634,
+   "window_s": 30.0
+  },
+  "S2@92234": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 4.402689138910808,
+   "recent_gnss_speed_mean_mps": 17.745296166666666,
+   "recent_ekf_speed_mean_mps": 22.147985305577475,
+   "n_samples": 300,
+   "window": [
+    91929,
+    92228
+   ],
+   "outage_start_index": 92234,
+   "window_s": 30.0
+  },
+  "S2@92834": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -5.483360944641894,
+   "recent_gnss_speed_mean_mps": 15.474583259259258,
+   "recent_ekf_speed_mean_mps": 9.991222314617366,
+   "n_samples": 300,
+   "window": [
+    92529,
+    92828
+   ],
+   "outage_start_index": 92834,
+   "window_s": 30.0
+  },
+  "Vtb5@216": {
+   "available": false,
+   "reason": "insufficient_pre_outage_history",
+   "recent_ekf_speed_bias_mps": null,
+   "recent_gnss_speed_mean_mps": null,
+   "recent_ekf_speed_mean_mps": null,
+   "n_samples": 0,
+   "outage_start_index": 216
+  },
+  "Vtb5@816": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -2.5511996637723935,
+   "recent_gnss_speed_mean_mps": 11.365055555555555,
+   "recent_ekf_speed_mean_mps": 8.813855891783161,
+   "n_samples": 300,
+   "window": [
+    511,
+    810
+   ],
+   "outage_start_index": 816,
+   "window_s": 30.0
+  },
+  "Vtb5@1416": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.5265579064923571,
+   "recent_gnss_speed_mean_mps": 7.288861111111111,
+   "recent_ekf_speed_mean_mps": 8.81541901760347,
+   "n_samples": 300,
+   "window": [
+    1111,
+    1410
+   ],
+   "outage_start_index": 1416,
+   "window_s": 30.0
+  },
+  "Vtb5@2016": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.8347958930243146,
+   "recent_gnss_speed_mean_mps": 1.7278518509259257,
+   "recent_ekf_speed_mean_mps": 2.5626477439502406,
+   "n_samples": 300,
+   "window": [
+    1711,
+    2010
+   ],
+   "outage_start_index": 2016,
+   "window_s": 30.0
+  },
+  "Vtb5@2616": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.0481888614658168,
+   "recent_gnss_speed_mean_mps": 12.599398148148147,
+   "recent_ekf_speed_mean_mps": 11.551209286682333,
+   "n_samples": 300,
+   "window": [
+    2311,
+    2610
+   ],
+   "outage_start_index": 2616,
+   "window_s": 30.0
+  },
+  "Vtb5@3216": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.08137915732159863,
+   "recent_gnss_speed_mean_mps": 15.906212962962963,
+   "recent_ekf_speed_mean_mps": 15.987592120284559,
+   "n_samples": 300,
+   "window": [
+    2911,
+    3210
+   ],
+   "outage_start_index": 3216,
+   "window_s": 30.0
+  },
+  "Vtb5@3816": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.501309174079118,
+   "recent_gnss_speed_mean_mps": 14.218749981481482,
+   "recent_ekf_speed_mean_mps": 16.720059155560598,
+   "n_samples": 300,
+   "window": [
+    3511,
+    3810
+   ],
+   "outage_start_index": 3816,
+   "window_s": 30.0
+  },
+  "Vtb5@4416": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.4662734600401046,
+   "recent_gnss_speed_mean_mps": 17.254240675925928,
+   "recent_ekf_speed_mean_mps": 16.787967215885818,
+   "n_samples": 300,
+   "window": [
+    4111,
+    4410
+   ],
+   "outage_start_index": 4416,
+   "window_s": 30.0
+  },
+  "Vtb5@5016": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -4.665598329415129,
+   "recent_gnss_speed_mean_mps": 21.206462833333333,
+   "recent_ekf_speed_mean_mps": 16.540864503918204,
+   "n_samples": 300,
+   "window": [
+    4711,
+    5010
+   ],
+   "outage_start_index": 5016,
+   "window_s": 30.0
+  },
+  "Vtb5@9050": {
+   "available": false,
+   "reason": "insufficient_pre_outage_history",
+   "recent_ekf_speed_bias_mps": null,
+   "recent_gnss_speed_mean_mps": null,
+   "recent_ekf_speed_mean_mps": null,
+   "n_samples": 0,
+   "outage_start_index": 9050
+  },
+  "Vtb5@9650": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.320459398448563,
+   "recent_gnss_speed_mean_mps": 7.748277776851852,
+   "recent_ekf_speed_mean_mps": 10.068737175300415,
+   "n_samples": 300,
+   "window": [
+    9345,
+    9644
+   ],
+   "outage_start_index": 9650,
+   "window_s": 30.0
+  },
+  "Vtb5@10250": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.2748267623424527,
+   "recent_gnss_speed_mean_mps": 14.551537037037036,
+   "recent_ekf_speed_mean_mps": 16.826363799379486,
+   "n_samples": 300,
+   "window": [
+    9945,
+    10244
+   ],
+   "outage_start_index": 10250,
+   "window_s": 30.0
+  },
+  "Vtb5@10850": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.1166183291888756,
+   "recent_gnss_speed_mean_mps": 14.026416666666664,
+   "recent_ekf_speed_mean_mps": 12.90979833747779,
+   "n_samples": 300,
+   "window": [
+    10545,
+    10844
+   ],
+   "outage_start_index": 10850,
+   "window_s": 30.0
+  },
+  "Vtb5@11450": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.942695074952122,
+   "recent_gnss_speed_mean_mps": 11.257944444444444,
+   "recent_ekf_speed_mean_mps": 14.200639519396567,
+   "n_samples": 300,
+   "window": [
+    11145,
+    11444
+   ],
+   "outage_start_index": 11450,
+   "window_s": 30.0
+  },
+  "Vtb5@12050": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.3828589015064205,
+   "recent_gnss_speed_mean_mps": 4.761361111111111,
+   "recent_ekf_speed_mean_mps": 6.144220012617531,
+   "n_samples": 300,
+   "window": [
+    11745,
+    12044
+   ],
+   "outage_start_index": 12050,
+   "window_s": 30.0
+  },
+  "Vtb5@12650": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -2.537019212465862,
+   "recent_gnss_speed_mean_mps": 13.00175925925926,
+   "recent_ekf_speed_mean_mps": 10.464740046793398,
+   "n_samples": 300,
+   "window": [
+    12345,
+    12644
+   ],
+   "outage_start_index": 12650,
+   "window_s": 30.0
+  },
+  "Vtb5@13250": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.713384095474239,
+   "recent_gnss_speed_mean_mps": 15.976370305555555,
+   "recent_ekf_speed_mean_mps": 17.68975440102979,
+   "n_samples": 300,
+   "window": [
+    12945,
+    13244
+   ],
+   "outage_start_index": 13250,
+   "window_s": 30.0
+  },
+  "Vtb5@13850": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.7049389738322347,
+   "recent_gnss_speed_mean_mps": 15.024805555555556,
+   "recent_ekf_speed_mean_mps": 16.72974452938779,
+   "n_samples": 300,
+   "window": [
+    13545,
+    13844
+   ],
+   "outage_start_index": 13850,
+   "window_s": 30.0
+  },
+  "Vtb5@14450": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.583160741275837,
+   "recent_gnss_speed_mean_mps": 11.931888888888889,
+   "recent_ekf_speed_mean_mps": 14.515049630164725,
+   "n_samples": 300,
+   "window": [
+    14145,
+    14444
+   ],
+   "outage_start_index": 14450,
+   "window_s": 30.0
+  },
+  "Vtb5@15050": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.13781798046988614,
+   "recent_gnss_speed_mean_mps": 16.63747222222222,
+   "recent_ekf_speed_mean_mps": 16.499654241752335,
+   "n_samples": 300,
+   "window": [
+    14745,
+    15044
+   ],
+   "outage_start_index": 15050,
+   "window_s": 30.0
+  },
+  "Vtb5@15650": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 3.856083701972023,
+   "recent_gnss_speed_mean_mps": 16.562074037037036,
+   "recent_ekf_speed_mean_mps": 20.41815773900906,
+   "n_samples": 300,
+   "window": [
+    15345,
+    15644
+   ],
+   "outage_start_index": 15650,
+   "window_s": 30.0
+  },
+  "Vtb5@16250": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.342445358350284,
+   "recent_gnss_speed_mean_mps": 17.053555490740738,
+   "recent_ekf_speed_mean_mps": 19.396000849091024,
+   "n_samples": 300,
+   "window": [
+    15945,
+    16244
+   ],
+   "outage_start_index": 16250,
+   "window_s": 30.0
+  },
+  "Vtb5@16850": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.8034792014493493,
+   "recent_gnss_speed_mean_mps": 16.032407398148145,
+   "recent_ekf_speed_mean_mps": 16.835886599597497,
+   "n_samples": 300,
+   "window": [
+    16545,
+    16844
+   ],
+   "outage_start_index": 16850,
+   "window_s": 30.0
+  },
+  "Vtb5@17450": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.1244590207924696,
+   "recent_gnss_speed_mean_mps": 14.10412962962963,
+   "recent_ekf_speed_mean_mps": 15.228588650422099,
+   "n_samples": 300,
+   "window": [
+    17145,
+    17444
+   ],
+   "outage_start_index": 17450,
+   "window_s": 30.0
+  },
+  "Vtb5@18050": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.4471111372281092,
+   "recent_gnss_speed_mean_mps": 13.379055555555556,
+   "recent_ekf_speed_mean_mps": 13.826166692783666,
+   "n_samples": 300,
+   "window": [
+    17745,
+    18044
+   ],
+   "outage_start_index": 18050,
+   "window_s": 30.0
+  },
+  "Vtb5@18650": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.19091985213167065,
+   "recent_gnss_speed_mean_mps": 14.558166666666668,
+   "recent_ekf_speed_mean_mps": 14.749086518798338,
+   "n_samples": 300,
+   "window": [
+    18345,
+    18644
+   ],
+   "outage_start_index": 18650,
+   "window_s": 30.0
+  },
+  "Vtb5@19250": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.1458384728161783,
+   "recent_gnss_speed_mean_mps": 12.693472222222221,
+   "recent_ekf_speed_mean_mps": 13.8393106950384,
+   "n_samples": 300,
+   "window": [
+    18945,
+    19244
+   ],
+   "outage_start_index": 19250,
+   "window_s": 30.0
+  },
+  "Vtb5@19850": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 3.312816314492702,
+   "recent_gnss_speed_mean_mps": 10.245435184259259,
+   "recent_ekf_speed_mean_mps": 13.558251498751961,
+   "n_samples": 300,
+   "window": [
+    19545,
+    19844
+   ],
+   "outage_start_index": 19850,
+   "window_s": 30.0
+  },
+  "Vtb5@24050": {
+   "available": false,
+   "reason": "insufficient_pre_outage_history",
+   "recent_ekf_speed_bias_mps": null,
+   "recent_gnss_speed_mean_mps": null,
+   "recent_ekf_speed_mean_mps": null,
+   "n_samples": 0,
+   "outage_start_index": 24050
+  },
+  "Vtb5@24650": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.669089805900649,
+   "recent_gnss_speed_mean_mps": 13.947157407407406,
+   "recent_ekf_speed_mean_mps": 15.616247213308059,
+   "n_samples": 300,
+   "window": [
+    24345,
+    24644
+   ],
+   "outage_start_index": 24650,
+   "window_s": 30.0
+  },
+  "Vtb5@25250": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.2336920336652035,
+   "recent_gnss_speed_mean_mps": 16.242111046296294,
+   "recent_ekf_speed_mean_mps": 15.008419012631093,
+   "n_samples": 300,
+   "window": [
+    24945,
+    25244
+   ],
+   "outage_start_index": 25250,
+   "window_s": 30.0
+  },
+  "Vtb5@25850": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 3.21620247525408,
+   "recent_gnss_speed_mean_mps": 6.017231480555555,
+   "recent_ekf_speed_mean_mps": 9.233433955809636,
+   "n_samples": 300,
+   "window": [
+    25545,
+    25844
+   ],
+   "outage_start_index": 25850,
+   "window_s": 30.0
+  },
+  "Vtb5@26450": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.31551286813713125,
+   "recent_gnss_speed_mean_mps": 12.569453703703704,
+   "recent_ekf_speed_mean_mps": 12.884966571840833,
+   "n_samples": 300,
+   "window": [
+    26145,
+    26444
+   ],
+   "outage_start_index": 26450,
+   "window_s": 30.0
+  },
+  "Vtb5@27050": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 3.4114468792925337,
+   "recent_gnss_speed_mean_mps": 7.357296294444444,
+   "recent_ekf_speed_mean_mps": 10.768743173736977,
+   "n_samples": 300,
+   "window": [
+    26745,
+    27044
+   ],
+   "outage_start_index": 27050,
+   "window_s": 30.0
+  },
+  "Vtb5@27650": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 4.8235287588722375,
+   "recent_gnss_speed_mean_mps": 13.825638861111111,
+   "recent_ekf_speed_mean_mps": 18.649167619983345,
+   "n_samples": 300,
+   "window": [
+    27345,
+    27644
+   ],
+   "outage_start_index": 27650,
+   "window_s": 30.0
+  },
+  "Vtb5@28250": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -3.3665099612908627,
+   "recent_gnss_speed_mean_mps": 18.188462861111113,
+   "recent_ekf_speed_mean_mps": 14.82195289982025,
+   "n_samples": 300,
+   "window": [
+    27945,
+    28244
+   ],
+   "outage_start_index": 28250,
+   "window_s": 30.0
+  },
+  "Vtb5@28850": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.188374890650481,
+   "recent_gnss_speed_mean_mps": 22.11807387962963,
+   "recent_ekf_speed_mean_mps": 23.30644877028011,
+   "n_samples": 300,
+   "window": [
+    28545,
+    28844
+   ],
+   "outage_start_index": 28850,
+   "window_s": 30.0
+  },
+  "Vtb5@29450": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.8840370809570337,
+   "recent_gnss_speed_mean_mps": 27.51377765740741,
+   "recent_ekf_speed_mean_mps": 25.629740576450374,
+   "n_samples": 300,
+   "window": [
+    29145,
+    29444
+   ],
+   "outage_start_index": 29450,
+   "window_s": 30.0
+  },
+  "Vtb5@30050": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.09347912383731813,
+   "recent_gnss_speed_mean_mps": 27.961860972222222,
+   "recent_ekf_speed_mean_mps": 27.868381848384907,
+   "n_samples": 300,
+   "window": [
+    29745,
+    30044
+   ],
+   "outage_start_index": 30050,
+   "window_s": 30.0
+  },
+  "Vtb5@30650": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.6450821992023241,
+   "recent_gnss_speed_mean_mps": 30.2565462962963,
+   "recent_ekf_speed_mean_mps": 28.61146409709397,
+   "n_samples": 300,
+   "window": [
+    30345,
+    30644
+   ],
+   "outage_start_index": 30650,
+   "window_s": 30.0
+  },
+  "Vtb5@31250": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.0583885886047077,
+   "recent_gnss_speed_mean_mps": 27.98530537037037,
+   "recent_ekf_speed_mean_mps": 27.926916781765662,
+   "n_samples": 300,
+   "window": [
+    30945,
+    31244
+   ],
+   "outage_start_index": 31250,
+   "window_s": 30.0
+  },
+  "Vtb5@31850": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.8444519614897948,
+   "recent_gnss_speed_mean_mps": 28.00396292592593,
+   "recent_ekf_speed_mean_mps": 28.84841488741572,
+   "n_samples": 300,
+   "window": [
+    31545,
+    31844
+   ],
+   "outage_start_index": 31850,
+   "window_s": 30.0
+  },
+  "Vtb5@32450": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.29398879239099307,
+   "recent_gnss_speed_mean_mps": 25.59683301851852,
+   "recent_ekf_speed_mean_mps": 25.302844226127526,
+   "n_samples": 300,
+   "window": [
+    32145,
+    32444
+   ],
+   "outage_start_index": 32450,
+   "window_s": 30.0
+  },
+  "Vtb5@33050": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.05054755649597029,
+   "recent_gnss_speed_mean_mps": 27.50256458333333,
+   "recent_ekf_speed_mean_mps": 27.5531121398293,
+   "n_samples": 300,
+   "window": [
+    32745,
+    33044
+   ],
+   "outage_start_index": 33050,
+   "window_s": 30.0
+  },
+  "Vtb5@33650": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.28831349449366844,
+   "recent_gnss_speed_mean_mps": 23.73954599074074,
+   "recent_ekf_speed_mean_mps": 23.451232496247073,
+   "n_samples": 300,
+   "window": [
+    33345,
+    33644
+   ],
+   "outage_start_index": 33650,
+   "window_s": 30.0
+  },
+  "Vtb5@34250": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.2755997626134372,
+   "recent_gnss_speed_mean_mps": 24.712971925925924,
+   "recent_ekf_speed_mean_mps": 25.988571688539366,
+   "n_samples": 300,
+   "window": [
+    33945,
+    34244
+   ],
+   "outage_start_index": 34250,
+   "window_s": 30.0
+  },
+  "Vtb5@34850": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.5696088343106401,
+   "recent_gnss_speed_mean_mps": 26.49817562962963,
+   "recent_ekf_speed_mean_mps": 25.92856679531899,
+   "n_samples": 300,
+   "window": [
+    34545,
+    34844
+   ],
+   "outage_start_index": 34850,
+   "window_s": 30.0
+  },
+  "Vtb5@35450": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.8014723238036191,
+   "recent_gnss_speed_mean_mps": 22.968379425925924,
+   "recent_ekf_speed_mean_mps": 23.769851749729543,
+   "n_samples": 300,
+   "window": [
+    35145,
+    35444
+   ],
+   "outage_start_index": 35450,
+   "window_s": 30.0
+  },
+  "Vtb5@36050": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.41473832088641044,
+   "recent_gnss_speed_mean_mps": 1.930222221203704,
+   "recent_ekf_speed_mean_mps": 2.3449605420901145,
+   "n_samples": 300,
+   "window": [
+    35745,
+    36044
+   ],
+   "outage_start_index": 36050,
+   "window_s": 30.0
+  },
+  "Vtb5@36650": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.20665200011499835,
+   "recent_gnss_speed_mean_mps": 2.1119536990740735,
+   "recent_ekf_speed_mean_mps": 1.9053016989590756,
+   "n_samples": 300,
+   "window": [
+    36345,
+    36644
+   ],
+   "outage_start_index": 36650,
+   "window_s": 30.0
+  },
+  "Vtb5@37250": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.9095897430094806,
+   "recent_gnss_speed_mean_mps": 9.986935185185184,
+   "recent_ekf_speed_mean_mps": 8.077345442175705,
+   "n_samples": 300,
+   "window": [
+    36945,
+    37244
+   ],
+   "outage_start_index": 37250,
+   "window_s": 30.0
+  },
+  "Vtb5@37850": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -2.6814936258486446,
+   "recent_gnss_speed_mean_mps": 20.773842444444444,
+   "recent_ekf_speed_mean_mps": 18.0923488185958,
+   "n_samples": 300,
+   "window": [
+    37545,
+    37844
+   ],
+   "outage_start_index": 37850,
+   "window_s": 30.0
+  },
+  "Vtb5@38450": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.520359783299743,
+   "recent_gnss_speed_mean_mps": 23.07421275,
+   "recent_ekf_speed_mean_mps": 24.594572533299743,
+   "n_samples": 300,
+   "window": [
+    38145,
+    38444
+   ],
+   "outage_start_index": 38450,
+   "window_s": 30.0
+  },
+  "Vtb5@39050": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.702534535712378,
+   "recent_gnss_speed_mean_mps": 26.77597200925926,
+   "recent_ekf_speed_mean_mps": 26.073437473546885,
+   "n_samples": 300,
+   "window": [
+    38745,
+    39044
+   ],
+   "outage_start_index": 39050,
+   "window_s": 30.0
+  },
+  "Vtb5@39650": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.0206298669252829,
+   "recent_gnss_speed_mean_mps": 28.674944444444446,
+   "recent_ekf_speed_mean_mps": 28.654314577519163,
+   "n_samples": 300,
+   "window": [
+    39345,
+    39644
+   ],
+   "outage_start_index": 39650,
+   "window_s": 30.0
+  },
+  "Vtb5@40250": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.0802149516190118,
+   "recent_gnss_speed_mean_mps": 27.85599051851852,
+   "recent_ekf_speed_mean_mps": 27.7757755668995,
+   "n_samples": 300,
+   "window": [
+    39945,
+    40244
+   ],
+   "outage_start_index": 40250,
+   "window_s": 30.0
+  },
+  "Vtb5@40850": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.3236482423507593,
+   "recent_gnss_speed_mean_mps": 27.555194092592593,
+   "recent_ekf_speed_mean_mps": 27.23154585024183,
+   "n_samples": 300,
+   "window": [
+    40545,
+    40844
+   ],
+   "outage_start_index": 40850,
+   "window_s": 30.0
+  },
+  "Vtb5@41450": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.8969027240916276,
+   "recent_gnss_speed_mean_mps": 26.715814583333326,
+   "recent_ekf_speed_mean_mps": 28.612717307424962,
+   "n_samples": 300,
+   "window": [
+    41145,
+    41444
+   ],
+   "outage_start_index": 41450,
+   "window_s": 30.0
+  },
+  "Vtb5@42050": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.9035205977364251,
+   "recent_gnss_speed_mean_mps": 25.746620055555557,
+   "recent_ekf_speed_mean_mps": 27.650140653291977,
+   "n_samples": 300,
+   "window": [
+    41745,
+    42044
+   ],
+   "outage_start_index": 42050,
+   "window_s": 30.0
+  },
+  "Vtb5@42650": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.4230794673320577,
+   "recent_gnss_speed_mean_mps": 24.225342407407407,
+   "recent_ekf_speed_mean_mps": 24.648421874739462,
+   "n_samples": 300,
+   "window": [
+    42345,
+    42644
+   ],
+   "outage_start_index": 42650,
+   "window_s": 30.0
+  },
+  "Vtb5@43250": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.557686347477116,
+   "recent_gnss_speed_mean_mps": 22.76209236111111,
+   "recent_ekf_speed_mean_mps": 21.204406013633992,
+   "n_samples": 300,
+   "window": [
+    42945,
+    43244
+   ],
+   "outage_start_index": 43250,
+   "window_s": 30.0
+  },
+  "Vtb5@43850": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.16750828939718118,
+   "recent_gnss_speed_mean_mps": 24.90557377777778,
+   "recent_ekf_speed_mean_mps": 24.7380654883806,
+   "n_samples": 300,
+   "window": [
+    43545,
+    43844
+   ],
+   "outage_start_index": 43850,
+   "window_s": 30.0
+  },
+  "Vtb5@44450": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -2.0908887966062837,
+   "recent_gnss_speed_mean_mps": 21.837638620370367,
+   "recent_ekf_speed_mean_mps": 19.746749823764087,
+   "n_samples": 300,
+   "window": [
+    44145,
+    44444
+   ],
+   "outage_start_index": 44450,
+   "window_s": 30.0
+  },
+  "Vtb5@45050": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.5503172741113096,
+   "recent_gnss_speed_mean_mps": 23.487009037037037,
+   "recent_ekf_speed_mean_mps": 21.936691762925726,
+   "n_samples": 300,
+   "window": [
+    44745,
+    45044
+   ],
+   "outage_start_index": 45050,
+   "window_s": 30.0
+  },
+  "Vtb5@45650": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.5460220781946529,
+   "recent_gnss_speed_mean_mps": 26.55886071296296,
+   "recent_ekf_speed_mean_mps": 26.012838634768308,
+   "n_samples": 300,
+   "window": [
+    45345,
+    45644
+   ],
+   "outage_start_index": 45650,
+   "window_s": 30.0
+  },
+  "Vtb5@46250": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.6347573349158667,
+   "recent_gnss_speed_mean_mps": 7.705546296296296,
+   "recent_ekf_speed_mean_mps": 8.340303631212164,
+   "n_samples": 300,
+   "window": [
+    45945,
+    46244
+   ],
+   "outage_start_index": 46250,
+   "window_s": 30.0
+  },
+  "Vtb5@46850": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.7281309477857052,
+   "recent_gnss_speed_mean_mps": 11.756287037037037,
+   "recent_ekf_speed_mean_mps": 13.484417984822743,
+   "n_samples": 300,
+   "window": [
+    46545,
+    46844
+   ],
+   "outage_start_index": 46850,
+   "window_s": 30.0
+  },
+  "Vtb5@47450": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 2.17214300044846,
+   "recent_gnss_speed_mean_mps": 16.490787037037038,
+   "recent_ekf_speed_mean_mps": 18.6629300374855,
+   "n_samples": 300,
+   "window": [
+    47145,
+    47444
+   ],
+   "outage_start_index": 47450,
+   "window_s": 30.0
+  },
+  "Vtb5@48050": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.5797068443029642,
+   "recent_gnss_speed_mean_mps": 20.983907277777778,
+   "recent_ekf_speed_mean_mps": 21.56361412208074,
+   "n_samples": 300,
+   "window": [
+    47745,
+    48044
+   ],
+   "outage_start_index": 48050,
+   "window_s": 30.0
+  },
+  "Vtb5@48650": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.558012408417524,
+   "recent_gnss_speed_mean_mps": 24.00027750925926,
+   "recent_ekf_speed_mean_mps": 22.442265100841734,
+   "n_samples": 300,
+   "window": [
+    48345,
+    48644
+   ],
+   "outage_start_index": 48650,
+   "window_s": 30.0
+  },
+  "Vtb5@49250": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.4757767283827112,
+   "recent_gnss_speed_mean_mps": 16.29815739814815,
+   "recent_ekf_speed_mean_mps": 17.773934126530857,
+   "n_samples": 300,
+   "window": [
+    48945,
+    49244
+   ],
+   "outage_start_index": 49250,
+   "window_s": 30.0
+  },
+  "Vtb5@49850": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.0921141839746498,
+   "recent_gnss_speed_mean_mps": 23.727999750000002,
+   "recent_ekf_speed_mean_mps": 22.635885566025348,
+   "n_samples": 300,
+   "window": [
+    49545,
+    49844
+   ],
+   "outage_start_index": 49850,
+   "window_s": 30.0
+  },
+  "Vtb5@50450": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -1.225942860891226,
+   "recent_gnss_speed_mean_mps": 26.138249796296297,
+   "recent_ekf_speed_mean_mps": 24.91230693540507,
+   "n_samples": 300,
+   "window": [
+    50145,
+    50444
+   ],
+   "outage_start_index": 50450,
+   "window_s": 30.0
+  },
+  "Vtb5@51050": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.42018401257927257,
+   "recent_gnss_speed_mean_mps": 25.135212675925924,
+   "recent_ekf_speed_mean_mps": 25.555396688505198,
+   "n_samples": 300,
+   "window": [
+    50745,
+    51044
+   ],
+   "outage_start_index": 51050,
+   "window_s": 30.0
+  },
+  "Vtb5@51650": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.6296751852460007,
+   "recent_gnss_speed_mean_mps": 25.338110833333335,
+   "recent_ekf_speed_mean_mps": 25.96778601857933,
+   "n_samples": 300,
+   "window": [
+    51345,
+    51644
+   ],
+   "outage_start_index": 51650,
+   "window_s": 30.0
+  },
+  "Vtb5@52250": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.7455742895282247,
+   "recent_gnss_speed_mean_mps": 27.18949056481481,
+   "recent_ekf_speed_mean_mps": 26.443916275286593,
+   "n_samples": 300,
+   "window": [
+    51945,
+    52244
+   ],
+   "outage_start_index": 52250,
+   "window_s": 30.0
+  },
+  "Vtb5@52850": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.1298111644950626,
+   "recent_gnss_speed_mean_mps": 25.585045981481482,
+   "recent_ekf_speed_mean_mps": 26.71485714597654,
+   "n_samples": 300,
+   "window": [
+    52545,
+    52844
+   ],
+   "outage_start_index": 52850,
+   "window_s": 30.0
+  },
+  "Vtb5@53450": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.8673618543899855,
+   "recent_gnss_speed_mean_mps": 23.287740527777782,
+   "recent_ekf_speed_mean_mps": 25.155102382167765,
+   "n_samples": 300,
+   "window": [
+    53145,
+    53444
+   ],
+   "outage_start_index": 53450,
+   "window_s": 30.0
+  },
+  "Vtb5@54050": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.990038780148573,
+   "recent_gnss_speed_mean_mps": 24.195008990740742,
+   "recent_ekf_speed_mean_mps": 25.185047770889312,
+   "n_samples": 300,
+   "window": [
+    53745,
+    54044
+   ],
+   "outage_start_index": 54050,
+   "window_s": 30.0
+  },
+  "Vtb5@54650": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.5718381451632577,
+   "recent_gnss_speed_mean_mps": 19.390703657407407,
+   "recent_ekf_speed_mean_mps": 20.962541802570666,
+   "n_samples": 300,
+   "window": [
+    54345,
+    54644
+   ],
+   "outage_start_index": 54650,
+   "window_s": 30.0
+  },
+  "Vtb5@55250": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": -0.15363240125601352,
+   "recent_gnss_speed_mean_mps": 25.426296009259257,
+   "recent_ekf_speed_mean_mps": 25.272663608003246,
+   "n_samples": 300,
+   "window": [
+    54945,
+    55244
+   ],
+   "outage_start_index": 55250,
+   "window_s": 30.0
+  },
+  "Vtb5@55850": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.170854465488138,
+   "recent_gnss_speed_mean_mps": 25.506555388888888,
+   "recent_ekf_speed_mean_mps": 26.677409854377025,
+   "n_samples": 300,
+   "window": [
+    55545,
+    55844
+   ],
+   "outage_start_index": 55850,
+   "window_s": 30.0
+  },
+  "Vtb5@60050": {
+   "available": false,
+   "reason": "insufficient_pre_outage_history",
+   "recent_ekf_speed_bias_mps": null,
+   "recent_gnss_speed_mean_mps": null,
+   "recent_ekf_speed_mean_mps": null,
+   "n_samples": 0,
+   "outage_start_index": 60050
+  },
+  "Vtb5@60650": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.8763429508541606,
+   "recent_gnss_speed_mean_mps": 10.907231481481482,
+   "recent_ekf_speed_mean_mps": 11.783574432335643,
+   "n_samples": 300,
+   "window": [
+    60345,
+    60644
+   ],
+   "outage_start_index": 60650,
+   "window_s": 30.0
+  },
+  "Vtb5@61250": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 1.7769430399386037,
+   "recent_gnss_speed_mean_mps": 13.916814814814815,
+   "recent_ekf_speed_mean_mps": 15.693757854753418,
+   "n_samples": 300,
+   "window": [
+    60945,
+    61244
+   ],
+   "outage_start_index": 61250,
+   "window_s": 30.0
+  },
+  "Vtb5@61850": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.4137613492959209,
+   "recent_gnss_speed_mean_mps": 9.810666666666666,
+   "recent_ekf_speed_mean_mps": 10.224428015962587,
+   "n_samples": 300,
+   "window": [
+    61545,
+    61844
+   ],
+   "outage_start_index": 61850,
+   "window_s": 30.0
+  },
+  "Vtb5@62450": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.2644089263468099,
+   "recent_gnss_speed_mean_mps": 15.197574074074073,
+   "recent_ekf_speed_mean_mps": 15.461983000420885,
+   "n_samples": 300,
+   "window": [
+    62145,
+    62444
+   ],
+   "outage_start_index": 62450,
+   "window_s": 30.0
+  },
+  "Vtb5@63050": {
+   "available": true,
+   "recent_ekf_speed_bias_mps": 0.45900665246410727,
+   "recent_gnss_speed_mean_mps": 20.221314657407408,
+   "recent_ekf_speed_mean_mps": 20.680321309871513,
+   "n_samples": 300,
+   "window": [
+    62745,
+    63044
+   ],
+   "outage_start_index": 63050,
+   "window_s": 30.0
+  }
+ }
+}

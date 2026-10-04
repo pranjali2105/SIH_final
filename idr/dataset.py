@@ -249,7 +249,8 @@ class OutageDataset(Dataset):
         tau = (np.arange(n) - CTX + 1) * DT / 60.0
         gnss = np.zeros(n)
         gnss[:CTX] = 1.0
-        dpsi_gnss = wrap(d.psi[sl] - psi0) * gnss
+        on = gnss > 0                       # GNSS samples after outage start are never read (np.where, not x*0)
+        dpsi_gnss = np.where(on, wrap(np.where(on, d.psi[sl], psi0) - psi0), 0.0)
 
         seq = np.zeros((L, N_SEQ), dtype=np.float32)
         seq[:n, :8] = feats
@@ -257,8 +258,8 @@ class OutageDataset(Dataset):
         seq[:n, 10], seq[:n, 11] = np.sin(dpsi_mag), np.cos(dpsi_mag)
         seq[:n, 12] = tau
         seq[:n, 13] = gnss
-        seq[:n, 14] = d.v[sl] / SPEED_SCALE * gnss
-        seq[:n, 15], seq[:n, 16] = np.sin(dpsi_gnss) * gnss, np.cos(dpsi_gnss) * gnss
+        seq[:n, 14] = np.where(on, np.where(on, d.v[sl], 0.0) / SPEED_SCALE, 0.0)
+        seq[:n, 15], seq[:n, 16] = np.where(on, np.sin(dpsi_gnss), 0.0), np.where(on, np.cos(dpsi_gnss), 0.0)
 
         # outage-step raw signals + targets (length HORIZON, masked beyond H)
         out = slice(t0, hi)
@@ -291,10 +292,18 @@ class OutageDataset(Dataset):
         has_route = mode in ("route", "wrong")
         if has_route:
             offset = rng.uniform(-30, 30) if augment or self.mode != "train" else 0.0
-            k0 = int(np.clip(round((d.s[t0 - 1] + offset) / rf.STEP_M), 0, len(d.grid_b) - 1))
-            kd = int(d.s[td] // rf.STEP_M)
-            b = d.grid_b[k0:k0 + rf.N_PTS].copy()
-            if mode == "wrong" and len(b) > 10 and self.donors:
+            if "route_b" in spec:
+                # externally planned route (idr.route_input, e.g. OSM shortest path from the last fix to the
+                # destination); same start jitter, clipped at the route start; never reads the true track
+                rb_ = np.asarray(spec["route_b"], dtype=float)
+                k0 = int(np.clip(round(offset / rf.STEP_M), 0, max(len(rb_) - 1, 0)))
+                b = rb_[k0:k0 + rf.N_PTS].copy()
+                k0, kd = 0, int(spec["route_n_valid"]) - k0 - 1
+            else:
+                k0 = int(np.clip(round((d.s[t0 - 1] + offset) / rf.STEP_M), 0, len(d.grid_b) - 1))
+                kd = int(d.s[td] // rf.STEP_M)
+                b = d.grid_b[k0:k0 + rf.N_PTS].copy()
+            if mode == "wrong" and "route_b" not in spec and len(b) > 10 and self.donors:
                 donor = self.donors[rng.integers(len(self.donors))]
                 j = int(rng.integers(0, len(donor.grid_b) - rf.N_PTS))
                 db = np.diff(donor.grid_b[j:j + rf.N_PTS + 1])

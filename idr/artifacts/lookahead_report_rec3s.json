@@ -1,0 +1,362 @@
+{
+ "control": "Control",
+ "condition": {
+  "calibration_mode": "causal_pre_outage",
+  "route_input_source": "osm_planned_route"
+ },
+ "n_outages": 223,
+ "seeds": [
+  0,
+  1,
+  2
+ ],
+ "runs": {
+  "Control": {
+   "per_seed": {
+    "0": {
+     "drift": 9.457118707133692,
+     "wrong": 13.004484304932735,
+     "cross": 5.141100364886661,
+     "along": 46.73509617212168,
+     "w25": 161.56825014893423,
+     "bias": {
+      "braking": 1.0874464944006128,
+      "roundabout_entry": 1.29086955086158,
+      "after_turn": -0.39789030063652475,
+      "junction_approach": 0.4301064242486927,
+      "constant_speed": -0.5433636214428522,
+      "high_speed": -0.9382292455091163,
+      "all": -0.18173263560640537
+     }
+    },
+    "1": {
+     "drift": 9.01783675206713,
+     "wrong": 13.901345291479823,
+     "cross": 4.8305781526433265,
+     "along": 47.597424023963626,
+     "w25": 130.46037101376788,
+     "bias": {
+      "braking": 1.035167297864041,
+      "roundabout_entry": 1.1331239530926458,
+      "after_turn": -0.39838016387436614,
+      "junction_approach": 0.39544797410917465,
+      "constant_speed": -0.536056547635017,
+      "high_speed": -0.9255267621441456,
+      "all": -0.1995727167114294
+     }
+    },
+    "2": {
+     "drift": 9.482811795536037,
+     "wrong": 17.040358744394617,
+     "cross": 4.753666975863283,
+     "along": 51.67609049058352,
+     "w25": 135.1328224022355,
+     "bias": {
+      "braking": 1.0029616925798839,
+      "roundabout_entry": 0.8157009065281862,
+      "after_turn": -0.35540837378607065,
+      "junction_approach": 0.4168491819915304,
+      "constant_speed": -0.5237092722475437,
+      "high_speed": -0.9096338410658605,
+      "all": -0.18187450407240338
+     }
+    }
+   },
+   "activation": null
+  },
+  "Recovery 5 s": {
+   "per_seed": {
+    "0": {
+     "drift": 9.069981204928549,
+     "wrong": 12.556053811659194,
+     "cross": 5.0088473287588995,
+     "along": 45.03549915600012,
+     "w25": 133.24544277508392,
+     "bias": {
+      "braking": 0.7952533050156187,
+      "roundabout_entry": 0.9384389528938141,
+      "after_turn": -0.4164306575284764,
+      "junction_approach": 0.3074266115634464,
+      "constant_speed": -0.550784268669274,
+      "high_speed": -0.8586051852153854,
+      "all": -0.24249031255300307
+     }
+    },
+    "1": {
+     "drift": 8.667521998205748,
+     "wrong": 13.452914798206278,
+     "cross": 4.86556264459805,
+     "along": 42.69951576826848,
+     "w25": 129.55301616739456,
+     "bias": {
+      "braking": 0.8391407638617373,
+      "roundabout_entry": 0.8829160317323352,
+      "after_turn": -0.4823150321035113,
+      "junction_approach": 0.29516976467252987,
+      "constant_speed": -0.5352892278533335,
+      "high_speed": -0.8850926140832182,
+      "all": -0.2750986095757804
+     }
+    },
+    "2": {
+     "drift": 9.20906357814008,
+     "wrong": 13.452914798206278,
+     "cross": 4.754526309565627,
+     "along": 42.34332347448412,
+     "w25": 128.6738059166765,
+     "bias": {
+      "braking": 0.8731332808805113,
+      "roundabout_entry": 1.1149182030806435,
+      "after_turn": -0.3637398012654175,
+      "junction_approach": 0.36742411441595946,
+      "constant_speed": -0.48484752666592335,
+      "high_speed": -0.8398996720632881,
+      "all": -0.18143764921427794
+     }
+    }
+   },
+   "activation": {
+    "recovered_per_outage_mps": {
+     "mean": 0.14946061560724602,
+     "median": 0.0,
+     "max": 1.5
+    },
+    "net_map_change_per_outage_mps": {
+     "mean": -0.5454206857254965,
+     "min": -1.5,
+     "max": 0.0
+    },
+    "recovery_end_reasons": {
+     "null": 339,
+     "timeout": 102,
+     "route_hypothesis_changed": 113,
+     "restored": 78
+    },
+    "runs": 669,
+    "applications": 5950,
+    "mode": "speed_pseudo_measurement",
+    "outage_runs_event_cap": 320,
+    "outage_runs_outage_cap": 198,
+    "applications_per_outage_run": 8.893871449925262,
+    "outage_runs_with_any_application": 376,
+    "mean_abs_correction_mps2": 0.7813035135993357,
+    "max_abs_correction_mps2": 1.0,
+    "speed_reduction_per_outage_mps": {
+     "mean": 0.6948813013327427,
+     "median": 1.0,
+     "max": 1.5
+    },
+    "events_detected": {
+     "junction": 1559,
+     "curve": 1288,
+     "turn": 303,
+     "roundabout": 102
+    },
+    "not_applied_by_reason": {
+     "no_event": 206275,
+     "speed_below_target": 54488,
+     "low_route_confidence": 31540,
+     "heading_residual": 22243,
+     "cross_track_residual": 18397,
+     "outage_cap_reached": 14827,
+     "recovery_paused_at_pre_event_speed": 14308,
+     "event_cap_reached": 13869,
+     "not_yet_evaluated": 6690,
+     "recovery_paused_low_route_confidence": 3861,
+     "recovery_paused_imu_decel": 2463,
+     "recovery_cancelled_route_change": 91,
+     "recovery_complete": 86
+    }
+   }
+  },
+  "Recovery 3 s": {
+   "per_seed": {
+    "0": {
+     "drift": 8.846804143287615,
+     "wrong": 13.452914798206278,
+     "cross": 5.141100364886661,
+     "along": 44.06522328183091,
+     "w25": 135.35882423434356,
+     "bias": {
+      "braking": 0.7958097895292113,
+      "roundabout_entry": 0.9428928689379272,
+      "after_turn": -0.37773495409756275,
+      "junction_approach": 0.32901078519284704,
+      "constant_speed": -0.5430999663235992,
+      "high_speed": -0.8703836472759947,
+      "all": -0.22709918926403258
+     }
+    },
+    "1": {
+     "drift": 8.712302616365756,
+     "wrong": 14.349775784753364,
+     "cross": 4.767570612059064,
+     "along": 42.69951576826848,
+     "w25": 133.09258285191657,
+     "bias": {
+      "braking": 0.8498954981937391,
+      "roundabout_entry": 0.8567082941157595,
+      "after_turn": -0.4600136731652628,
+      "junction_approach": 0.31485968086704696,
+      "constant_speed": -0.5282775912621982,
+      "high_speed": -0.8972571491674443,
+      "all": -0.26415978656302624
+     }
+    },
+    "2": {
+     "drift": 9.2996796739401,
+     "wrong": 14.349775784753364,
+     "cross": 4.753666975863283,
+     "along": 43.76045280671417,
+     "w25": 135.17897317765463,
+     "bias": {
+      "braking": 0.8654465932611631,
+      "roundabout_entry": 1.18262270250302,
+      "after_turn": -0.35750267893694004,
+      "junction_approach": 0.348820490012127,
+      "constant_speed": -0.48951863405263085,
+      "high_speed": -0.8537822748167055,
+      "all": -0.1908824827943304
+     }
+    }
+   },
+   "activation": {
+    "recovered_per_outage_mps": {
+     "mean": 0.1550240239261971,
+     "median": 0.0,
+     "max": 1.4020091662801795
+    },
+    "net_map_change_per_outage_mps": {
+     "mean": -0.5395536391271665,
+     "min": -1.5,
+     "max": 0.0
+    },
+    "recovery_end_reasons": {
+     "timeout": 149,
+     "null": 303,
+     "route_hypothesis_changed": 96,
+     "restored": 81
+    },
+    "runs": 669,
+    "applications": 5940,
+    "mode": "speed_pseudo_measurement",
+    "outage_runs_event_cap": 319,
+    "outage_runs_outage_cap": 198,
+    "applications_per_outage_run": 8.878923766816143,
+    "outage_runs_with_any_application": 376,
+    "mean_abs_correction_mps2": 0.7822768629338386,
+    "max_abs_correction_mps2": 1.0,
+    "speed_reduction_per_outage_mps": {
+     "mean": 0.6945776630533635,
+     "median": 1.0,
+     "max": 1.5
+    },
+    "events_detected": {
+     "junction": 1558,
+     "curve": 1292,
+     "turn": 304,
+     "roundabout": 103
+    },
+    "not_applied_by_reason": {
+     "no_event": 211512,
+     "speed_below_target": 54515,
+     "low_route_confidence": 32329,
+     "heading_residual": 22700,
+     "cross_track_residual": 19760,
+     "outage_cap_reached": 14819,
+     "event_cap_reached": 13898,
+     "recovery_paused_at_pre_event_speed": 10244,
+     "not_yet_evaluated": 6690,
+     "recovery_paused_low_route_confidence": 3103,
+     "recovery_paused_imu_decel": 1752,
+     "recovery_complete": 122,
+     "recovery_cancelled_route_change": 79
+    }
+   }
+  }
+ },
+ "acceptance": {
+  "Recovery 5 s": {
+   "criteria": {
+    "worst-quarter along per seed below control or <= +5 m": true,
+    "  (strictly below control in every seed)": true,
+    "braking |bias| improves": "True",
+    "roundabout-entry |bias| improves": "True",
+    "after-turn bias within +-0.05 m/s of control": "True",
+    "constant-speed bias within +-0.05 m/s of control": "True",
+    "high-speed bias within +-0.05 m/s of control": "False",
+    "wrong-road not worse by > 1 pt": true,
+    "cross-track not worse by > 0.5 m": true,
+    "net map-induced speed change never positive (every outage-run)": true
+   },
+   "all_pass_policy": false,
+   "all_pass": false,
+   "paired_seed_deltas": {
+    "worst25_along_m": [
+     -28.32280737385031,
+     -0.9073548463733232,
+     -6.459016485558976
+    ],
+    "cross_m": [
+     -0.13225303612776163,
+     0.03498449195472375,
+     0.000859333702344145
+    ],
+    "wrong_road_pts": [
+     -0.44843049327354123,
+     -0.4484304932735448,
+     -3.5874439461883387
+    ]
+   },
+   "all_pass_not_worse_reading": true,
+   "bias_deltas_vs_control": {
+    "after_turn": -0.037,
+    "constant_speed": 0.011,
+    "high_speed": 0.063,
+    "braking": -0.206,
+    "roundabout_entry": -0.101
+   }
+  },
+  "Recovery 3 s": {
+   "criteria": {
+    "worst-quarter along per seed below control or <= +5 m": true,
+    "  (strictly below control in every seed)": false,
+    "braking |bias| improves": "True",
+    "roundabout-entry |bias| improves": "True",
+    "after-turn bias within +-0.05 m/s of control": "True",
+    "constant-speed bias within +-0.05 m/s of control": "True",
+    "high-speed bias within +-0.05 m/s of control": "False",
+    "wrong-road not worse by > 1 pt": true,
+    "cross-track not worse by > 0.5 m": true,
+    "net map-induced speed change never positive (every outage-run)": true
+   },
+   "all_pass_policy": false,
+   "all_pass": false,
+   "paired_seed_deltas": {
+    "worst25_along_m": [
+     -26.209425914590668,
+     2.6322118381486916,
+     0.046150775419135925
+    ],
+    "cross_m": [
+     0.0,
+     -0.0630075405842625,
+     0.0
+    ],
+    "wrong_road_pts": [
+     0.448430493273543,
+     0.44843049327354123,
+     -2.6905829596412527
+    ]
+   },
+   "all_pass_not_worse_reading": true,
+   "bias_deltas_vs_control": {
+    "after_turn": -0.015,
+    "constant_speed": 0.014,
+    "high_speed": 0.051,
+    "braking": -0.205,
+    "roundabout_entry": -0.086
+   }
+  }
+ }
+}

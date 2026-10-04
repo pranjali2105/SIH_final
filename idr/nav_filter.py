@@ -67,6 +67,7 @@ class NavEKF:
         self.hist = deque(maxlen=self.hist_len)             # (k, x, P, input) before propagating step k
         self.dist = 0.0
         self.nhc_nis = 1.0                                  # EMA of the NHC normalised innovation (log only)
+        self.speed_meas = {}                                # step k -> (dv, sigma): look-ahead speed pseudo-measurements
 
     # ---- propagation ----
     def _f(self, x, w, a, p_stop=0.0):
@@ -187,6 +188,29 @@ class NavEKF:
         self.P = I_KH @ self.P @ I_KH.T + K @ R @ K.T      # Joseph form
         return True
 
+    def _apply_speed_delta(self, dv, sigma):
+        """Kalman update on the forward-speed state ONLY (Schmidt: affect=(IVF,)) whose state change is exactly dv."""
+        pvv = float(self.P[IVF, IVF])
+        k = pvv / (pvv + sigma ** 2)
+        if k <= 1e-9 or dv == 0.0:
+            return
+        self.update(np.array([self.x[IVF] + dv / k]), self._H([IVF]), np.array([[sigma ** 2]]), affect=(IVF,))
+
+    def speed_pseudo_update(self, dv, sigma):
+        """Map look-ahead speed pseudo-measurement (idr.map_lookahead, speed_pseudo_measurement mode): apply the
+        already-bounded forward-speed change dv (<= 0) now, and record it so delayed-update replays re-apply the same
+        change instead of silently discarding it."""
+        assert dv <= 0.0
+        self._apply_speed_delta(dv, sigma)
+        self.speed_meas[self.k] = (float(dv), float(sigma))
+
+    def speed_recovery_update(self, dv, sigma):
+        """Post-event recovery of a look-ahead speed reduction (dv >= 0, already bounded by the caller to what the
+        same event removed). Recorded and replayed exactly like speed_pseudo_update."""
+        assert dv >= 0.0
+        self._apply_speed_delta(dv, sigma)
+        self.speed_meas[self.k] = (float(dv), float(sigma))
+
     def delayed_update(self, k_meas, z, H, R, angle_rows=(), gate=None, affect=None) -> bool:
         """Apply a measurement valid at step k_meas (< now) and re-propagate buffered inputs to the present."""
         items = list(self.hist)
@@ -204,6 +228,8 @@ class NavEKF:
         for kk, _, _, _, inp in items[idx:]:
             new_hist.append((kk, self.x.copy(), self.P.copy(), self.dist, inp))
             self._step(inp)
+            if kk + 1 in self.speed_meas:                   # re-apply look-ahead speed pseudo-measurements
+                self._apply_speed_delta(*self.speed_meas[kk + 1])
         self.hist = deque(new_hist, maxlen=self.hist_len)
         return True
 

@@ -39,6 +39,9 @@ def summarise(rows, q):
         "n_tail": len(tail), "tail_pct": 100 * len(tail) / len(rows),
         "tail_classes": {CLASSES[k]: v for k, v in sorted(Counter(r["class_fixed"] for r in tail).items())},
         "wrong_successor_n": sum(r["class_fixed"] == 3 for r in rows),
+        "impoverishment_n": sum(r["class_fixed"] == 7 for r in rows),
+        "conf_actions": dict(sum((Counter({k: v for k, v in r.get("conf_stats", {}).items() if k.startswith("conf_")})
+                                  for r in rows), Counter())),
         "junction_n": int(len(jd)), "junction_abs_dt_median_s": float(np.median(jd)) if len(jd) else None,
         "junction_abs_dt_p90_s": float(np.percentile(jd, 90)) if len(jd) else None,
         "junction_late_early_gt3s_pct": float(np.mean(jd > 3) * 100) if len(jd) else None,
@@ -58,11 +61,33 @@ def summarise(rows, q):
     }
 
 
+def acceptance(mm_c, mm_t, sc, st):
+    """The Experiment A acceptance criteria, treatment vs control (global = evaluate_mm 3 seeds, tail = tail_diag)."""
+    g = lambda f: json.loads((ARTIFACTS / f).read_text())["summary"]["tft_ekf_map"]
+    c, t = g(mm_c), g(mm_t)
+    crit = [
+        ("worst-quarter along-track < control", c["worst25_along_m"], t["worst25_along_m"], t["worst25_along_m"] < c["worst25_along_m"]),
+        ("fewer tail outages", sc["n_tail"], st["n_tail"], st["n_tail"] < sc["n_tail"]),
+        ("median drift <= control", c["median_drift_pct"], t["median_drift_pct"], t["median_drift_pct"] <= c["median_drift_pct"] + 1e-9),
+        ("wrong-road <= control", c["wrong_road_pct"], t["wrong_road_pct"], t["wrong_road_pct"] <= c["wrong_road_pct"] + 1e-9),
+        ("no cross-track increase (<= +0.5 m)", c["median_cross_m"], t["median_cross_m"], t["median_cross_m"] <= c["median_cross_m"] + 0.5),
+        ("lower junction timing error (p90)", sc["junction_abs_dt_p90_s"], st["junction_abs_dt_p90_s"], st["junction_abs_dt_p90_s"] < sc["junction_abs_dt_p90_s"]),
+        ("wrong successor not increased", sc["wrong_successor_n"], st["wrong_successor_n"], st["wrong_successor_n"] <= sc["wrong_successor_n"]),
+        ("impoverishment not increased", sc["impoverishment_n"], st["impoverishment_n"], st["impoverishment_n"] <= sc["impoverishment_n"]),
+    ]
+    out = [{"criterion": n, "control": a, "treatment": b, "pass": bool(ok)} for n, a, b, ok in crit]
+    return {"criteria": out, "all_pass": all(x["pass"] for x in out),
+            "median_drift_range_treatment": t.get("median_drift_pct_range"),
+            "wrong_road_range_treatment": t.get("wrong_road_pct_range")}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--control", default="tail_diag_ctrl3.json")
     ap.add_argument("--treat", default="tail_diag_expA3.json")
     ap.add_argument("--out", default="expA_report.json")
+    ap.add_argument("--mm_control", default="mm_eval_valA_S2_Vtb5_60s.json")
+    ap.add_argument("--mm_treat", default=None, help="evaluate_mm JSON of the treatment (global acceptance metrics)")
     args = ap.parse_args()
     c, t = load(args.control), load(args.treat)
     q = float(np.percentile([r["abs_along_end_m"] for r in c if r["seed"] == 0], 75))
@@ -86,6 +111,8 @@ def main():
            "paired_along_change": {"n_improved_gt10m": len(helped), "n_worse_gt10m": len(hurt),
                                    "median_improvement_m": float(np.median(helped)) if helped else None,
                                    "median_worsening_m": float(np.median(hurt)) if hurt else None}}
+    if args.mm_treat:
+        rep["acceptance"] = acceptance(args.mm_control, args.mm_treat, sc, st)
     (ARTIFACTS / args.out).write_text(json.dumps(rep, indent=1))
     print(json.dumps(rep, indent=1))
 

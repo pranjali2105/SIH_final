@@ -14,7 +14,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from idr.nav_filter import IBG, IE, IN, IPSI, IVF, MAP_AFFECT, NS, NavEKF, wrap
+from idr.nav_filter import IBG, IDS, IE, IN, IPSI, IVF, MAP_AFFECT, NS, NavEKF, wrap
 from idr.confidence import BETA, ConfGates, evaluate as conf_evaluate, junction_confidence
 from idr.osm_map import STEP, RoadMap, ring_arc
 
@@ -349,7 +349,10 @@ class MapMatcher:
         self.hist.append((ekf.k, self.edge.copy(), self.s.copy(), self.d.copy()))
         if 1.0 / np.sum(self.w ** 2) < cfg.n_particles / 2:
             self._resample()
-        return self._decide()
+        res = self._decide()
+        if res is not None and self.trace:
+            self.trace[-1]["applied"] = res["applied"]          # log only
+        return res
 
     def _ring_loglik(self, logl, pts, k_obs, sp):
         """On circular rings replace point-to-polyline terms with circle / tangent / arc / curvature residuals."""
@@ -904,7 +907,7 @@ NHC_STATE_SCALE = {0: 1.0, 1: 1.0, 2: 3.0, 3: 1.0, 4: 3.0}     # entry / exit x3
 def run_outage(rm: RoadMap, p0, psi0, v0, w, a, a_lat=None, vib=None, p_stop=None, route_edges=(),
                nav_cfg=None, mm_cfg=None, use_map=True, seed=0, roundabout=False, map_free_circle=False,
                return_trace=False, nhc_state=None, ring_mode=None, detect=None, landmark=False, mm_overrides=None,
-               tft_resid=None):
+               tft_resid=None, lookahead=None, speed_bias_info=None):
     """Dead-reckon one outage. w, a: (T,) corrected yaw rate (CCW+) and forward accel at 10 Hz. Returns (T,2) track.
 
     roundabout: detector-driven NHC inflation + roundabout mode in the particle filter.
@@ -923,20 +926,37 @@ def run_outage(rm: RoadMap, p0, psi0, v0, w, a, a_lat=None, vib=None, p_stop=Non
     ring_mode = roundabout if ring_mode is None else ring_mode      # exit hypotheses + ring residuals in the PF
     cfg = mm_cfg or MMConfig(roundabout_mode=ring_mode, landmark_scoring=landmark, **(mm_overrides or {}))
     mm = MapMatcher(rm, ekf, cfg, route_edges, np.random.default_rng(seed)) if use_map else None
+    la = None                                   # OSM look-ahead slowdown prior (idr/map_lookahead.py), off by default
+    if lookahead is not None and mm is not None:
+        from idr.map_lookahead import LookaheadConfig, LookaheadPrior
+        la_cfg = lookahead if isinstance(lookahead, LookaheadConfig) else LookaheadConfig(**lookahead)
+        if la_cfg.enable_map_lookahead_speed_prior:
+            la = LookaheadPrior(la_cfg, speed_bias_info)
+            mm._conf_on = True                  # needs the confidence report (log-only computation)
     track = np.zeros((T, 2))
     snapped = np.zeros((T, 2))
     speeds = np.zeros(T)
     dist_log = np.zeros(T)
+    speed_est = np.zeros(T)                     # log only: distance-driving speed of the EKF at each step
     ds_log = np.zeros(T)
     feats, states = [], []
     v_ol = v0                                   # open-loop speed: same physics as training, never map-corrected
     state, nhc_scale = 0, 1.0
     for t in range(T):
         d0, psi_prev = ekf.dist, ekf.x[IPSI]
-        ekf.propagate(w[t], a[t], a_lat[t], vib[t], p_stop[t], nhc_scale if nhc_state else 1.0)
+        a_in = a[t]
+        if la is not None and la.cfg.prior_mode == "acceleration":
+            v_est = float(np.clip(1.0 + ekf.x[IDS], 0.6, 1.4)) * max(ekf.x[IVF], 0.0)
+            a_in = a[t] + la.correction(v_est, v_raw=max(v_ol, 0.0))
+        ekf.propagate(w[t], a_in, a_lat[t], vib[t], p_stop[t], nhc_scale if nhc_state else 1.0)
+        if la is not None and la.cfg.prior_mode == "speed_pseudo_measurement":
+            la.speed_update(ekf, v_raw=max(v_ol, 0.0), a_recent=float(np.mean(a[max(0, t - 9):t + 1])))
+        if la is not None:
+            la.log_corrected(float(np.clip(1.0 + ekf.x[IDS], 0.6, 1.4)) * max(ekf.x[IVF], 0.0))
         speeds[t] = max(ekf.x[IVF], 0.0)
         track[t] = ekf.pos
         dist_log[t] = ekf.dist
+        speed_est[t] = (ekf.dist - d0) / 0.1
         ds_log[t] = ekf.x[7]
         v_ol_new = v_ol + a[t] * 0.1
         dd_ol = max(v_ol_new, 0.0) * (1.0 - p_stop[t]) * 0.1
@@ -944,6 +964,8 @@ def run_outage(rm: RoadMap, p0, psi0, v0, w, a, a_lat=None, vib=None, p_stop=Non
         if mm is not None:
             dd = dd_ol if cfg.open_loop_odometry else ekf.dist - d0
             mm.advance(dd, wrap(ekf.x[IPSI] - psi_prev))
+            if la is not None:
+                la.advance(dd)
         if t % 10 == 9:
             if detect:
                 rd = ring_distance(rm, ekf.pos) if (rm is not None and use_map) else np.nan
@@ -969,15 +991,26 @@ def run_outage(rm: RoadMap, p0, psi0, v0, w, a, a_lat=None, vib=None, p_stop=Non
                 mm.measure(-(w[t] - ekf.x[IBG]) / v)
                 if mm.trace:
                     mm.trace[-1]["state"] = state
+                if la is not None:
+                    la.refresh(mm)
         if mm is not None:
             snapped[t] = mm.snapped_pose()
         track[t] = ekf.pos
     if mm is None:
         snapped = track.copy()
     stats = dict(mm.stats) if mm else {}
+    if la is not None:
+        stats["lookahead"] = la.summary()
+    if mm is not None and mm.trace:                 # particle-filter health (log only)
+        ess = np.array([x["ess_post"] for x in mm.trace]) / mm.cfg.n_particles
+        stats["pf_health"] = {"ess_post_min": float(ess.min()), "ess_post_median": float(np.median(ess)),
+                              "frac_ess_post_below_10pct": float(np.mean(ess < 0.10)),
+                              "frac_single_road": float(np.mean([x["n_roads"] == 1 for x in mm.trace]))}
     if return_trace:
         return track, snapped, stats, {"states": states, "mm_trace": mm.trace if mm else [], "dist": dist_log,
-                                       "speed_scale": 1.0 + ds_log, "along_events": mm.along_events if mm else []}
+                                       "speed_scale": 1.0 + ds_log, "along_events": mm.along_events if mm else [],
+                                       "lookahead_trace": la.trace if la is not None else [],
+                                       "speed_est": speed_est}
     return track, snapped, stats
 
 

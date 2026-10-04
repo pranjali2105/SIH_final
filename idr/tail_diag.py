@@ -23,6 +23,9 @@ import numpy as np
 import torch
 from scipy.spatial import cKDTree
 
+from idr.causal_calibration import add_cli, config_from_args, nav_cfg_for
+from idr.route_input import add_cli as add_route_cli
+from idr.route_input import config_from_args as route_config_from_args
 from idr.dataset import load_drives
 from idr.evaluate import make_specs
 from idr.evaluate_mm import TFT_CFG, model_outputs
@@ -71,8 +74,14 @@ def main():
     ap.add_argument("--mm_overrides", default="{}", help="JSON MMConfig overrides (e.g. '{\"along_landmark\": true}')")
     ap.add_argument("--seeds", type=int, default=1, help="particle-filter seeds t0*7+s, s < seeds (tail classified per seed)")
     ap.add_argument("--out", default="tail_diag.json")
+    ap.add_argument("--lookahead", default=None, help="JSON LookaheadConfig (idr/map_lookahead.py), off when omitted")
+    add_cli(ap)
+    add_route_cli(ap)
     args = ap.parse_args()
+    calcfg = config_from_args(args)
+    routecfg = route_config_from_args(args)
     mm_over = json.loads(args.mm_overrides)
+    la_cfg = json.loads(args.lookahead) if args.lookahead else None
     dev = pick_device()
     ck = torch.load(ARTIFACTS / f"{args.tag}.pt", map_location="cpu", weights_only=False)
     m = ResidualTFT().to(dev).eval()
@@ -83,7 +92,7 @@ def main():
         d = drives[name]
         rm = drive_roadmap(name)
         specs = make_specs(drives, [name], H, stride=args.stride)
-        mo = model_outputs(m, drives, specs, dev)
+        mo = model_outputs(m, drives, specs, dev, calibration=calcfg, route=routecfg)
         for i, sp in enumerate(specs):
             for sd in range(args.seeds):
                 t0 = sp["t0"]
@@ -95,9 +104,11 @@ def main():
                 u, ps = mo["u_hat"][i], mo["p_stop"][i]
                 route = planned_route(rm, p0, psi0, d.pos[-1])
                 tr, snap, st, trc = run_outage(rm, p0, psi0, v0, u[:, 0], u[:, 1], u[:, 2], p_stop=ps,
-                                               nav_cfg=NavConfig(**TFT_CFG), seed=t0 * 7 + sd, route_edges=route,
+                                               nav_cfg=nav_cfg_for(mo["cal_meta"][i], NavConfig(**TFT_CFG), calcfg),
+                                               seed=t0 * 7 + sd, route_edges=route,
                                                return_trace=True, mm_overrides=mm_over,
-                                               tft_resid=np.linalg.norm(mo["u_raw"][i, :H] - u, axis=1))
+                                               tft_resid=np.linalg.norm(mo["u_raw"][i, :H] - u, axis=1),
+                                               lookahead=la_cfg)
                 path = d.pos[t0:t0 + H + 300]
                 s_proj, lat, s_path = arc_projection(path, tr)
                 along = s_proj - s_path[:H]
@@ -124,7 +135,8 @@ def main():
                 jt = junction_times(rm, gt, mt)
                 wrong_end = bool(np.min(np.hypot(*(path - snap[-1]).T)) > 15.0)
                 ev = trc.get("along_events", [])
-                r = {"drive": name, "t0": t0, "seed": sd, "along_trace_m": along[::10].round(1).tolist(),
+                r = {"drive": name, "t0": t0, "seed": sd, "calibration": mo["cal_meta"][i], "route": mo["route_meta"][i],
+                     "conf_stats": {k: v for k, v in st.items() if k.startswith("conf") or k.startswith("alm")}, "along_trace_m": along[::10].round(1).tolist(),
                      "cross_end_m": float(abs(lat[H - 1])) if np.ndim(lat) else None,
                      "jct_dt_s": [float(x["dt"]) for x in jt],
                      "alm_events": len(ev), "alm_applied": sum(bool(e_["applied"]) for e_ in ev),
@@ -150,7 +162,7 @@ def main():
     cnt = Counter(r["class"] for r in tail)
     both = [r for r in tail if r["t_along"] is not None and r["t_wrong"] is not None]
     lead = [r["t_wrong"] - r["t_along"] for r in both]
-    summary = {"mm_overrides": mm_over, "seeds": args.seeds, "n_outages": len(rows), "tail_threshold_along_m": float(q), "n_tail": len(tail),
+    summary = {"calibration_mode": calcfg.mode, "route_input_source": routecfg.source, "mm_overrides": mm_over, "seeds": args.seeds, "n_outages": len(rows), "tail_threshold_along_m": float(q), "n_tail": len(tail),
                "classes": {CLASSES[k]: {"n": v, "pct_of_tail": round(100 * v / len(tail), 1),
                                         "median_abs_along_end_m": float(np.median([r["abs_along_end_m"] for r in tail
                                                                                    if r["class"] == k]))}

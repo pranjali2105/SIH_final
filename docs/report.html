@@ -106,6 +106,8 @@ ul, ol { padding-left: 1.2em; margin: 12px 0 0; } li { margin-top: 6px; }
   h2 + figure, h2 + p { break-before: avoid; }
   .tip { display: none; }
   .tiles { grid-template-columns: repeat(2, 1fr); }
+  .tbl.breakable, .tbl.breakable table { break-inside: auto; page-break-inside: auto; }
+  .tbl.breakable tr { break-inside: avoid; page-break-inside: avoid; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 </style>
@@ -115,24 +117,24 @@ ul, ol { padding-left: 1.2em; margin: 12px 0 0; } li { margin-top: 6px; }
   <header class="prose">
     <div class="eyebrow">SIH 2026 · Problem statement 168 · Model report</div>
     <h1>Smartphone dead reckoning through GNSS outages</h1>
-    <p class="lede">A residual Temporal Fusion Transformer cleans the phone's IMU. A 9-state EKF integrates it, and an OSM particle filter keeps it on real roads. This report covers the architecture, the method and where the remaining drift comes from.</p>
-    <div class="meta">Dataset IO-VNBD · 10 Hz · 60 s outages · median drift = end-point error ÷ distance travelled · results as of 30 Sep 2026</div>
+    <p class="lede">A residual Temporal Fusion Transformer cleans the phone's IMU. A 9-state EKF integrates it, and an OSM particle filter keeps it on real roads. This final report covers the architecture, the method, how the evaluation was made leak-free, where the remaining drift comes from, and what was tried.</p>
+    <div class="meta">Dataset IO-VNBD · 10 Hz · 60 s outages · median drift = end-point error ÷ distance travelled · final results, 4 Oct 2026 · protocol: causal pre-outage calibration + OSM planned route (no GNSS after outage start)</div>
   </header>
 
   <section class="tiles" aria-label="Headline results">
-    <div class="tile"><div class="v">9.6%</div><div class="l">Median 60 s drift, held-out test drives Y1 + M</div><div class="s">3 seeds, range 9.5–9.9 · target &lt; 10%</div></div>
-    <div class="tile"><div class="v">9.1%</div><div class="l">Median 60 s drift, held-out drive Vw4</div><div class="s">3 seeds · never used for tuning</div></div>
-    <div class="tile"><div class="v">28.5% → 18.1%</div><div class="l">Open-loop drift, raw IMU vs TFT-corrected IMU</div><div class="s">no map, no filter · 888 test windows</div></div>
+    <div class="tile"><div class="v">12.4%</div><div class="l">Median 60 s drift, held-out test drives Y1 + M</div><div class="s">3 seeds, range 11.7–12.9 · target &lt; 10% not met</div></div>
+    <div class="tile"><div class="v">7.8%</div><div class="l">Median 60 s drift, held-out drive Vw4</div><div class="s">3 seeds, range 7.6–7.9 · never used for tuning</div></div>
+    <div class="tile"><div class="v">9.3%</div><div class="l">Median 60 s drift, validation drives S2 + Vtb5</div><div class="s">3 seeds, range 9.0–9.5 · used for model selection</div></div>
     <div class="tile"><div class="v">492k</div><div class="l">Model parameters</div><div class="s">3.8 MB ONNX · CPU · edge-deployable</div></div>
   </section>
 
   <h2>1. The problem</h2>
   <div class="prose">
-    <p>When a phone loses GNSS (tunnels, urban canyons, multi-storey car parks), the app has to keep estimating position from the phone's own accelerometer and gyroscope. Integrating raw phone IMU twice drifts fast. On our held-out test windows it reaches a median of <b>28.5%</b> of the distance travelled after 60 s. The problem statement asks for drift below 10%, map matching to real roads, and a model small enough to run on the phone.</p>
+    <p>When a phone loses GNSS (tunnels, urban canyons, multi-storey car parks), the app has to keep estimating position from the phone's own accelerometer and gyroscope. Integrating raw phone IMU twice drifts fast. On our held-out test windows it reaches a median of <b>28.5%</b> of the distance travelled after 60 s (measured under the earlier evaluation protocol). The problem statement asks for drift below 10%, map matching to real roads, and a model small enough to run on the phone.</p>
     <p>We use the IO-VNBD dataset: phone (S) and vehicle (V) CSV logs at 10 Hz with GNSS ground truth. Two data problems had to be fixed before any learning:</p>
     <ul>
       <li><b>Clock offsets.</b> Phone and vehicle clocks disagreed by 0.3–116 s. We re-synchronised each phone log by cross-correlating its gyro yaw rate against GNSS-derived yaw rate.</li>
-      <li><b>Unknown phone mounting.</b> The phone's axes aren't aligned with the car. We estimate the rotation per drive by regressing the phone IMU against GNSS-derived vehicle motion.</li>
+      <li><b>Unknown phone mounting.</b> The phone's axes aren't aligned with the car. Before each outage we estimate the rotation, gyro bias and accelerometer bias by regressing the phone IMU against GNSS-derived vehicle motion, using <b>only data recorded before the outage starts</b> (section 6b).</li>
     </ul>
     <p>Drives are split three ways. Training uses most drives. Validation uses <b>S2 + Vtb5</b> only: two other validation drives were in the training set of the current checkpoint, so they're excluded from model selection. The test drives <b>Y1, M and Vw4</b> are touched only for final reporting.</p>
   </div>
@@ -314,7 +316,7 @@ p_k  = p0 + Σ v_k · [sin ψ_k, cos ψ_k] · Δt          Δt = 0.1 s</div>
     <div class="ftitle">Median 60 s drift at each stage</div>
     <div class="fsub">Lower is better. Target: below 10% of distance travelled.</div>
     <div class="scroll"><svg id="ladder" viewBox="0 0 800 250" width="800" height="250" role="img" aria-label="Horizontal bar chart of median drift at each stage"></svg></div>
-    <figcaption>Open-loop rows: 888 held-out test windows. Map-aided rows: outages whose ground truth stays within 15 m of a mapped road (268 for Y1 + M, 175 for Vw4), mean of 3 particle-filter seeds. Map-aided accuracy depends on road coverage, and off-map outages are reported separately.</figcaption>
+    <figcaption>Final leak-free protocol. Outages whose ground truth stays within 15 m of a mapped road, excluding cold-start outages with no usable pre-outage calibration (264 for Y1 + M, 169 for Vw4). Open-loop rows are the TFT-corrected IMU integrated without filter or map on the same outages; map-aided rows are the mean of 3 particle-filter seeds.</figcaption>
   </figure>
 
   <figure id="fig-growth">
@@ -329,13 +331,13 @@ p_k  = p0 + Σ v_k · [sin ψ_k, cos ψ_k] · Δt          Δt = 0.1 s</div>
     <table>
       <thead><tr><th>Split (60 s outages)</th><th>Median drift</th><th>Seed range</th><th>p90</th><th>&lt; 10% drift</th><th>Wrong road</th><th>Along / cross</th></tr></thead>
       <tbody>
-        <tr><td>Test Y1 + M</td><td class="num">9.6%</td><td class="num">9.5–9.9</td><td class="num">50%</td><td class="num">51%</td><td class="num">14.9%</td><td class="num">44 / 7 m</td></tr>
-        <tr><td>Test Vw4 (held out)</td><td class="num">9.1%</td><td class="num">8.6–9.7</td><td class="num">40%</td><td class="num">55%</td><td class="num">14.7%</td><td class="num">79 / 6 m</td></tr>
-        <tr><td>Validation S2 + Vtb5</td><td class="num">9.4%</td><td class="num">8.6–9.9</td><td class="num">45%</td><td class="num">52%</td><td class="num">15.6%</td><td class="num">47 / 5 m</td></tr>
+        <tr><td>Test Y1 + M (264 outages)</td><td class="num">12.4%</td><td class="num">11.7–12.9</td><td class="num">58%</td><td class="num">45%</td><td class="num">20.1%</td><td class="num">53 / 8 m</td></tr>
+        <tr><td>Test Vw4 (169 outages)</td><td class="num">7.8%</td><td class="num">7.6–7.9</td><td class="num">44%</td><td class="num">58%</td><td class="num">14.0%</td><td class="num">67 / 6 m</td></tr>
+        <tr><td>Validation S2 + Vtb5 (223 outages)</td><td class="num">9.3%</td><td class="num">9.0–9.5</td><td class="num">47%</td><td class="num">53%</td><td class="num">14.6%</td><td class="num">49 / 5 m</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="note">The median meets the target, but only about half of all outages are individually under 10%, and the worst tenth drift 40–50%. The rest of this report is about that tail.</div>
+  <div class="note">Under the leak-free protocol the 10% median target is met on the validation drives and on Vw4, but <b>not on Y1 + M (12.4%)</b>. With the earlier, leaky protocol Y1 + M measured 9.6%: whole-recording calibration had been hiding a real loss there (open-loop TFT drift 17.3% → 21.2%). Across all drives only about half of the outages are individually under 10%, and the worst tenth drift 44–58%. The rest of this report is about that tail.</div>
 
   <h2>6. Where the remaining drift comes from</h2>
   <div class="prose">
@@ -346,44 +348,52 @@ p_k  = p0 + Σ v_k · [sin ψ_k, cos ψ_k] · Δt          Δt = 0.1 s</div>
     <div class="fsub">Mean signed speed error (m/s), validation drives. Positive means the model thinks the car is faster than it is.</div>
     <div class="legend"><span><i style="background:var(--s2)"></i>overestimates speed</span><span><i style="background:var(--s1)"></i>underestimates speed</span></div>
     <div class="scroll"><svg id="bias" viewBox="0 0 760 420" width="760" height="420" role="img" aria-label="Diverging bar chart of speed bias by motion phase"></svg></div>
-    <figcaption><b>Diagnosis:</b> the model is accurate at constant speed (−0.17 m/s) but responds too slowly to deceleration. It keeps too much speed when braking, approaching junctions and entering roundabouts, lagging the truth by 0.2–1.5 s. Across speeds it regresses to a typical value: +2.0 m/s at 3–8 m/s, −0.5 m/s above 15 m/s. Vibration, jerk and timestamp quality made little difference.</figcaption>
+    <figcaption><b>Diagnosis</b> (open-loop TFT, measured before the evaluation fixes; the same pattern holds afterwards, with map-aided braking at +1.0 m/s and roundabout entry at +1.1 m/s): the model is accurate at constant speed (−0.17 m/s) but responds too slowly to deceleration. It keeps too much speed when braking, approaching junctions and entering roundabouts, lagging the truth by 0.2–1.5 s. Across speeds it regresses to a typical value: +2.0 m/s at 3–8 m/s, −0.5 m/s above 15 m/s. Vibration, jerk and timestamp quality made little difference.</figcaption>
   </figure>
 
   <figure id="fig-tail">
     <div class="ftitle">What goes wrong in the worst quarter of outages</div>
     <div class="fsub">Validation S2 + Vtb5: 161 tail outages, each assigned one failure class.</div>
-    <div class="scroll"><svg id="tail" viewBox="0 0 760 300" width="760" height="300" role="img" aria-label="Bar chart of tail failure classes"></svg></div>
+    <div class="scroll"><svg id="tail" viewBox="0 0 760 320" width="760" height="320" role="img" aria-label="Bar chart of tail failure classes"></svg></div>
     <figcaption>About two thirds of the tail is a progress error: the right road but the wrong place along it, often compounded at the next junction. In 74% of tail outages along-track error appears first, a median 15 s before any wrong turn. Wrong turns are mostly a <i>consequence</i> of speed drift, not an independent failure.</figcaption>
   </figure>
 
+  <h2>6b. Making the evaluation leak-free</h2>
+  <div class="prose">
+    <p>An "IMU-only" result is only meaningful if nothing measured after GNSS is lost reaches the pipeline. An audit found two places where it did, plus one routing bug. All numbers in this report are from after the fixes.</p>
+  </div>
+  <div class="tbl breakable">
+    <table>
+      <thead><tr><th>Issue</th><th>Fix</th><th>Effect on validation (S2 + Vtb5, map-aided)</th></tr></thead>
+      <tbody>
+        <tr><td>Phone calibration (axes, gyro bias, accelerometer bias) was fitted on whole recordings, including GNSS from inside each outage</td><td>Per-outage calibration from data before outage start minus 0.5 s only; outages without enough history are marked cold-start and reported separately (4 of 227)</td><td>9.6% → 9.2%: within seed noise. On test drives Y1 + M the two fixes together moved 9.6% → 12.4%</td></tr>
+        <tr><td>The TFT's route input was the next 2 km of the <i>actual</i> driven track</td><td>Shortest OSM route from the last fix to the user's destination; never compared with the true path. It matches the driven path in 72% of outages</td><td>9.2% → 9.3%; open-loop TFT 16.6% → 17.5%</td></tr>
+        <tr><td>The map matcher's planned route silently fell back to "start road only" when the destination road was unreachable</td><td>Same planner as the TFT route; returns no route on failure</td><td>headline variant unaffected</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="prose">The fixes matter most where the phone mount or sensor bias changes during a recording, which a whole-recording fit averages away. Leakage regression tests now poison all GNSS after outage start and check that calibration, model inputs, model outputs and filter tracks are bit-identical. The old behaviour is only reachable through explicit diagnostic flags, and the comparison tools refuse to mix the two conditions.</p>
+
   <h2>7. What we tried, and what we kept</h2>
-  <p class="prose">Every change is an ablation against the same control on the validation drives, with 3 particle-filter seeds. It's kept only if it improves drift without worsening the tail or wrong-road rate. Seed-to-seed noise is about ±0.3–1 point, so small gains are treated as no change.</p>
-  <div class="tbl">
+  <p class="prose">Every change is an ablation against the same control on the validation drives (S2 + Vtb5), with 3 particle-filter seeds and paired comparisons per seed. A change is kept only if it improves the worst-quarter tail consistently without worsening wrong-road, cross-track or cruising-speed bias. The last experiments were also checked once on the held-out drive Vw4. Seed-to-seed noise is about ±0.3–1 point, so small gains are treated as no change.</p>
+  <div class="tbl breakable">
     <table>
       <thead><tr><th>Change</th><th>Effect</th><th>Decision</th></tr></thead>
       <tbody>
         <tr><td>Heading-only map updates (config B)</td><td>8.6% on Y1 + M, but 10.9% on the unseen Vw4</td><td><span class="chip fail">rejected, overfit</span></td></tr>
-        <tr><td>Speed calibration (affine / isotonic)</td><td>small median gain, worse tail</td><td><span class="chip hold">flag, off</span></td></tr>
-        <tr><td>Deceleration-weighted retrain (D1)</td><td>braking bias +1.9 → +0.5 m/s, but cruising speed now too low; map drift 11.1%</td><td><span class="chip fail">rejected</span></td></tr>
+        <tr><td>Speed calibration (affine / isotonic)</td><td>small median gain, worse tail</td><td><span class="chip fail">rejected</span></td></tr>
+        <tr><td>Deceleration-weighted retrain</td><td>braking bias +1.9 → +0.5 m/s, but cruising speed too low; map drift 11.1%</td><td><span class="chip fail">rejected</span></td></tr>
         <tr><td>Multitask roundabout model</td><td>worse map-aided drift</td><td><span class="chip fail">rejected</span></td></tr>
-        <tr><td>Turn landmark v1: particle turn records</td><td>no change; 81% of turns skipped</td><td><span class="chip hold">flag, off</span></td></tr>
-        <tr><td>Turn landmark v2: turn located on the map</td><td>wrong-road 15.6 → 14.7%, wrong successor 22 → 19, but worst-quarter along-track 141 → 155 m</td><td><span class="chip hold">needs gating</span></td></tr>
-        <tr><td>Confidence-gated map policy (A3)</td><td>implemented and unit-tested; full validation run pending</td><td><span class="chip hold">in progress</span></td></tr>
+        <tr><td>Turn landmark (particle turn records, then map-located turns)</td><td>wrong-road slightly lower, but worst-quarter tail worse</td><td><span class="chip fail">rejected</span></td></tr>
+        <tr><td>Confidence-gated turn landmark (A3-gate)</td><td>tail change −20, +9, +23 m across seeds: inconsistent</td><td><span class="chip fail">rejected</span></td></tr>
+        <tr><td>Confidence policy that softens map updates (A3-full)</td><td>drift 12.9%, wrong-road 33.6%: the map must keep full strength</td><td><span class="chip fail">rejected</span></td></tr>
+        <tr><td>Map look-ahead slowdown as acceleration (L1 / L2)</td><td>L1 too weak; L2 fixes braking bias but over-slows the car (one outage lost 12.75 m/s)</td><td><span class="chip fail">rejected</span></td></tr>
+        <tr><td>Look-ahead as a bounded speed pseudo-measurement + post-event recovery</td><td>validation: tail 142 → 130 m in every seed, wrong-road 14.6 → 13.2%; <b>held-out Vw4: wrong-road 14.0 → 17.0%, worse in every seed</b></td><td><span class="chip hold">experimental, off</span></td></tr>
+        <tr><td>Pre-outage speed-bias gate for the look-ahead</td><td>on validation, no threshold kept the tail gain; stopped</td><td><span class="chip hold">unfinished, off</span></td></tr>
       </tbody>
     </table>
   </div>
-
-  <h3>Next: confidence-aware map corrections</h3>
-  <div class="prose">
-    <p>The v2 turn landmark shows the map holds the information needed to fix progress errors, but applied blindly it also makes some outages worse. The confidence layer computes three separate scores:</p>
-    <ul>
-      <li><b>dead reckoning</b> (EKF covariance, speed-scale uncertainty, NHC innovation, TFT residual);</li>
-      <li><b>map match</b> (cross-track, along-track and heading residuals kept separate, particle effective sample size, cloud spread);</li>
-      <li><b>decision</b> (best vs second-best road probability).</li>
-    </ul>
-    <p>These map to four actions. High confidence allows the along-track junction fix. Medium confidence softens and clips the fix. Low confidence lets the map only rule out impossible roads, with no snapping. Very low confidence widens the particle search and waits for the next turn.</p>
-    <p>In unit tests, the policy keeps both hypotheses alive on genuinely ambiguous parallel roads 82% of the time, against 55% for the current filter. It changes nothing when switched off: tracks are identical to the validated pipeline on real outages.</p>
-  </div>
+  <div class="note"><b>Outcome:</b> none of the post-baseline changes passed both the validation and the held-out checks, so the shipped configuration is the baseline TFT + EKF + full-strength map. The look-ahead prior is the most promising lead: it reliably shrinks the worst-quarter error but slows particles at branch points on drives whose speed already reads low. All experimental features remain in the code behind flags that are off by default.</div>
 
   <h2>8. Deployment</h2>
   <div class="prose">
@@ -398,10 +408,11 @@ p_k  = p0 + Σ v_k · [sin ψ_k, cos ψ_k] · Δt          Δt = 0.1 s</div>
   <h2>9. Limitations</h2>
   <div class="prose">
     <ul>
-      <li>Map-aided figures cover outages on mapped roads. Off-map driving (car parks, private roads) falls back to TFT + EKF, which is about 18% open loop.</li>
-      <li>The test set is three drives, so seed-to-seed and drive-to-drive variation (±0.3–1 point) is similar in size to many candidate improvements.</li>
+      <li>Map-aided figures cover outages on mapped roads. Off-map driving (car parks, private roads) falls back to TFT + EKF, which is about 17–20% open loop.</li>
+      <li>The held-out set is three drives, and seed-to-seed and drive-to-drive variation (±0.3–1 point) is similar in size to many candidate improvements.</li>
+      <li>The dataset's phone/vehicle clock re-sync uses whole recordings. It repairs a logging fault a real phone wouldn't have, but it also decides which outages are usable.</li>
       <li>Normalisation statistics differ slightly from those the checkpoint was trained with (two validation drives were included then). The effect is small and documented.</li>
-      <li>The median target is met; the tail (p90 of 40–50%) is not yet good enough for turn-by-turn guidance through long outages.</li>
+      <li>The 10% median target is met on Vw4 (7.8%) and the validation drives (9.3%) but not on Y1 + M (12.4%), and the tail (p90 of 44–58%) is not yet good enough for turn-by-turn guidance through long outages. Speed error while slowing down remains the main cause.</li>
     </ul>
   </div>
 </div>
@@ -439,10 +450,10 @@ p_k  = p0 + Σ v_k · [sin ψ_k, cos ψ_k] · Δt          Δt = 0.1 s</div>
   (function () {
     const svg = document.getElementById("ladder");
     const rows = [
-      ["Raw phone IMU, physics only", "open loop · test windows", 28.5],
-      ["TFT-corrected IMU", "open loop · test windows", 18.1],
-      ["TFT + EKF + map, Y1 + M", "held-out test · 3 seeds", 9.6],
-      ["TFT + EKF + map, Vw4", "held-out test · 3 seeds", 9.1],
+      ["TFT open loop, Y1 + M", "no filter, no map · 264 outages", 21.2],
+      ["TFT open loop, Vw4", "no filter, no map · 169 outages", 20.4],
+      ["TFT + EKF + map, Y1 + M", "held-out test · 3 seeds", 12.4],
+      ["TFT + EKF + map, Vw4", "held-out test · 3 seeds", 7.8],
     ];
     const L = 250, R = 740, top = 20, rh = 48, max = 30;
     const x = (v) => L + (v / max) * (R - L);
@@ -468,12 +479,12 @@ p_k  = p0 + Σ v_k · [sin ψ_k, cos ψ_k] · Δt          Δt = 0.1 s</div>
     const svg = document.getElementById("growth");
     const ts = [10, 20, 30];
     const S = [
-      { name: "TFT open loop", col: "var(--s2)", v: [8.5, 23.0, 37.0] },
-      { name: "TFT + EKF + map", col: "var(--s1)", v: [7.6, 15.3, 20.0] },
+      { name: "TFT open loop", col: "var(--s2)", v: [9.7, 25.2, 42.6] },
+      { name: "TFT + EKF + map", col: "var(--s1)", v: [9.2, 18.4, 23.9] },
     ];
-    const L = 60, R = 470, T = 20, B = 230, ymax = 40;
+    const L = 60, R = 470, T = 20, B = 230, ymax = 50;
     const x = (t) => L + ((t - 0) / 30) * (R - L), y = (v) => B - (v / ymax) * (B - T);
-    for (let v = 0; v <= 40; v += 10) {
+    for (let v = 0; v <= 50; v += 10) {
       el("line", { x1: L, x2: R, y1: y(v), y2: y(v), class: "grid" }, svg);
       el("text", { x: L - 10, y: y(v) + 4, "text-anchor": "end", class: "t-3", "font-size": 12 }, svg, v + " m");
     }
